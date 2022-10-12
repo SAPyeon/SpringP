@@ -24,9 +24,14 @@ $.getJSON("/StockList",function(list){
           str+=    `<tr>
                         <td>${stock.no}</td>
                         <td>${stock.stockName}</td>
-                        <td>${stock.price}</td>
-                        <td>${stock.diffAmount}</td>
-        	  <td>${stock.dayRange}</td>
+                        <td>${stock.price}</td>`
+                        if(stock.dayRange.indexOf('-')>=0){
+                        	str+=`<td style="color:blue">${stock.diffAmount}</td>`
+                        }else{
+                        	str+=`<td style="color:red">${stock.diffAmount}</td>`
+                        }
+                        
+        	  str+=`<td>${stock.dayRange}</td>
         	  <td>${stock.parValue}</td>
         	  <td>${stock.marketCap}</td>
         	  <td>${stock.numberOfListedShares}</td>
