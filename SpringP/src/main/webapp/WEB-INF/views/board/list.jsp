@@ -70,10 +70,11 @@
         </div>
         <div class="row main">
             <div class="board col-xs-12">
-                <h1>게시판 목록</h1>
-                <table class="table table-bordered table table-hover" id="stockListTable">
-                  
-                </table>
+                <h1>증권목록</h1>
+                <div id="stockListTable">
+                
+                </div>
+                
                 <button type="button" class="btn btn-primary btn-sm">글쓰기</button>
             </div>
         </div>

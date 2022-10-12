@@ -4,6 +4,7 @@
 $.getJSON("/StockList",function(list){
 	let str= ""; 
 	str +=`
+	<table class="table table-bordered table table-hover" >
         <tr>
             <th>글번호</th>
             <th>종목명</th>
@@ -36,6 +37,7 @@ $.getJSON("/StockList",function(list){
         	  <td><a href="${stock.discussionRoomUrl}">토론방</a></td>
                     </tr>`
 	})
-	$("table").html(str)
+	str+=`</table>`;
+	$("#stockListTable").html(str)
 	console.log(list)
 })
