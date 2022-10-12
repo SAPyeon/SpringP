@@ -27,7 +27,10 @@ $.getJSON("/StockList",function(list){
                         <td>${stock.price}</td>`
                         if(stock.dayRange.indexOf('-')>=0){
                         	str+=`<td style="color:blue">${stock.diffAmount}</td>`
-                        }else{
+                        }else if(stock.diffAmount == 0){
+                        	str+=`<td>${stock.diffAmount}</td>`
+                        }
+                        else{
                         	str+=`<td style="color:red">${stock.diffAmount}</td>`
                         }
                         
