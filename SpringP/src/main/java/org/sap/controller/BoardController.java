@@ -12,5 +12,10 @@ public class BoardController {
 	public void boardList() {
 		
 	}
+	@RequestMapping(value = "/board/detail", method = RequestMethod.GET)
+	public void boardDetail() {
+		
+	}
+	
 	
 }

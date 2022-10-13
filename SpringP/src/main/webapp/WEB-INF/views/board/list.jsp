@@ -12,9 +12,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <title>list</title>
-    <script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   <script type="text/javascript" src="../resources/js/board_list.js"></script>
+    
 </head>
 
 <body>
@@ -36,7 +34,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Link</a>
@@ -74,8 +72,8 @@
                 <div id="stockListTable">
                 
                 </div>
-                
-                <button type="button" class="btn btn-primary btn-sm">글쓰기</button>
+                <button type="button" class="btn btn-primary btn-sm" id="prev">이전</button>
+                <button type="button" class="btn btn-primary btn-sm" id="next">다음</button>
             </div>
         </div>
         <div class="row footer">
@@ -86,7 +84,9 @@
               </footer>
         </div>
     </div>
-    
+    <script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script type="text/javascript" src="../resources/js/board_list.js"></script>
 </body>
 
 </html>
