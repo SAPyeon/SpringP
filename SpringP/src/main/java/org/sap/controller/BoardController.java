@@ -1,6 +1,9 @@
 package org.sap.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,9 +15,12 @@ public class BoardController {
 	public void boardList() {
 		
 	}
+	
 	@RequestMapping(value = "/board/detail", method = RequestMethod.GET)
-	public void boardDetail() {
-		
+	public void boardDetail(HttpServletRequest request,Model model) {
+		String codeName = request.getParameter("itmsNm");
+		model.addAttribute("codeName", codeName);
+		System.out.println("코드네임모델="+codeName);
 	}
 	
 	

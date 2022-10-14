@@ -1,11 +1,6 @@
 package org.sap.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +22,16 @@ public class RestControllerCom {
 	
 	@GetMapping("/StockList")
 	public List<KospiStockDto> getKosPiStockList(HttpServletRequest request,@RequestParam int p) {
+		//System.out.println("주식서비스"+stockService.getKospiStockList(p));
 		return stockService.getKospiStockList(p);
 		
 	}
 	
 	@GetMapping("/Datadetail")
-	public List<StockDto> getDataDetail() throws IOException{
-		
-        return stockService.getApiExplorerList();
+	public List<StockDto> getDataDetail(HttpServletRequest request) throws IOException{
+		//System.out.println("서비스="+stockService.getApiExplorerList());
+		String codeName = request.getParameter("itmsNm");
+		System.out.println(codeName);
+		return stockService.getApiExplorerList(codeName);
 	}
 }

@@ -42,7 +42,7 @@ function DisplayStockList(p){
 			//console.log(b)
 	          str+=    `<tr>
 	                        <td>${stock.no}</td>
-	                        <td><a href="https://finance.naver.com/item/main.naver?${code}">${stock.stockName}</a></td>
+	                        <td><a href="/board/detail?itmsNm=${stock.stockName}&${code}">${stock.stockName}</a></td>
 	                        <td>${stock.price}</td>`
 	                        if(stock.dayRange.indexOf('-')>=0){
 	                        	str+=`<td style="color:blue">${stock.diffAmount}</td>`

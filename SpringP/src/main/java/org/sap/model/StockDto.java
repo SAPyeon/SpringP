@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data //getter setter만들어줌
+@NoArgsConstructor //필드에 있는 부분 모든 생성자를 만들어줌
+@AllArgsConstructor //기본생성자를 만들어줌
+@Builder //builder를 쓰려면 위에 두@가 필수로 만들어져야한다.
 public class StockDto {
 	private String itmsNm; 		//종목명
 	private String mrktCtg; 	//시장구분
