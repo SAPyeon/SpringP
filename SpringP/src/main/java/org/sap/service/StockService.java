@@ -25,7 +25,8 @@ public class StockService {
 	}
 	
 	//주식종목 상세페이지(공공데이터 api)
-	public List<StockDto> getApiExplorerList(String codeName) throws IOException{
-		return apiExplorer.getStock(codeName);
+	public List<StockDto> getApiExplorerList(String ...arg) throws IOException{
+		System.out.println("서비스인자="+arg[0]);
+		return apiExplorer.getStock(arg);
 	}
 }

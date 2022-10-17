@@ -30,7 +30,7 @@
 				<input type="hidden" value="${codeName}" id="codeName">
 				<h1>${codeName}</h1>
 				<div id="chart">
-					<canvas id="bar-chart" width="400" height="225"></canvas>
+					<canvas id="chartItems" width="400" height="225"></canvas>
 				</div>
 				<div id="stockList"></div>
 				<div>

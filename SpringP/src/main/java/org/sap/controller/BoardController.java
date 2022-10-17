@@ -23,5 +23,9 @@ public class BoardController {
 		System.out.println("코드네임모델="+codeName);
 	}
 	
+	@RequestMapping(value = "/board/searchlist", method = RequestMethod.GET)
+	public void searchList() {
+		
+	}
 	
 }

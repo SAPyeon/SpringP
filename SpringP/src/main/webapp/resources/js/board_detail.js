@@ -1,111 +1,122 @@
 /**
  * 
  */
-$("#codeName").val();
 let codeName = $("#codeName").val();
 
-$.getJSON("/Datadetail",{itmsNm:codeName},function(data){
+dataParam = {itmsNm:codeName,likeItmsNm:null,basDt:null};
+console.log(dataParam)
+//주식시세 공공데이터 불러오기
+$.getJSON("/Datadetail",dataParam,function(data){
+	console.log(dataParam)
 	let str="";
 	const basDt=[];
 	const chartData = [];
-	const barColor=[];
-	
+	console.log(data)
+	//테이블 헤드부분
 	str+=`<table class="table table-bordered table table-hover">
 		<tr>
-			<th>종목코드</th>
-			<th>종목명</th>
-			<th>시장구분</th>
+			<th>기준일자</th>
 			<th>종가</th>
 			<th>등락률</th>
 			<th>시가</th>
-			<th>기준일자</th>
 			<th>고가</th>
 			<th>저가</th>
 			<th>거래량</th>
 			<th>시가총액</th>
 		</tr>`
-	$(data).each(function(i,stock){
+	//데이터 역순으로 정렬(왼->오른쪽으로 갈수록 최신순)	
+	const reverse = data.reverse(); //원본배열이 변경됨
+	//데이터 집어넣기	
+	$(data).each(function(i,stock){ //data자체가 역순으로 정렬
 		str+=`<tr>
-				<td>${stock.srtnCd}</td>
-				<td>${stock.itmsNm}</td>
-				<td>${stock.mrktCtg}</td>
-				<td>${stock.clpr}</td>
-				<td>${stock.fltRt}</td>
-				<td>${stock.mkp}</td>
 				<td>${stock.basDt}</td>
-				<td>${stock.hipr}</td>
-				<td>${stock.lopr}</td>
-				<td>${stock.trqu}</td>
-				<td>${stock.mrktTotAmt}</td>
+				<td>${priceToString(stock.clpr)}</td>
+				<td>${stock.fltRt}</td>
+				<td>${priceToString(stock.mkp)}</td>
+				<td>${priceToString(stock.hipr)}</td>
+				<td>${priceToString(stock.lopr)}</td>
+				<td>${priceToString(stock.trqu)}</td>
+				<td>${priceToString(stock.mrktTotAmt)}</td>
 			</tr>`;
 		basDt[i] = stock.basDt;
 		chartData[i] = stock.clpr;
-		barColor[i] = "red";
+		
 	})
 	str+=`</table>`;
 	$("#stockList").html(str);
-	makeBarChart(basDt,chartData,barColor);
+	
+	makeChart(basDt,chartData);
 	
 })// getJSON 끝
 
-
-function makeBarChart(basDt,chartData,barColor){
-	new Chart(document.getElementById("bar-chart"), 
+//차트만들기 함수
+function makeChart(basDt,chartData){
+	new Chart(document.getElementById("chartItems"), 
 		{
-		type:'bar',
+		//type:'bar',//bar차트
 		data: {
 			labels: basDt,
 			datasets: [
-				
 				{
-					
-					label: "가격바",
-					backgroundColor: barColor,
-					data: chartData
-				},
-				{
-					type:'line',
-					label: "가격라인",
-					backgroundColor : "blue",
-					borderColor: "blue",
+					type:'line', //연결선
+					label: "종가",
+					backgroundColor : "blue",//동그라미색깔
+					borderColor: "blue",//선색깔
 					data: chartData,
-					fill: false
-				}
+					fill: false, //라인차트 안에 색깔 채우기
+					order: 1 //순서
+				},
 				]
 		},
 		options: {
-			legend: { display: false },
+			legend: {
+				display: false, //차트별로 구분할때 라벨을쓰고 싶을떄
+				},
 			title: {
 				display: true,
-				text: '주가흐름'
+				text: '최근5개년 주가흐름'
 			},
 			scales: {
-				xAxes: [{
+				xAxes: [{ //x축
 				      gridLines: {
 				        display: false,
 				        color: "black"
 				      },
 				      scaleLabel: {
 				        display: true,
-				        labelString: "날짜",
-				        fontColor: "red"
+				        //labelString: "날짜",
+				        //fontColor: "red"
 				      }
 				    }],
-				    yAxes: [{
+				    yAxes: [{ //y축
 				      gridLines: {
 				        color: "black",
 				        borderDash: [2, 5],
 				      },
 				      scaleLabel: {
 				          display: true,
-				          labelString: "주가",
-				          fontColor: "green"
+				          //labelString: "주가",
+				          //fontColor: "green"
+				        },
+				       ticks: { //y축(왼쪽) 구분라인
+				            beginAtZero: false,
+				            callback: function(value, index, values) {
+				            return value.toLocaleString("ko-KR");
+				            },
 				        }
 				    }]
+			},
+			elements:{
+				point:{radius:0} //line포인트 제거
 			}
 		}
 		
 	});
 };// makeBarChart끝
+
+//숫자포맷
+function priceToString(price) {
+	return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
 

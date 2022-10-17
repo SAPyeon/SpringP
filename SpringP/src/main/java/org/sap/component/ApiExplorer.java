@@ -3,7 +3,6 @@ package org.sap.component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -15,33 +14,37 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.sap.model.StockDto;
-import org.sap.model.StockDto.StockDtoBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ApiExplorer {
-
-	public List<StockDto> getStock(String codeName) throws IOException {
-		System.out.println("코드네임"+codeName);
+	//api데이터를 불러오는 클래스
+	public List<StockDto> getStock(String ...arg) throws IOException {
+		//System.out.println("코드네임"+codeName);
+		System.out.println("가변인자="+arg[0]);
+		String[] arr = {"itmsNm","likeItmsNm","basDt"}; //종목명, 종목명을 포함, 기준일자
 		try {
 			StringBuilder urlBuilder = new StringBuilder(
 				"http://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo"); /* URL, 공공데이터는 꼭 http로써야함, https(x) */
 		urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8")
-				+ "=tJ%2Bj4p2TFTI3O7G01PTEcxMl8nnyNWUbGexsWdVz2%2FrD5jeErUK1KYKAnHqb83MKYYR%2FcBltRoHetWusqEwyXw%3D%3D"); /*
-																															 */
+				+ "=tJ%2Bj4p2TFTI3O7G01PTEcxMl8nnyNWUbGexsWdVz2%2FrD5jeErUK1KYKAnHqb83MKYYR%2FcBltRoHetWusqEwyXw%3D%3D"); 
+																															 
 		urlBuilder.append("&" + URLEncoder.encode("resultType", "UTF-8") + "="
 				+ URLEncoder.encode("json", "UTF-8")); /* XML 또는 JSON 소문자로*/
+		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" +
+				 URLEncoder.encode("500", "UTF-8")); /* 페이지 결과수*/
 		
-		 urlBuilder.append("&" + URLEncoder.encode("itmsNm", "UTF-8") + "=" +
-				 URLEncoder.encode(codeName, "UTF-8")); /* 종목명검색 */
-		 //urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" +
-		 //URLEncoder.encode("1", "UTF-8")); /* 페이지 결과수*/
+		for(int i=0; i<arg.length; i++) {
+			urlBuilder.append("&" + URLEncoder.encode(arr[i], "UTF-8") + "=" +
+					 URLEncoder.encode(arg[i], "UTF-8")); 
+			
+		}
 		
 		URL url = new URL(urlBuilder.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
+		System.out.println("Response code: " + conn.getResponseCode()); //200이 정상
 		BufferedReader rd;
 		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -61,7 +64,7 @@ public class ApiExplorer {
 		JSONObject obj;
 		
 		obj = (JSONObject) parser.parse(result);
-
+		//System.out.println(obj);
 		//{"response":
 		//			{"header":{"resultCode":"00","resultMsg":"NORMAL SERVICE."},
 		//			 "body":{"pageNo":1,"totalCount":1753323,"numOfRows":10,
@@ -73,6 +76,21 @@ public class ApiExplorer {
 			
 		JSONArray parse_listArr = (JSONArray)items.get("item");
 		
+		rd.close();
+		conn.disconnect();
+		
+		return DTOSetList(parse_listArr); //return을 해줘야 데이터가 반환됨
+			
+	} catch (ParseException e) {
+			e.printStackTrace();
+	}
+		return null;
+	}
+	
+	
+	
+	//데이터를 DTO에 set하는 클래스
+	public List<StockDto> DTOSetList(JSONArray parse_listArr){
 		List<StockDto> list = new ArrayList<>();
 		
 		for (int i = 0; i < parse_listArr.size(); i++) {
@@ -106,15 +124,8 @@ public class ApiExplorer {
 				.build();//마지막에 써주기
 				
 				list.add(std);
-		}
-		rd.close();
-		conn.disconnect();
-		return list;	// 마지막에 리스트를 return 필수	
-			
-	} catch (ParseException e) {
-			e.printStackTrace();
+		}System.out.println(list);
+		return list;// 마지막에 리스트를 return 필수	
 	}
-		return null;
-	}
-
+	
 }

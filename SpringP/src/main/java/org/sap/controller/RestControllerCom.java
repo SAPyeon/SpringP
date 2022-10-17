@@ -31,7 +31,9 @@ public class RestControllerCom {
 	public List<StockDto> getDataDetail(HttpServletRequest request) throws IOException{
 		//System.out.println("서비스="+stockService.getApiExplorerList());
 		String codeName = request.getParameter("itmsNm");
-		System.out.println(codeName);
-		return stockService.getApiExplorerList(codeName);
+		System.out.println("코드네임="+codeName);
+		String[] arg = {codeName};
+		System.out.println(arg[0]);
+		return stockService.getApiExplorerList(arg);
 	}
 }
