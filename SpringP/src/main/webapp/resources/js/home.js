@@ -1,7 +1,9 @@
 /**
  * 
  */
-const goSearch= document.querySelector("#goToSearchPage")
-goSearch.addEventListener("click",function(e){
-	location.href="/board/searchList";
-})
+//const search = document.querySelector("#goToSearchPage");
+//const searchInput = document.querySelector("#searchInput");
+//search.addEventListener("click",function(e){
+//	e.preventDefault();
+//	alert(searchInput.value)
+//})

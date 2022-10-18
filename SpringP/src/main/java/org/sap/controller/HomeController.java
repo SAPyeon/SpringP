@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.sap.component.CSVReader;
+import org.sap.service.StockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,11 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
+	
+	private final StockService stockService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -31,8 +38,11 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("serverTime", formattedDate);
 		
+		String path = "D:\\01-STUDY\\csvDownload\\data_2145_20221018.csv";
+		
+	    stockService.insertStockDto(path);
 		return "/main/home";
 	}
 	

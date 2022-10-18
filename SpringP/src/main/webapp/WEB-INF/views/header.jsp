@@ -38,8 +38,8 @@
                                     <a class="nav-link disabled">Disabled</a>
                                 </li>
                             </ul>
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <form class="d-flex" action="/board/searchList" method="get" id="searchForm">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="likeItmsNm">
                                 <button class="btn btn-outline-success" type="submit" id="goToSearchPage">Search</button>
                             </form>
                         </div>

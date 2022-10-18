@@ -6,7 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -20,7 +23,7 @@ import org.springframework.stereotype.Component;
 public class ApiExplorer {
 	//api데이터를 불러오는 클래스
 	public List<StockDto> getStock(String ...arg) throws IOException {
-		//System.out.println("코드네임"+codeName);
+		
 		System.out.println("가변인자="+arg[0]);
 		String[] arr = {"itmsNm","likeItmsNm","basDt"}; //종목명, 종목명을 포함, 기준일자
 		try {
@@ -37,7 +40,6 @@ public class ApiExplorer {
 		for(int i=0; i<arg.length; i++) {
 			urlBuilder.append("&" + URLEncoder.encode(arr[i], "UTF-8") + "=" +
 					 URLEncoder.encode(arg[i], "UTF-8")); 
-			
 		}
 		
 		URL url = new URL(urlBuilder.toString());
@@ -75,6 +77,15 @@ public class ApiExplorer {
 		JSONObject items = (JSONObject) body.get("items");
 			
 		JSONArray parse_listArr = (JSONArray)items.get("item");
+		
+		if(parse_listArr == null) { // 만약 데이터값이 없을경우(기준날짜가 휴장인경우)
+			Calendar calendar = new GregorianCalendar();
+			SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
+			calendar.add(Calendar.DATE, -1); //하루전 날짜입력
+			String chkDate = SDF.format(calendar.getTime());
+			arg[2] = chkDate;
+			getStock(arg);
+		}
 		
 		rd.close();
 		conn.disconnect();
