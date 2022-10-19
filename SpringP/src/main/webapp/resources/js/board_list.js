@@ -65,7 +65,37 @@ function DisplayStockList(p){
 	                    </tr>`
 		})
 		str+=`</table>`;
-		$("#stockListTable").html(str)
-		console.log(list)
-	})	
+		$("#stockListTable").html(str);
+		console.log(list);
+	})
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

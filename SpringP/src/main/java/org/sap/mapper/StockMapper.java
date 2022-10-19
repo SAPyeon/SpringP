@@ -1,5 +1,11 @@
 package org.sap.mapper;
 
+
+import org.sap.model.StockDto;
+
 public interface StockMapper {
-	public void insertStockInfo();
+
+	void insertStockInfo(StockDto stockDto);
+	
+
 }

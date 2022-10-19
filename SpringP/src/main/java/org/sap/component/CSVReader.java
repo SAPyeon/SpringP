@@ -45,7 +45,7 @@ public class CSVReader {
                 e.printStackTrace();
             }
         }
-        System.out.println(DTOSetList(csvList).get(1).getItmsNm());
+        //System.out.println(DTOSetList(csvList));
         return DTOSetList(csvList);
     }
 	

@@ -1,6 +1,7 @@
 package org.sap.controller;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -40,10 +41,15 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate);
 		
+		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
+		Date now = new Date();
+        String nowTime = SDF.format(now);
+		System.out.println(nowTime);
 		String path = "D:\\01-STUDY\\csvDownload\\data_2145_20221018.csv";
 		
-	    stockService.insertStockDto(path);
+	    //stockService.insertStockInfoDtd(path);
 		return "/main/home";
 	}
+	
 	
 }

@@ -25,7 +25,8 @@ public class ApiExplorer {
 	public List<StockDto> getStock(String ...arg) throws IOException {
 		
 		System.out.println("가변인자="+arg[0]);
-		String[] arr = {"itmsNm","likeItmsNm","basDt"}; //종목명, 종목명을 포함, 기준일자
+		String[] arr = {"numOfRows","mrktCls","itmsNm","likeItmsNm","basDt"}; //페이지결과수, 종목명, 종목명을 포함, 기준일자 , 시장구분
+		
 		try {
 			StringBuilder urlBuilder = new StringBuilder(
 				"http://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo"); /* URL, 공공데이터는 꼭 http로써야함, https(x) */
@@ -34,14 +35,14 @@ public class ApiExplorer {
 																															 
 		urlBuilder.append("&" + URLEncoder.encode("resultType", "UTF-8") + "="
 				+ URLEncoder.encode("json", "UTF-8")); /* XML 또는 JSON 소문자로*/
-		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" +
-				 URLEncoder.encode("500", "UTF-8")); /* 페이지 결과수*/
+//		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" +
+//				 URLEncoder.encode("500", "UTF-8")); /* 페이지 결과수*/
 		
 		for(int i=0; i<arg.length; i++) {
 			urlBuilder.append("&" + URLEncoder.encode(arr[i], "UTF-8") + "=" +
 					 URLEncoder.encode(arg[i], "UTF-8")); 
 		}
-		
+		System.out.println(arr[0]+"="+arg[0]);
 		URL url = new URL(urlBuilder.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -77,13 +78,14 @@ public class ApiExplorer {
 		JSONObject items = (JSONObject) body.get("items");
 			
 		JSONArray parse_listArr = (JSONArray)items.get("item");
-		
-		if(parse_listArr == null) { // 만약 데이터값이 없을경우(기준날짜가 휴장인경우)
+		//System.out.println(parse_listArr);
+		if(parse_listArr.size() == 0) { // 만약 데이터값이 없을경우(기준날짜가 휴장인경우)
 			Calendar calendar = new GregorianCalendar();
 			SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 			calendar.add(Calendar.DATE, -1); //하루전 날짜입력
 			String chkDate = SDF.format(calendar.getTime());
-			arg[2] = chkDate;
+			arg[4] = chkDate;
+			System.out.println("변경된기준날짜="+arg[4]);
 			getStock(arg);
 		}
 		
@@ -97,7 +99,6 @@ public class ApiExplorer {
 	}
 		return null;
 	}
-	
 	
 	
 	//데이터를 DTO에 set하는 클래스

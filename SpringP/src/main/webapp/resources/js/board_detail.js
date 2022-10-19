@@ -3,8 +3,8 @@
  */
 let codeName = $("#codeName").val();
 
-dataParam = {itmsNm:codeName,likeItmsNm:null,basDt:null};
-console.log(dataParam)
+dataParam = {numOfRows:"500",itmsNm:codeName,likeItmsNm:null,basDt:null,mrktCls:"KOSPI"};
+
 //주식시세 공공데이터 불러오기
 $.getJSON("/Datadetail",dataParam,function(data){
 	console.log(dataParam)

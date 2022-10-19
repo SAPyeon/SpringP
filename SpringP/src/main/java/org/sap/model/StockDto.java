@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor //기본생성자를 만들어줌
 @Builder //builder를 쓰려면 위에 두@가 필수로 만들어져야한다.
 public class StockDto {
+	
 	private String itmsNm; 		//종목명
 	private String mrktCtg; 	//시장구분
 	private String clpr; 		//종가
