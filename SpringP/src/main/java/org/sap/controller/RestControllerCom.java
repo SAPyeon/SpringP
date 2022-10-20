@@ -1,6 +1,9 @@
 package org.sap.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +14,6 @@ import org.sap.service.CommonService;
 import org.sap.service.StockService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +35,7 @@ public class RestControllerCom {
 	}
 	
 	@GetMapping("/Datadetail")
-	public List<StockDto> getDataDetail(HttpServletRequest request) throws IOException{
+	public List<StockDto> getDataDetail(HttpServletRequest request) throws IOException, ParseException{
 		//System.out.println("서비스="+stockService.getApiExplorerList());
 		String codeName = request.getParameter("itmsNm");
 		String numOfRows = request.getParameter("numOfRows");
@@ -47,22 +48,30 @@ public class RestControllerCom {
 		System.out.println("코드네임="+codeName);
 		System.out.println("갯수="+numOfRows);
 		System.out.println("시장구분="+mrktCls);
-		String[] arg = {numOfRows,mrktCls,codeName,"",basDt};
-		System.out.println(arg[0]);
+		String[] arg = {numOfRows,mrktCls,codeName,basDt};
 		return stockService.getApiExplorerList(arg);
 	}
 	
-	@GetMapping(value = "/DBUpdate")
-	public void StockUpdate(HttpServletRequest request) throws IOException {
-		String numOfRows = request.getParameter("numOfRows");
+	@PostMapping(value = "/DBUpdate_Stock")
+	public void StockUpdate(HttpServletRequest request,@RequestParam("numOfRows") String numOfRows) throws IOException, ParseException {
+		//String numOfRows = request.getParameter("numOfRows");
 		System.out.println("업데이트수="+numOfRows);
-		String[] arg = new String[5];
+		String[] arg = new String[4];
 		arg[0] = numOfRows;
 		arg[1] = "KOSPI";
 		arg[2] = "";
-		arg[3] = "";
-		arg[4] = commonService.makeDateFormate();//날짜구하기 = api는 전날기준 업데이트
+		arg[3] = commonService.makeDateFormate();//날짜구하기 = api는 전날기준 업데이트
 		List<StockDto>	stockUpdateList = stockService.getApiExplorerList(arg);
 		stockService.insertStockDto(stockUpdateList);
+	}
+	@PostMapping(value = "/DBUpdate_Com")
+	public void ComUpdate() {
+		
+		Date now = new Date();
+		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
+        String nowTime = SDF.format(now);
+		System.out.println(nowTime);
+		String path = "D:\\01-STUDY\\csvDownload\\data_4303_20221020.csv";
+	    stockService.insertCompanyInfo(path);
 	}
 }

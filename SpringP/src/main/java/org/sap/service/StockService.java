@@ -1,6 +1,7 @@
 package org.sap.service;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.sap.component.ApiExplorer;
@@ -29,7 +30,7 @@ public class StockService {
 	}
 	
 	//주식종목 상세페이지(공공데이터 api)
-	public List<StockDto> getApiExplorerList(String ...arg) throws IOException{
+	public List<StockDto> getApiExplorerList(String ...arg) throws IOException, ParseException{
 		System.out.println("서비스인자="+arg[0]);
 		
 		return apiExplorer.getStock(arg);
@@ -42,7 +43,8 @@ public class StockService {
 	    	stockMapper.insertStockInfo(stockUpdateList.get(i));	
 	    }
 	}
-	public void insertStockInfoDtd(String path) {
+	
+	public void insertCompanyInfo(String path) {
 		CSVReader csvReader = new CSVReader();
 	    csvReader.readCSV(path);
 //	    System.out.println(csvReader.readCSV(path).get(0));
@@ -51,7 +53,7 @@ public class StockService {
 //	    System.out.println(map.get("list"));
 	   
 	    for(int i=0;i<csvReader.readCSV(path).size();i++) {
-	    	stockMapper.insertStockInfo(csvReader.readCSV(path).get(i));	
+	    	stockMapper.insertCompanyInfo(csvReader.readCSV(path).get(i));	
 	    }
 	}
 }

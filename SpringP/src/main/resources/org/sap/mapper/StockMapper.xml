@@ -2,14 +2,49 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="org.sap.mapper.StockMapper">
-  <insert id="insertStockInfo" >
-   INSERT INTO stockInfo 
-       (itmsNm, mrktCtg, clpr, fltRt, mkp, basDt, hipr, lopr, trqu, mrktTotAmt,srtnCd)
-   VALUES
-       (#{itmsNm}, #{mrktCtg}, #{clpr},#{fltRt},#{mkp},#{basDt},
-           #{hipr},#{lopr},#{trqu},#{mrktTotAmt},#{srtnCd})       
-   ON DUPLICATE KEY UPDATE itmsNm=#{itmsNm}, mrktCtg= #{mrktCtg},clpr=#{clpr},fltRt=#{fltRt},
-   mkp=#{mkp},basDt=#{basDt},hipr=#{hipr},lopr=#{lopr},trqu=#{trqu},mrktTotAmt=#{mrktTotAmt},srtnCd=#{srtnCd};
-  </insert>
-  </mapper>
+<mapper namespace="org.sap.mapper.StockMapper">
+
+	<insert id="insertStockInfo">
+		INSERT INTO stockInfo
+			(itmsNm, mrktCtg, clpr, fltRt, mkp, basDt, hipr, lopr, trqu,
+			mrktTotAmt,srtnCd)
+		VALUES
+			(#{itmsNm}, #{mrktCtg}, #{clpr},#{fltRt},#{mkp},#{basDt},
+			#{hipr},#{lopr},#{trqu},#{mrktTotAmt},#{srtnCd})
+		ON DUPLICATE KEY UPDATE itmsNm=#{itmsNm}, mrktCtg=
+			#{mrktCtg},clpr=#{clpr},fltRt=#{fltRt},
+			mkp=#{mkp},basDt=#{basDt},hipr=#{hipr},lopr=#{lopr},trqu=#{trqu},mrktTotAmt=#{mrktTotAmt},srtnCd=#{srtnCd};
+	</insert>
+
+	<select id="findList" resultType="org.sap.model.StockDto">
+		select *
+		from (
+		select @rownum:=@rownum+1 rownum, s.*
+		from stockInfo s,(select @rownum:=0) as tmp
+				where itmsNm like concat('%',#{search},'%')
+				) as searchlist
+		<![CDATA[
+		where rownum>(#{pageNum}-1)*#{amount} and rownum <=#{pageNum}*#{amount}
+		]]>
+	</select>
+	<select id="total" resultType = "int">
+		select count(*)
+		from stockInfo
+		where itmsNm like concat('%',#{search},'%')
+	</select>
+	
+	<insert id="insertCompanyInfo">
+		INSERT INTO companyInfo
+			(StaticCode, code, nameKor,  itmsNm, nameEng, date, mrktCtg, stockPart, emp,
+			stockCat,price,mrktTotAmt,regdate)
+		VALUES
+			(#{StaticCode}, #{code}, #{nameKor},#{itmsNm},#{nameEng},#{date},
+			#{mrktCtg},#{stockPart},#{emp},#{stockCat},#{price},#{mrktTotAmt},#{regdate})
+			
+		ON DUPLICATE KEY UPDATE StaticCode=#{StaticCode}, code=
+			#{code},nameKor=#{nameKor},itmsNm=#{itmsNm},
+			nameEng=#{nameEng},date=#{date},mrktCtg=#{mrktCtg},stockPart=#{stockPart},emp=#{emp},stockCat=#{stockCat},price=#{price}
+			mrktTotAmt=#{mrktTotAmt},regdate=#{regdate};
+	</insert>
+
+</mapper>

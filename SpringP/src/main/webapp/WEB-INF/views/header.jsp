@@ -39,7 +39,7 @@
                                 </li>
                             </ul>
                             <form class="d-flex" action="/board/searchList" method="get" id="searchForm">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="likeItmsNm">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="search">
                                 <button class="btn btn-outline-success" type="submit" id="goToSearchPage">Search</button>
                             </form>
                         </div>

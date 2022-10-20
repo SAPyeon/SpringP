@@ -12,12 +12,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.sap.model.CompanyInfoDto;
 import org.sap.model.StockDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CSVReader {
-	public List<StockDto> readCSV(String path) {
+	public List<CompanyInfoDto> readCSV(String path) {
         List<List<String>> csvList = new ArrayList<List<String>>();
         File csv = new File(path);
         BufferedReader br = null;
@@ -45,13 +46,13 @@ public class CSVReader {
                 e.printStackTrace();
             }
         }
-        //System.out.println(DTOSetList(csvList));
+        System.out.println(DTOSetList(csvList));
         return DTOSetList(csvList);
     }
 	
 	//DTO에 담기
-	public List<StockDto> DTOSetList(List<List<String>> csvList){
-		List<StockDto> list = new ArrayList<>();
+	public List<CompanyInfoDto> DTOSetList(List<List<String>> csvList){
+		List<CompanyInfoDto> list = new ArrayList<>();
 		
 		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 		Date now = new Date();
@@ -61,34 +62,38 @@ public class CSVReader {
 			List<String> stock = csvList.get(i);
 			//System.out.println(stock);
 			
-			String srtnCd = (String) stock.get(0); // 종목코드
-			String itmsNm = (String) stock.get(1); // 종목명
-			String mrktCtg = (String) stock.get(2); // 시장구분
-			String clpr = (String) stock.get(4); // 종가
-			String fltRt = (String) stock.get(6); // 등락률
-			String mkp = (String) stock.get(7); // 시가
-			String basDt = nowTime; // 기준일자
-			String hipr = (String) stock.get(8); // 고가
-			String lopr = (String) stock.get(9); // 저가
-			String trqu = (String) stock.get(10); // 거래량
-			String mrktTotAmt = (String) stock.get(12); // 시가총액
+			String StaticCode  = (String) stock.get(0); //표준코드 
+			String code  = (String) stock.get(1); // 단축코드
+			String nameKor  = (String) stock.get(2); // 한글종목명
+			String itmsNm  = (String) stock.get(3);// 한글 종목약명
+			String nameEng  = (String) stock.get(4); //영문종목명
+			String date  = (String) stock.get(5); // 상장일
+			String mrktCtg  = (String) stock.get(6);; // 시장구분
+			String stockPart = (String) stock.get(7); // 증권구분
+			String emp = (String) stock.get(8);  // 소속부
+			String stockCat = (String) stock.get(9); // 주식종류
+			String price = (String)stock.get(10); // 액면가
+			String mrktTotAmt = (String)stock.get(11); //상장주식수
+			String regdate = nowTime; // 기준일자(DB등록일자)
 			
 			//lombok builder사용하여 dto에 담기
-			StockDto std = StockDto.builder()
+			CompanyInfoDto cid = CompanyInfoDto.builder()
+			.StaticCode(StaticCode)
+			.code(code)
+			.nameKor(nameKor)
 			.itmsNm(itmsNm)
+			.nameEng(nameEng)
+			.date(date)
 			.mrktCtg(mrktCtg)
-			.clpr(clpr)
-			.fltRt(fltRt)
-			.mkp(mkp)
-			.basDt(basDt)
-			.hipr(hipr)
-			.lopr(lopr)
-			.trqu(trqu)
+			.stockPart(stockPart)
+			.emp(emp)
+			.stockCat(stockCat)
+			.price(price)
 			.mrktTotAmt(mrktTotAmt)
-			.srtnCd(srtnCd)
+			.regdate(regdate)
 			.build();//마지막에 써주기
 			
-			list.add(std);
+			list.add(cid);
 		}
 		//System.out.println(list);
 		

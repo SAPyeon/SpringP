@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -17,15 +18,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.sap.model.StockDto;
+import org.sap.service.CommonService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ApiExplorer {
 	//api데이터를 불러오는 클래스
-	public List<StockDto> getStock(String ...arg) throws IOException {
+	public List<StockDto> getStock(String ...arg) throws IOException, java.text.ParseException {
 		
 		System.out.println("가변인자="+arg[0]);
-		String[] arr = {"numOfRows","mrktCls","itmsNm","likeItmsNm","basDt"}; //페이지결과수, 종목명, 종목명을 포함, 기준일자 , 시장구분
+		String[] arr = {"numOfRows","mrktCls","itmsNm","basDt","pageNo","likeItmsNm"}; //페이지결과수, 시장구분, 종목명, 기준일자 ,페이지번호, 문자열포함종목
 		
 		try {
 			StringBuilder urlBuilder = new StringBuilder(
@@ -80,13 +82,9 @@ public class ApiExplorer {
 		JSONArray parse_listArr = (JSONArray)items.get("item");
 		//System.out.println(parse_listArr);
 		if(parse_listArr.size() == 0) { // 만약 데이터값이 없을경우(기준날짜가 휴장인경우)
-			Calendar calendar = new GregorianCalendar();
-			SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
-			calendar.add(Calendar.DATE, -1); //하루전 날짜입력
-			String chkDate = SDF.format(calendar.getTime());
-			arg[4] = chkDate;
-			System.out.println("변경된기준날짜="+arg[4]);
-			getStock(arg);
+			arg[3] = CommonService.getSpecifiedDayBefore(arg[3]);
+			System.out.println("변경된기준날짜="+arg[3]);
+			getStock(arg);  //error 주의(날짜 변경안될 시 반복실행될 수 있음)
 		}
 		
 		rd.close();
@@ -136,7 +134,7 @@ public class ApiExplorer {
 				.build();//마지막에 써주기
 				
 				list.add(std);
-		}System.out.println(list);
+		}System.out.println("StockDto 리스트 = "+list);
 		return list;// 마지막에 리스트를 return 필수	
 	}
 	

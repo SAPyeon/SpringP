@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HomeController {
 	
-	private final StockService stockService;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -40,16 +40,14 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate);
-		
-		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
-		Date now = new Date();
-        String nowTime = SDF.format(now);
-		System.out.println(nowTime);
-		String path = "D:\\01-STUDY\\csvDownload\\data_2145_20221018.csv";
-		
-	    //stockService.insertStockInfoDtd(path);
+	    
 		return "/main/home";
 	}
 	
+	@RequestMapping(value = "/dbUpdate", method = RequestMethod.GET)
+	public void update() {
+		
+		
+	}
 	
 }
