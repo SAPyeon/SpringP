@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,29 @@
 				<div id="chart">
 					<canvas id="chartItems" width="400" height="225"></canvas>
 				</div>
-				<div id="stockList"></div>
+				<div id="stockList">
+					<h2>회사정보</h2>
+					<table class="table table-bordered table table-hover">
+						<tr>
+							<th>종목명</th>
+							<th>상장일</th>
+							<th>시장구분</th>
+							<th>주식종류</th>
+							<th>액면가</th>
+							<th>상장주식수</th>
+						</tr>
+						<tr>
+							<td>${Info.itmsNm}</td>
+							<td>${Info.date}</td>
+							<td>${Info.mrktCtg}</td>
+							<td>${Info.stockCat}</td>
+							<td>${Info.price}</td>
+							<td>${Info.mrktTotAmt}</td>
+						</tr>
+
+					</table>
+
+				</div>
 				<div>
 					<a href="/board/list">목록보기</a>
 				</div>

@@ -2,6 +2,7 @@ package org.sap.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.PageVO;
 import org.sap.service.BoardService;
@@ -28,10 +29,13 @@ public class BoardController {
 	
 	//종목 상세페이지 -  공공데이터 api
 	@RequestMapping(value = "/board/detail", method = RequestMethod.GET)
-	public void boardDetail(HttpServletRequest request,Model model) {
+	public void boardDetail(HttpServletRequest request,Model model, CompanyInfoDto cid) {
 		String codeName = request.getParameter("itmsNm");
 		model.addAttribute("codeName", codeName);
 		System.out.println("코드네임모델="+codeName);
+		
+		model.addAttribute("Info", boardservice.companyInfo(codeName));
+		System.out.println("종목정보 = "+boardservice.companyInfo(codeName));
 	}
 	
 	//종목찾기 - DB에서 찾기

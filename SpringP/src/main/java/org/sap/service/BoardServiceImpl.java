@@ -3,6 +3,7 @@ package org.sap.service;
 import java.util.ArrayList;
 
 import org.sap.mapper.StockMapper;
+import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.StockDto;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class BoardServiceImpl implements BoardService {
 	public int total(CriteriaVO cri) {
 		System.out.println("매퍼 리스트 총 수 = " + stockMapper.total(cri));
 		return stockMapper.total(cri);
+	}
+
+	@Override
+	public CompanyInfoDto companyInfo(String codeName) {
+		return stockMapper.companyInfo(codeName);
 	}
 	
 }

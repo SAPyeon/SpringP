@@ -13,38 +13,16 @@ $.getJSON("/Datadetail",dataParam,function(data){
 	const chartData = [];
 	console.log(data)
 	//테이블 헤드부분
-	str+=`<table class="table table-bordered table table-hover">
-		<tr>
-			<th>기준일자</th>
-			<th>종가</th>
-			<th>등락률</th>
-			<th>시가</th>
-			<th>고가</th>
-			<th>저가</th>
-			<th>거래량</th>
-			<th>시가총액</th>
-		</tr>`
+
 	//데이터 역순으로 정렬(왼->오른쪽으로 갈수록 최신순)	
 	const reverse = data.reverse(); //원본배열이 변경됨
 	//데이터 집어넣기	
 	$(data).each(function(i,stock){ //data자체가 역순으로 정렬
-		str+=`<tr>
-				<td>${stock.basDt}</td>
-				<td>${priceToString(stock.clpr)}</td>
-				<td>${stock.fltRt}</td>
-				<td>${priceToString(stock.mkp)}</td>
-				<td>${priceToString(stock.hipr)}</td>
-				<td>${priceToString(stock.lopr)}</td>
-				<td>${priceToString(stock.trqu)}</td>
-				<td>${priceToString(stock.mrktTotAmt)}</td>
-			</tr>`;
 		basDt[i] = stock.basDt;
 		chartData[i] = stock.clpr;
 		
 	})
-	str+=`</table>`;
-	$("#stockList").html(str);
-	
+
 	makeChart(basDt,chartData);
 	
 })// getJSON 끝

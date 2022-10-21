@@ -2,20 +2,26 @@ package org.sap.mapper;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.StockDto;
 
 public interface StockMapper {
-
+	//주식 db넣기
 	public void insertStockInfo(StockDto stockDto);
-
+	//주식 종목 찾기
 	public ArrayList<StockDto> findList(CriteriaVO cri);
-
+	//찾은 총 갯수 
 	public int total(CriteriaVO cri);
-
-	public void insertCompanyInfo(CompanyInfoDto comInfoDto);
+	//종목 기본정보 db넣기
+	public void insertCompanyInfo(List<CompanyInfoDto> list);
+	
+	//종목 기본정보 불러오기
+	public CompanyInfoDto companyInfo(String codeName);
+	
+	
 	
 
 }
