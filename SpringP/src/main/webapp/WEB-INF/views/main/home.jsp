@@ -32,8 +32,8 @@
 		<div class="row main">
 			<div class="board col-xs-12">
 				<h1>메인</h1>
-				<a href="/board/list">리스트</a>
-				<div><button id="DBUpdate" class="btn btn-primary btn-sm">DB업데이트</button></div>
+				<a href="/board/list">리스트보기</a>
+				
 				<P>The time on the server is ${serverTime}.</P>
 			</div>
 		</div>

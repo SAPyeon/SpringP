@@ -33,28 +33,28 @@ public class CSVReader {
                if (num != 0) {
    				for (int i = 0; i < lineArr.length; i++) {
    					if (lineArr[i].compareTo(",") == 0) {
-   						lineArr[i] = "";
+   						lineArr[i] = ""; // , 단위로 배열에 저장
    					}
    				}
    				String temp_string = "";
    				for (int i = 0; i < lineArr.length; i++) {
 
    					if (i != lineArr.length - 1) {
-   						temp_string += lineArr[i] + ";";
+   						temp_string += lineArr[i] + ";"; //마지막을 제외한 배열 뒤에 ;을 붙임 
    					} else {
-   						temp_string += lineArr[i];
+   						temp_string += lineArr[i]; //마지막은 그냥 배열 출력
    					}
    				}
    				 //System.out.println(temp_string);
 
-   				String Second_Cut_String[] = temp_string.replace(";;", ";").split(";");
+   				String Second_Cut_String[] = temp_string.replace(";;", ";").split(";"); // ;;은 ;로바꾸고 ;단위로 잘라 배열에 저장
    				
-   				String[] arrList = new String[13];
+   				String[] arrList = new String[13]; // 길이가 13개인 배열(CompanyInfoDTO 변수갯수)
    				for(int i = 0; i<12;i++) {
-   					arrList[i] = Second_Cut_String[i+1];
+   					arrList[i] = Second_Cut_String[i+1]; // 처음에 ;로 시작했으므로 두번째부터 순차적으로 배열에 저장
    				}
-   				aLine = Arrays.asList(arrList);
-                csvList.add(aLine);
+   				aLine = Arrays.asList(arrList); //배열을 리스트로 저장
+                csvList.add(aLine); //리스트에 추가
                 //System.out.println(aLine);
    			}
    			num++;

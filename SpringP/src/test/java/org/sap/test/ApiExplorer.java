@@ -13,13 +13,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.sap.component.DateFormatCom;
 import org.sap.model.StockDto;
-import org.sap.service.CommonService;
 
 public class ApiExplorer {
 
 	public static void main(String[] args)  throws IOException, ParseException{
-		getStock();
+		String arg[] = {"10","KOSPI","","20221024","1"};
+		getStock(arg);
 	}
 	public static List<StockDto> getStock(String ...arg) throws IOException, ParseException {
 		
@@ -81,7 +82,7 @@ public class ApiExplorer {
 		JSONArray parse_listArr = (JSONArray)items.get("item");
 		//System.out.println(parse_listArr);
 		if(parse_listArr.size() == 0) { // 만약 데이터값이 없을경우(기준날짜가 휴장인경우)
-			arg[3] = CommonService.getSpecifiedDayBefore(arg[3]);
+			arg[3] = DateFormatCom.getSpecifiedDayBefore(arg[3]);
 			System.out.println("변경된기준날짜="+arg[3]);
 			getStock(arg);  //error 주의(날짜 변경안될 시 반복실행될 수 있음)
 		}

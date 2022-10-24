@@ -10,7 +10,7 @@ import org.sap.model.StockDto;
 
 public interface StockMapper {
 	//주식 db넣기
-	public void insertStockInfo(StockDto stockDto);
+	public void insertStockInfo(List<StockDto> stockUpdateList);
 	//주식 종목 찾기
 	public ArrayList<StockDto> findList(CriteriaVO cri);
 	//찾은 총 갯수 

@@ -1,10 +1,8 @@
 package org.sap.test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
-public class Date {
+public class MakeDateForm {
 	public static void main(String[] args) throws ParseException {
 		String specifiedDay = "2022-10-19";
 		//System.out.println(getSpecifiedDayBefore(specifiedDay));

@@ -1,9 +1,12 @@
 package org.sap.test;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,21 +16,23 @@ import java.util.List;
 
 import org.sap.model.CompanyInfoDto;
 
-
+//한글인코딩x 강제로해야하나??
 public class CSVReader {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException {
 		//CSVReader csvReader = new CSVReader();
 		String path = "D:\\01-STUDY\\csvDownload\\data_4303_20221020.csv";
 		System.out.println(CSVReader.readCSV(path));
 		//CSVReader.readCSV(path);
 		//readCSV(path);
 	}
-	public static List<CompanyInfoDto> readCSV(String path) {
+	public static List<CompanyInfoDto> readCSV(String path) throws UnsupportedEncodingException, FileNotFoundException {
         List<List<String>> csvList = new ArrayList<List<String>>();
-        File csv = new File(path);
+        FileInputStream csv=new FileInputStream(path);
+        InputStreamReader reader=new InputStreamReader(csv,"UTF-8");
+        //File csv = new File(path);
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader(csv));
+            br = new BufferedReader(reader);
             Charset.forName("UTF-8"); //한글깨짐 방지 : 파일을 메모장으로 연 뒤 다른이름으로 저장 -> 인코딩UTF-8로 저장
             String line = "";
             //System.out.println(br.readLine());

@@ -4,17 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sap.mapper.StockMapper">
 
-	<insert id="insertStockInfo"><!-- 리스트 안 객체를 넣어둠 -->
+	<insert id="insertStockInfo" parameterType="java.util.List"><!-- 리스트 안 객체를 넣어둠 -->
 		INSERT INTO stockInfo
 		(itmsNm, mrktCtg, clpr, fltRt, mkp, basDt, hipr, lopr, trqu,
 		mrktTotAmt,srtnCd)
 		VALUES
-		(#{itmsNm}, #{mrktCtg}, #{clpr},#{fltRt},#{mkp},#{basDt},
-		#{hipr},#{lopr},#{trqu},#{mrktTotAmt},#{srtnCd})
+		<foreach collection="list" item="item" separator=",">
+		(#{item.itmsNm}, #{item.mrktCtg}, #{item.clpr},#{item.fltRt},#{item.mkp},#{item.basDt},
+		#{item.hipr},#{item.lopr},#{item.trqu},#{item.mrktTotAmt},#{item.srtnCd})
+		</foreach>
 		<!-- 없으면 insert, 있으면 update -->
-		ON DUPLICATE KEY UPDATE itmsNm=#{itmsNm}, mrktCtg=
-		#{mrktCtg},clpr=#{clpr},fltRt=#{fltRt},
-		mkp=#{mkp},basDt=#{basDt},hipr=#{hipr},lopr=#{lopr},trqu=#{trqu},mrktTotAmt=#{mrktTotAmt};
+		ON DUPLICATE KEY UPDATE itmsNm=values(itmsNm), mrktCtg=values(mrktCtg),clpr=values(clpr),fltRt=values(fltRt),
+		mkp=values(mkp),basDt=values(basDt),hipr=values(hipr),lopr=values(lopr),trqu=values(trqu),mrktTotAmt=values(mrktTotAmt);
 	</insert>
 
 	<select id="findList" resultType="org.sap.model.StockDto">
@@ -36,7 +37,7 @@
 		where itmsNm like concat('%',#{search},'%')
 	</select>
 
-	<insert id="insertCompanyInfo" parameterType="java.util.List">
+	<insert id="insertCompanyInfo" parameterType="java.util.List"><!-- 리스트 안 객체를 넣어둠 -->
 		
 		INSERT INTO companyInfo
 		(StaticCode,code,nameKor,itmsNm,nameEng,date,mrktCtg,stockPart,emp,stockCat,price,mrktTotAmt,regdate)

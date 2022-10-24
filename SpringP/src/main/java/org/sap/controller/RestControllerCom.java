@@ -1,6 +1,9 @@
 package org.sap.controller;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,9 +11,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.sap.component.DateFormatCom;
 import org.sap.model.KospiStockDto;
 import org.sap.model.StockDto;
-import org.sap.service.CommonService;
 import org.sap.service.StockService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RestControllerCom {
 	
-	private final CommonService commonService;
-	
+	private final DateFormatCom dateFormatCom;
 	private final StockService stockService;
 	
 	@GetMapping("/StockList")
@@ -60,7 +62,7 @@ public class RestControllerCom {
 		arg[0] = numOfRows;
 		arg[1] = "KOSPI";
 		arg[2] = "";
-		arg[3] = commonService.makeDateFormate();//날짜구하기 = api는 전날기준 업데이트
+		arg[3] = dateFormatCom.makeDateFormate();//날짜구하기 = api는 전날기준 업데이트
 		List<StockDto>	stockUpdateList = stockService.getApiExplorerList(arg);
 		stockService.insertStockDto(stockUpdateList);
 	}
@@ -69,9 +71,17 @@ public class RestControllerCom {
 		
 		Date now = new Date();
 		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
-        String nowTime = SDF.format(now);
-		System.out.println(nowTime);
-		String path = "D:\\01-STUDY\\csvDownload\\data_4303_20221020.csv";
+		String nowTime = SDF.format(now);
+		
+		File dir = new File("D:\\01-STUDY\\csvDownload");
+		FilenameFilter filter = new FilenameFilter() {
+		    public boolean accept(File f, String name) {
+		        return name.contains(nowTime);
+		    }
+		};
+		File files[] = dir.listFiles(filter);
+		String path = files[0].getAbsolutePath();
+		System.out.println("경로 = "+path);
 	    stockService.insertCompanyInfo(path);
 	}
 }

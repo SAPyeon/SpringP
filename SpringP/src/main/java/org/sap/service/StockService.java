@@ -8,7 +8,6 @@ import org.sap.component.ApiExplorer;
 import org.sap.component.CSVReader;
 import org.sap.component.JsoupComponent;
 import org.sap.mapper.StockMapper;
-import org.sap.model.CompanyInfoDto;
 import org.sap.model.KospiStockDto;
 import org.sap.model.StockDto;
 import org.springframework.stereotype.Service;
@@ -41,9 +40,12 @@ public class StockService {
 	//csv주식 데이터베이스에 저장
 	public void insertStockDto(List<StockDto> stockUpdateList) {
 		System.out.println(stockUpdateList.get(0));
-		for(int i=0;i<stockUpdateList.size();i++) {
-	    	stockMapper.insertStockInfo(stockUpdateList.get(i));	
-	    }
+		//list를 db에 입력
+		stockMapper.insertStockInfo(stockUpdateList);
+		
+//		for(int i=0;i<stockUpdateList.size();i++) {
+//	    	stockMapper.insertStockInfo(stockUpdateList.get(i));	
+//	    }
 	}
 	
 	//주식종목 기준일자별 시세 저장(공공데이터api)
