@@ -6,9 +6,10 @@ import java.text.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.junit.Test;
 
 public class test {
-
+	@Test
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
 		String URL = "https://finance.naver.com/item/main.naver?code=005930";

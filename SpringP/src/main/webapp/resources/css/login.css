@@ -1,0 +1,108 @@
+@charset "EUC-KR";
+
+#main {
+	marigin:0 auto;
+}
+h1{
+	text-align: center;
+	font-size: 53px;
+}
+#loginForm {
+	width: 726px;
+    margin: 30px auto;
+    border: solid 1px #dae1e6;
+}
+#loginForm >div {
+	margin: 10px auto;
+}
+button:hover{
+	cursor: pointer;
+}
+#id {
+	width: 700px;
+	height: 150px;
+	background-color: white;
+	text-align: center;
+	margin-top: 100px;
+}
+
+.text_id {
+	width: 500px;
+	height: 50px;
+	margin: 5px auto;
+	border: solid 1px #dae1e6;
+}
+
+#checkbox {
+	height: 30px; 
+	text-align : center;
+	margin_bottom: 15px;
+	text-align: center;
+}
+
+.loginbutton {
+	width: 700px;
+	height: 70px;
+	text-align: center;
+}
+
+#button_login {
+	font-size: 20px;
+	color: white;
+	background-color: black;
+	width: 510px;
+	height: 50px;
+}
+.errorMessage{
+	text-align: center;
+}
+#find_id {
+	width: 350px;
+	height: 70px;
+	float: left;
+	text-align: center;
+}
+
+#button_findid, #button_createid {
+	width: 350px;
+	height: 50px;
+	border: solid 1px #dae1e6;
+	
+}
+
+#create_id {
+	width: 350px;
+	height: 70px;
+	float: right;
+	text-align: center;
+}
+
+#kakao_login {
+	width: 700px;
+	height: 70px;
+	clear: both;
+}
+
+#button_kakaologin {
+	font-size: 20px;
+	color: black;
+	background-color: yellow;
+	width: 500px;
+	height: 50px;
+	border: solid 1px rgba(0, 0, 0, .15);
+}
+
+#naver_login {
+	width: 700px;
+	height: 70px;
+}
+
+#button_naverlogin {
+	font-size: 20px;
+	padding: 13px 0 13px;
+	color: white;
+	background-color: #03c75a;
+	border: solid 1px rgba(0, 0, 0, .15);
+	width: 500px;
+	height: 50px;
+}

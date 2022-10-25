@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <%@ page session="false"%> --%>
 <!DOCTYPE html>
 <html>
@@ -27,13 +27,22 @@
 <body>
 
 	<div class="container">
-		<%@ include file="../header.jsp"%> 
+		<%@ include file="../header.jsp"%>
 
 		<div class="row main">
 			<div class="board col-xs-12">
 				<h1>메인</h1>
+				<c:choose>
+					<c:when test="${loginName==null}">
+						<a href="/member/login">로그인하기</a>
+					</c:when>
+					<c:otherwise>
+						<p>Welcome! ${loginName}님</p>
+						<a href="/member/logout">로그아웃하기</a>
+					</c:otherwise>
+					
+				</c:choose>
 				<a href="/board/list">리스트보기</a>
-				
 				<P>The time on the server is ${serverTime}.</P>
 			</div>
 		</div>

@@ -33,7 +33,6 @@ public class RestControllerCom {
 	public List<KospiStockDto> getKosPiStockList(HttpServletRequest request,@RequestParam int p) {
 		//System.out.println("주식서비스"+stockService.getKospiStockList(p));
 		return stockService.getKospiStockList(p);
-		
 	}
 	
 	@GetMapping("/Datadetail")

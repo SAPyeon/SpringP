@@ -13,12 +13,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.Test;
 import org.sap.component.DateFormatCom;
 import org.sap.model.StockDto;
 
 public class ApiExplorer {
-
-	public static void main(String[] args)  throws IOException, ParseException{
+	@Test
+	public  void main()  throws IOException, ParseException{
 		String arg[] = {"10","KOSPI","","20221024","1"};
 		getStock(arg);
 	}

@@ -14,11 +14,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Test;
 import org.sap.model.CompanyInfoDto;
 
 //한글인코딩x 강제로해야하나??
+
 public class CSVReader {
-	public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException {
+	@Test
+	public void main() throws UnsupportedEncodingException, FileNotFoundException {
 		//CSVReader csvReader = new CSVReader();
 		String path = "D:\\01-STUDY\\csvDownload\\data_4303_20221020.csv";
 		System.out.println(CSVReader.readCSV(path));
