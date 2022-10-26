@@ -1,17 +1,19 @@
 create database project;
 use project;
 
+-- drop table member;
 create table member(
 id varchar(100) primary key,
 password varchar(100) not null,
 name varchar(100) not null,
-auth varchar(100) default 'ROLE_USER' not null,
-enabled int not null
+point int default 0
 );
+
 select * from member;
 
+delete from member where id='asdf1234';
 
-drop table member;
+
 create table authorities(
 	id varchar(50) not null,
     authority varchar (50) not null
@@ -68,3 +70,5 @@ regdate varchar(20) -- 기준일자
 select * from companyInfo ; 
 select count(*) from companyInfo;   
 desc companyInfo;
+
+
