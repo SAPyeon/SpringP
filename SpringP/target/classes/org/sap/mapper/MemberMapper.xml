@@ -14,4 +14,10 @@
 		select * from member
 		where id=#{id} and password=#{password}
 	</select>
+	
+	<select id="findById" resultType = "String">
+		select id
+		from member
+		where id=#{id}
+	</select>
 </mapper>

@@ -25,6 +25,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.login(mvo);
 	}
 
+	@Override
+	public String findById(String id) {
+		return memberMapper.findById(id);
+	}
+
 	
 	
 }
