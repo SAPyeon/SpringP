@@ -34,7 +34,7 @@
 		</dependency>
 		<!-- 문자열->json변환 끝 -->
 
-		<!-- naver -->
+		<!-- naver, kakao 로그인 -->
 		<dependency>
 			<groupId>com.github.scribejava</groupId>
 			<artifactId>scribejava-core</artifactId>

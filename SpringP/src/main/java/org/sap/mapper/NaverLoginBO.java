@@ -41,7 +41,7 @@ public class NaverLoginBO {
                 .callback(REDIRECT_URI)
                 .state(state) //앞서 생성한 난수값을 인증 URL생성시 사용함
                 .build(NaverOAuthApi.instance());
-
+        
         return oauthService.getAuthorizationUrl();
     }
 
@@ -53,6 +53,7 @@ public class NaverLoginBO {
     	String sessionState = (String) session.getAttribute("naverSession");
         System.out.println("세션: "+sessionState);
         System.out.println(StringUtils.pathEquals(sessionState, state));
+        System.out.println("코드 "+ code);
         if(StringUtils.pathEquals(sessionState, state)){
 
             OAuth20Service oauthService = new ServiceBuilder()
@@ -61,7 +62,7 @@ public class NaverLoginBO {
                     .callback(REDIRECT_URI)
                     .state(state)
                     .build(NaverOAuthApi.instance());
-
+            
             /* Scribe에서 제공하는 AccessToken 획득 기능으로 네아로 Access Token을 획득 */
             OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
             System.out.println("토큰: " +accessToken);

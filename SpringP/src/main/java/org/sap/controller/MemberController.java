@@ -38,6 +38,7 @@ public class MemberController {
 	private void setKakaoLoginBO(KakaoLoginBO kakaoLoginBO) {
 		this.kakaoLoginBO = kakaoLoginBO;
 	}
+	
 	// 회원가입
 	@RequestMapping(value = "/member/signup", method = RequestMethod.GET)
 	public void SignUp() {
@@ -106,8 +107,8 @@ public class MemberController {
 		session.setAttribute("signIn", apiResult);
 		//session.setAttribute("email", email);
 		session.setAttribute("loginName", name);
-		mvo.setId((String) response_obj.get("id"));
-		
+		mvo.setId("N+"+(String) response_obj.get("id"));
+			
 		//아이디가 테이블에 있는지 조회 후 없으면 insert
 		if(memberService.findById(mvo.getId())==null) {
 			mvo.setPassword((String) response_obj.get("email"));
@@ -118,7 +119,7 @@ public class MemberController {
 	}
 	//카카오로그인 성공시 callback
 	@RequestMapping(value = "/callbackKakao", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) 
+	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVO mvo) 
 			throws Exception {
 		System.out.println("로그인 성공 ");
 		OAuth2AccessToken oauthToken;
@@ -132,20 +133,30 @@ public class MemberController {
 		jsonObj = (JSONObject) jsonParser.parse(apiResult);
 		JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");	
 		JSONObject response_obj2 = (JSONObject) response_obj.get("profile");
+		System.out.println(jsonObj);
 		System.out.println(response_obj);
+		System.out.println(response_obj2);
 		// 프로필 조회
-		String email = (String) response_obj.get("email");
+		
 		String name = (String) response_obj2.get("nickname");
 		// 세션에 사용자 정보 등록
-		// session.setAttribute("islogin_r", "Y");
 		session.setAttribute("signIn", apiResult);
-		session.setAttribute("email", email);
-		session.setAttribute("name", name);
-
+		session.setAttribute("loginName", name);
+		
+		mvo.setId("K+"+(Long) jsonObj.get("id"));
+		//아이디가 테이블에 있는지 조회 후 없으면 insert
+		if(memberService.findById(mvo.getId())==null) {
+			if((String) response_obj.get("email")!=null) {
+				String email = (String) response_obj.get("email");
+				session.setAttribute("email", email);
+				mvo.setPassword((String) response_obj.get("email"));
+			}
+			mvo.setName(name);
+			memberService.signup(mvo);
+		}
 		return "redirect:/";
 	}
-    
-	
+    	
 	// 로그아웃
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {

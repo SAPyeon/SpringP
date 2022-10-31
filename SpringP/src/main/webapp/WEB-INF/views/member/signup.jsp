@@ -26,24 +26,23 @@
 		<div class="row main">
 			<div class="input-form col-md-12 mx-auto">
 				<h1>회원가입</h1>
-				<form action="/member/signup" method="post">
+				<form action="/member/signup" method="post" id="needs-validation">
 					<div class="col-md-6 mb-3">
-						<label for="id">ID</label> <input type="text" id="id" placeholder="id...." name="id">
-						<div class="invalid-feedback">
-               			 아이디를 입력해주세요.
-             		 	</div>
+						<label for="id" class="form-label">ID</label> <input type="text"
+							id="id" placeholder="id...." name="id" required>
+						<div class="valid-feedback">Looks good!</div>
+						<div class="invalid-feedback">영문자로 시작하는 영문자 또는 숫자 6~20자를 입력해주세요.</div>
 					</div>
 					<div class="col-md-6 mb-3">
-						<label for="pw">password</label> <input type="password" id="pw"	placeholder="password...." name="password">
-						<div class="invalid-feedback">
-               			 비밀번호를 입력해주세요.
-             		 	</div>
+						<label for="pw" class="form-label">password</label> <input
+							type="password" id="pw" placeholder="password...."
+							name="password" required>
+						<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 					</div>
 					<div class="col-md-6 mb-3">
-						<label for="name">name</label> <input type="text" id="name" placeholder="name...." name="name">
-						<div class="invalid-feedback">
-               			 이름을 입력해주세요.
-             		 	</div>
+						<label for="name" class="form-label">name</label> <input
+							type="text" id="name" placeholder="name...." name="name" required>
+						<div class="invalid-feedback">이름을 입력해주세요.</div>
 					</div>
 					<button class="btn btn-primary btn-lg btn-block" type="submit">회원가입하기</button>
 				</form>
@@ -52,5 +51,6 @@
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>
+	<script type="text/javascript" src="../resources/js/signup.js"></script>
 </body>
 </html>
