@@ -25,23 +25,25 @@
 
 		<div class="row main">
 			<div class="input-form col-md-12 mx-auto">
-				<h1>회원가입</h1>
-				<form action="/member/signup" method="post" id="needs-validation">
-					<div class="col-md-6 mb-3">
-						<label for="id" class="form-label">ID</label> <input type="text"
-							id="id" placeholder="id...." name="id" required>
-						<div class="valid-feedback">Looks good!</div>
+				<h1>회원가입</h1> 
+				<form action="/member/signup" method="post" id="needs-validation" novalidate>
+					<div class = "col-md-6 mb-3 form-group">
+						<label for="id" class="form-label">ID</label> 
+						<input type="text" id="id" placeholder="id...." name="id" required pattern="^[a-z]+[a-z0-9]{5,19}$" class="form-control">
+						<div class="valid-feedback">사용할 수 있는 아이디입니다.</div>
 						<div class="invalid-feedback">영문자로 시작하는 영문자 또는 숫자 6~20자를 입력해주세요.</div>
 					</div>
-					<div class="col-md-6 mb-3">
-						<label for="pw" class="form-label">password</label> <input
-							type="password" id="pw" placeholder="password...."
-							name="password" required>
+					<div class="col-md-6 mb-3 form-group">
+						<label for="pw" class="form-label">PASSWORD</label> 
+						<input type="password" id="pw" placeholder="password...."
+							name="password" required class="form-control">
+						<div class="valid-feedback">사용할 수 있는 비밀번호입니다.</div>
 						<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 					</div>
-					<div class="col-md-6 mb-3">
-						<label for="name" class="form-label">name</label> <input
-							type="text" id="name" placeholder="name...." name="name" required>
+					<div class="col-md-6 mb-3 form-group">
+						<label for="name" class="form-label">NAME</label> 
+						<input type="text" id="name" placeholder="name...." name="name" required class="form-control">
+						<div class="valid-feedback">사용할 수 있는 이름입니다.</div>
 						<div class="invalid-feedback">이름을 입력해주세요.</div>
 					</div>
 					<button class="btn btn-primary btn-lg btn-block" type="submit">회원가입하기</button>

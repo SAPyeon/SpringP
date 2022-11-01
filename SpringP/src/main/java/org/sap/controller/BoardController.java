@@ -54,4 +54,10 @@ public class BoardController {
 		model.addAttribute("paging", new PageVO(cri,total));
 	}
 	
+	// 상품글쓰기
+	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
+	public void boardWrite() {
+		
+	}
+	
 }

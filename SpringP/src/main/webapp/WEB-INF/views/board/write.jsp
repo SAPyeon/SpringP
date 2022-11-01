@@ -1,50 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@ page session="false"%> --%>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="UTF-8">
+<title>글쓰기</title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-
-<title>UP</title>
 <!-- Bootstrap Javascript -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<style type="text/css">
-button{
-	margin: 10px 0;	
-	}
-
+<style>
+  .ck-editor__editable { min-height: 400px; }
+  .ck-content { font-size: 17px; }
 </style>	
 </head>
 <body>
-
 	<div class="container">
+		<%@ include file="../header.jsp"%>
 		<div class="row main">
 			<div class="board col-xs-12">
-				<h1>업데이트메인</h1>
-				<a href="/board/list">리스트</a>
-				<div><button id="DBUpdate_Stock" class="btn btn-primary btn-sm">주식시세DB업데이트</button></div>
-				<div><button id="DBUpdate_Com" class="btn btn-primary btn-sm">회사정보DB업데이트</button></div>
-				
+				<h1>글쓰기</h1>
+				<form action="">
+					<textarea id="editor" name="content"></textarea>
+					<div>
+						<button type="submit" class="btn btn-primary btn-sm">제출</button>
+					</div>
+				</form>
 			</div>
 		</div>
+		<%@ include file="../footer.jsp"%>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script type="text/javascript" src="../resources/js/dbUpdate.js"></script>
-
+	<script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>	
+	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+	<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+	<script type="text/javascript" src="../resources/js/board_write.js"></script>
 </body>
 </html>
