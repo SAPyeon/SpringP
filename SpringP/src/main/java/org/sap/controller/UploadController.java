@@ -50,16 +50,20 @@ public class UploadController {
 	public ResponseEntity<ArrayList<ImageVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 
 		ArrayList<ImageVO> list = new ArrayList();
+		
 		// 폴더 경로
 		String uploadFolder = "D:\\01-STUDY\\upload";
 		// 서버 업로드 경로와 getFolder 메서드의 날짜문자열을 이어서 하나의 폴더 생성
 		File uploadPath = new File(uploadFolder, getFolder());
+		
 		// 폴더생성(D:\\01-STUDY\\upload\\현재날짜)
 		if (uploadPath.exists() == false) {// uploadPath가 존재하지 않으면
 			uploadPath.mkdirs(); // 부모디렉토리를 포함해 모든 디렉토리 생성
 		}
+	
 		// for(배열명:변수명)
 		for (MultipartFile multipartFile : uploadFile) {
+			
 			// ArrayList에 저장
 			ImageVO imageVO = new ImageVO();
 			System.out.println(multipartFile.getOriginalFilename());// 파일의 실제네임

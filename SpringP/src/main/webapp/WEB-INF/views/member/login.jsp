@@ -67,6 +67,7 @@
 				<div id="naver_login" class="loginbutton">
 					<div>
 						<button id="button_naverlogin" type="button">네이버로 로그인</button>
+						<!-- <img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="50"> -->
 					</div>
 				</div>
 			</form>

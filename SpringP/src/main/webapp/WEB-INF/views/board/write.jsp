@@ -28,7 +28,7 @@
 			<div class="board col-xs-12">
 				<h1>글쓰기</h1>
 				<form action="">
-					<textarea id="editor" name="content"></textarea>
+					<div id="editor" name="content" contenteditable="true"></div>
 					<div>
 						<button type="submit" class="btn btn-primary btn-sm">제출</button>
 					</div>
@@ -39,9 +39,8 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>	
-	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-	<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+	
 	<script type="text/javascript" src="../resources/js/board_write.js"></script>
+	
 </body>
 </html>
