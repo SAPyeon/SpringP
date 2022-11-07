@@ -14,6 +14,7 @@ public class DateFormatCom {
 			public String makeDateFormate() {
 
 				Calendar calendar = new GregorianCalendar();
+				System.out.println(calendar);
 				SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 				calendar.add(Calendar.DATE, -1); // 하루전 입력
 				if (calendar.get(Calendar.DAY_OF_WEEK) == 1) { // 일요일인 경우

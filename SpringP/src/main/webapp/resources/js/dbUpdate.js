@@ -5,7 +5,13 @@ function basDt(n) {
 	const today = new Date();
 	const yesterday = new Date(today.setDate(today.getDate() - n))
 			.toLocaleDateString().replace(/\./g, '').split(' ');
-
+	//날짜 월, 일이 한글자일 때 0을 붙여줌
+	if(yesterday[1].length==1){
+        yesterday[1] = "0"+yesterday[1];
+    }
+    if(yesterday[2].length==1){
+        yesterday[2] = "0"+yesterday[2];
+    }
 	return yesterday[0] + yesterday[1] + yesterday[2]// 20221018
 
 }
