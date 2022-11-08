@@ -60,7 +60,6 @@
 
 
 		<!-- 구글 소셜 로그인 구현 -->
-
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
@@ -85,8 +84,6 @@
 			<version>1.21.0</version>
 		</dependency>
 		<!-- 구글 소셜 로그인 구현 끝 -->
-
-
 
 		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>

@@ -39,7 +39,7 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
+	<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="../resources/js/board_write.js"></script>
 	
 </body>
