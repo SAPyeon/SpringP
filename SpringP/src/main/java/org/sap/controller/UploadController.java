@@ -47,7 +47,7 @@ public class UploadController {
 	}
 
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST)
-	public ResponseEntity<ArrayList<ImageVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+	public void uploadAjaxPost(MultipartFile[] uploadFile) {
 
 		ArrayList<ImageVO> list = new ArrayList();
 		System.out.println("111111");
@@ -64,7 +64,7 @@ public class UploadController {
 		
 		// for(배열명:변수명)
 		for (MultipartFile multipartFile : uploadFile) {
-			System.out.println(multipartFile);
+			System.out.println("222222");
 			// ArrayList에 저장
 			ImageVO imageVO = new ImageVO();
 			System.out.println(multipartFile.getOriginalFilename());// 파일의 실제네임
@@ -110,7 +110,7 @@ public class UploadController {
 				System.out.println("오류남");
 			} // trycatch문 끝
 		} // for문 끝
-		return new ResponseEntity<>(list, HttpStatus.OK);
+		//return new ResponseEntity<>(list, HttpStatus.OK);
 	}// uploadAjaxPost 끝
 
 	// 이미지 주소 생성
