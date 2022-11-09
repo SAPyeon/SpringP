@@ -2,6 +2,7 @@ package org.sap.service;
 
 import java.util.ArrayList;
 
+import org.sap.model.BoardVO;
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.StockDto;
@@ -13,4 +14,6 @@ public interface BoardService {
 	public int total(CriteriaVO cri);
 	//종목정보리스트 불러오기
 	public CompanyInfoDto companyInfo(String codeName);
+	// 종목추천글쓰기
+	public void write(BoardVO bvo);
 }

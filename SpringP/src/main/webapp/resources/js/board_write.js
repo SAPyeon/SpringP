@@ -24,7 +24,7 @@
 //	.catch( error => {
 //		console.error( error );
 //	} );
-
+console.log('lilil')
 const ckeditor_config = {
 		resize_enaleb : false,
 		enterMode:CKEDITOR.ENTER_BR,
@@ -33,3 +33,45 @@ const ckeditor_config = {
 }
 
 CKEDITOR.replace("editor",ckeditor_config);
+
+const Form = document.querySelector("form");
+const btn = document.querySelector("#btn_submit");
+const content = document.querySelector("#content")
+
+btn.addEventListener("click",function(e){
+	e.preventDefault();
+	const titleVal = CKEDITOR.instances.editor.getData();
+	content.value = titleVal;
+	Form.submit();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

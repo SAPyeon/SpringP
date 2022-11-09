@@ -2,7 +2,9 @@ package org.sap.service;
 
 import java.util.ArrayList;
 
+import org.sap.mapper.BoardMapper;
 import org.sap.mapper.StockMapper;
+import org.sap.model.BoardVO;
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.StockDto;
@@ -16,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceImpl implements BoardService {
 	
 	public final StockMapper stockMapper;
+	
+	public final BoardMapper boardmapper;
 	
 	@Override
 	public ArrayList<StockDto> findSearhList(CriteriaVO cri) {
@@ -32,6 +36,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public CompanyInfoDto companyInfo(String codeName) {
 		return stockMapper.companyInfo(codeName);
+	}
+
+	@Override
+	public void write(BoardVO bvo) {
+		boardmapper.write(bvo);
 	}
 	
 }

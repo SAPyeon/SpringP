@@ -27,11 +27,13 @@
 		<div class="row main">
 			<div class="board col-xs-12">
 				<h1>글쓰기</h1>
-				<form action="">
-					<div id="editor" name="content" contenteditable="true"></div>
+				<form action="/board/write" method="post">
+					<input type="text" name = "title" class="input-form col-md-12 mx-auto" placeholder="title....">
+					<div id="editor" contenteditable="true"></div>
 					<div>
-						<button type="submit" class="btn btn-primary btn-sm">제출</button>
+						<button type="submit" class="btn btn-primary btn-sm" id="btn_submit">제출</button>
 					</div>
+					<input type="text" name="content" id="content">
 				</form>
 			</div>
 		</div>

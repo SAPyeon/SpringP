@@ -4,12 +4,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
 import org.sap.model.ImageVO;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -21,6 +27,9 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.google.gson.JsonObject;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
@@ -47,70 +56,99 @@ public class UploadController {
 	}
 
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST)
-	public void uploadAjaxPost(MultipartFile[] uploadFile) {
-
+	public void uploadAjaxPost(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws IOException {
+		
+		JsonObject jsonObject = new JsonObject();
+		PrintWriter printWriter = null;
+		OutputStream out = null;
+		// 인코딩
+		resp.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html;charset=utf-8");
+		
+		MultipartFile file = multiFile.getFile("upload");
+		System.out.println(file);
+		
 		ArrayList<ImageVO> list = new ArrayList();
 		System.out.println("111111");
-		// 폴더 경로
-		String uploadFolder = "D:\\01-STUDY\\upload";
-		// 서버 업로드 경로와 getFolder 메서드의 날짜문자열을 이어서 하나의 폴더 생성
-		File uploadPath = new File(uploadFolder, getFolder());
-		
-		// 폴더생성(D:\\01-STUDY\\upload\\현재날짜)
-		if (uploadPath.exists() == false) {// uploadPath가 존재하지 않으면
-			uploadPath.mkdirs(); // 부모디렉토리를 포함해 모든 디렉토리 생성
+
+		if(file != null) {
+			if(file.getSize() >0 && StringUtils.isNotBlank(file.getName())) {
+				if(file.getContentType().toLowerCase().startsWith("image/")) {
+				    try{
+				    	ImageVO imageVO = new ImageVO();
+			            String fileName = file.getOriginalFilename();
+			            
+			            byte[] bytes = file.getBytes();
+			            // 폴더 경로
+			    		String uploadPath = "D:\\01-STUDY\\upload";
+			            //String uploadPath = req.getSession().getServletContext().getRealPath("D:\\01-STUDY\\upload"); //저장경로
+			            System.out.println("uploadPath:"+uploadPath);
+			            
+			            File uploadFile = new File(uploadPath, getFolder());
+			            
+			            if(!uploadFile.exists()) { // uploadPath가 존재하지 않으면
+			            	uploadFile.mkdir(); // 부모디렉토리를 포함해 모든 디렉토리 생성
+			            }
+			           
+			            System.out.println("경로설정 = "+uploadFile);
+			            String fileName2 = UUID.randomUUID().toString();
+			            uploadPath = uploadFile.getPath() + "/" + fileName2 +fileName;
+			            
+			            // 어느폴더에, 어떤파일이름으로
+						File saveFile = new File(uploadFile, fileName2+fileName);
+						System.out.println("보낼파일 = "+saveFile);
+						// 변수 리스트에 저장
+						imageVO.setUploadPath(getFolder());
+						imageVO.setFileName(fileName);
+						imageVO.setUuid(fileName2);
+						imageVO.setFullPath(uploadPath);
+						imageVO.setImage(true);
+						
+						file.transferTo(saveFile);
+						
+			            out = new FileOutputStream(new File(uploadPath));
+			            out.write(bytes);
+			            
+			            printWriter = resp.getWriter();
+			            String fileUrl = "http://localhost:8080/display?fileName=" + fileName2+fileName; // 작성화면
+			            //String fileUrl = req.getContextPath() + uploadPath; //url경로
+			            
+			            System.out.println("fileUrl :" + fileUrl);
+			            
+			            JsonObject json = new JsonObject();
+			            json.addProperty("uploaded", 1);
+			            json.addProperty("fileName", fileName);
+			            json.addProperty("url", fileUrl);
+			            
+			            String callback = req.getParameter("CKEditorFuncNum");
+			            System.out.println("콜백 = "+ callback);
+			            //printWriter.print(json);
+			            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
+			                    + callback
+			                    + ",'"
+			                    + fileUrl
+			                    + "','이미지를 업로드 하였습니다.'"
+			                    + ")</script>");
+			            
+			            System.out.println(json);
+			            
+			            list.add(imageVO);
+			            System.out.println("리스트 = "+list);
+			            
+			        }catch(IOException e){
+			            e.printStackTrace();
+			        } finally {
+			            if (out != null) {
+		                    out.close();
+		                }
+		                if (printWriter != null) {
+		                    printWriter.close();
+		                }
+			        }
+				}
 		}
-		System.out.println(uploadPath);
 		
-		// for(배열명:변수명)
-		for (MultipartFile multipartFile : uploadFile) {
-			System.out.println("222222");
-			// ArrayList에 저장
-			ImageVO imageVO = new ImageVO();
-			System.out.println(multipartFile.getOriginalFilename());// 파일의 실제네임
-			System.out.println(multipartFile.getSize()); // 파일 크기
-			
-			// UUID 적용(UUID_multipartFile.getOriginalFilename());
-			UUID uuid = UUID.randomUUID();
-			System.out.println("UUID=" + uuid.toString());
-			
-			// 파일저장
-			String uploadFileName = uuid.toString() + "_" + multipartFile.getOriginalFilename();
-			
-			// 어느폴더에, 어떤파일이름으로
-			File saveFile = new File(uploadPath, uploadFileName);
-			System.out.println(saveFile);
-			
-			// 변수 리스트에 저장
-			imageVO.setUploadPath(getFolder());
-			imageVO.setFileName(multipartFile.getOriginalFilename());
-			imageVO.setUuid(uuid.toString());
-
-			// 파일을 전송(transferTo)
-			try { // transferTo() 메서드에 예외가 없으면
-				multipartFile.transferTo(saveFile); // 서버로 원본파일 전송
-				// 내가 서버에 올리고자 하는 파일이 이미지이면,
-				if (checkImageType(saveFile)) {
-					imageVO.setImage(true);
-					
-					FileInputStream in = new FileInputStream(saveFile);
-					// System.out.println(in);
-					// 파일 생성
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "/s_" + uploadFileName));
-					// 섬네일형식의 파일 생성
-					Thumbnailator.createThumbnail(in, thumbnail, 500, 300); // 이게 왜 안먹지....
-					System.out.println("썸네일크기생성");
-					thumbnail.close();
-				} // if문(checkImageType메서드) 끝
-
-				list.add(imageVO);
-				System.out.println(list);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				System.out.println("오류남");
-			} // trycatch문 끝
-		} // for문 끝
-		//return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 	}// uploadAjaxPost 끝
 
 	// 이미지 주소 생성
@@ -119,7 +157,7 @@ public class UploadController {
 
 		System.out.println(fileName);
 		
-		File file = new File("D:\\01-STUDY\\upload\\" + fileName);
+		File file = new File("D:\\01-STUDY\\upload\\" + getFolder() + "\\"+fileName);
 
 		ResponseEntity<byte[]> result = null;
 		
