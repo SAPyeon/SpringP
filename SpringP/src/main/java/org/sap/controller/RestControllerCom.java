@@ -3,7 +3,6 @@ package org.sap.controller;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.sap.component.DateFormatCom;
 import org.sap.model.KospiStockDto;
 import org.sap.model.StockDto;
+import org.sap.service.BoardServiceImpl;
 import org.sap.service.StockService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,14 +27,18 @@ import lombok.RequiredArgsConstructor;
 public class RestControllerCom {
 	
 	private final DateFormatCom dateFormatCom;
+	
 	private final StockService stockService;
 	
+	private final BoardServiceImpl boardService;
+	
+	// 데이터 크롤링
 	@GetMapping("/StockList")
 	public List<KospiStockDto> getKosPiStockList(HttpServletRequest request,@RequestParam int p) {
 		//System.out.println("주식서비스"+stockService.getKospiStockList(p));
 		return stockService.getKospiStockList(p);
 	}
-	
+	// 공공데이터 api
 	@GetMapping("/Datadetail")
 	public List<StockDto> getDataDetail(HttpServletRequest request) throws IOException, ParseException{
 		//System.out.println("서비스="+stockService.getApiExplorerList());
@@ -52,7 +56,7 @@ public class RestControllerCom {
 		String[] arg = {numOfRows,mrktCls,codeName,basDt};
 		return stockService.getApiExplorerList(arg);
 	}
-	
+	// 공공데이터 db저장
 	@PostMapping(value = "/DBUpdate_Stock")
 	public void StockUpdate(HttpServletRequest request,@RequestParam("numOfRows") String numOfRows) throws IOException, ParseException {
 		//String numOfRows = request.getParameter("numOfRows");
@@ -63,8 +67,9 @@ public class RestControllerCom {
 		arg[2] = "";
 		arg[3] = dateFormatCom.makeDateFormate();//날짜구하기 = api는 전날기준 업데이트
 		List<StockDto>	stockUpdateList = stockService.getApiExplorerList(arg);
-		stockService.insertStockDto(stockUpdateList);
+		boardService.insertStockDto(stockUpdateList);
 	}
+	//csv파일 db저장
 	@PostMapping(value = "/DBUpdate_Com")
 	public void ComUpdate() {
 		
@@ -81,6 +86,6 @@ public class RestControllerCom {
 		File files[] = dir.listFiles(filter);
 		String path = files[0].getAbsolutePath();
 		System.out.println("경로 = "+path);
-	    stockService.insertCompanyInfo(path);
+		boardService.insertCompanyInfo(path);
 	}
 }

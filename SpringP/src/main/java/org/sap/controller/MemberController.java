@@ -4,13 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.sap.mapper.KakaoLoginBO;
-import org.sap.mapper.NaverLoginBO;
-import org.sap.model.MemberVO;
+import org.sap.component.KakaoLogin;
+import org.sap.component.NaverLogin;
+import org.sap.model.MemberDto;
 import org.sap.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,19 +25,11 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private final MemberService memberService;
-	private NaverLoginBO naverLoginBO;
-	private KakaoLoginBO kakaoLoginBO;
+	private final NaverLogin naverLogin;
+	private final KakaoLogin kakaoLogin;
 	private String apiResult = null;
-
-	@Autowired
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
-	@Autowired
-	private void setKakaoLoginBO(KakaoLoginBO kakaoLoginBO) {
-		this.kakaoLoginBO = kakaoLoginBO;
-	}
 	
+
 	// 회원가입
 	@RequestMapping(value = "/member/signup", method = RequestMethod.GET)
 	public void SignUp() {
@@ -46,8 +37,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/signup", method = RequestMethod.POST)
-	public String SignUpPost(MemberVO mvo) {
-		memberService.signup(mvo);
+	public String SignUpPost(MemberDto mdto) {
+		memberService.signup(mdto);
 		return "redirect:/";
 	}
 
@@ -55,15 +46,15 @@ public class MemberController {
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public void login(Model model, HttpSession session) {
 		
-		/* 네아로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		/* 네아로 인증 URL을 생성하기 위하여 naverLogin클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLogin.getAuthorizationUrl(session);
 		/* 인증요청문 확인 */
 		System.out.println("네이버:" + naverAuthUrl);
 		/* 객체 바인딩 */
 		model.addAttribute("urlNaver", naverAuthUrl);
 		
 		/* 카아로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+		String kakaoAuthUrl = kakaoLogin.getAuthorizationUrl(session);
 		/* 인증요청문 확인 */
 		System.out.println("카카오:" + kakaoAuthUrl);
 		/* 객체 바인딩 */
@@ -72,11 +63,11 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
-	public String loginPost(MemberVO mvo, HttpSession session) {
+	public String loginPost(MemberDto mdto, HttpSession session) {
 		
 		try {
-			session.setAttribute("loginName", memberService.login(mvo).getName());
-			memberService.login(mvo);
+			session.setAttribute("loginName", memberService.login(mdto).getName());
+			memberService.login(mdto);
 			return "redirect:/";
 		}catch(Exception e) {
 			return "redirect:/member/login";
@@ -85,14 +76,14 @@ public class MemberController {
 	
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callbackNaver", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callbackNaver(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVO mvo)
+	public String callbackNaver(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberDto mdto)
 			throws Exception {
 		System.out.println("로그인 성공 callbackNaver");
 		System.out.println("콜백세션: "+ state);
 		OAuth2AccessToken oauthToken;
-		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		oauthToken = naverLogin.getAccessToken(session, code, state);
 		// 로그인 사용자 정보를 읽어온다.
-		apiResult = naverLoginBO.getUserProfile(oauthToken);
+		apiResult = naverLogin.getUserProfile(oauthToken);
 		
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObj;
@@ -107,25 +98,25 @@ public class MemberController {
 		session.setAttribute("signIn", apiResult);
 		//session.setAttribute("email", email);
 		session.setAttribute("loginName", name);
-		mvo.setId("N+"+(String) response_obj.get("id"));
+		mdto.setId("N+"+(String) response_obj.get("id"));
 			
 		//아이디가 테이블에 있는지 조회 후 없으면 insert
-		if(memberService.findById(mvo.getId())==null) {
-			mvo.setPassword((String) response_obj.get("email"));
-			mvo.setName(name);
-			memberService.signup(mvo);
+		if(memberService.findById(mdto.getId())==null) {
+			mdto.setPassword((String) response_obj.get("email"));
+			mdto.setName(name);
+			memberService.signup(mdto);
 		}
 		return "redirect:/";
 	}
 	//카카오로그인 성공시 callback
 	@RequestMapping(value = "/callbackKakao", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberVO mvo) 
+	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, MemberDto mdto) 
 			throws Exception {
 		System.out.println("로그인 성공 ");
 		OAuth2AccessToken oauthToken;
-		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
+		oauthToken = kakaoLogin.getAccessToken(session, code, state);	
 		// 로그인 사용자 정보를 읽어온다
-		apiResult = kakaoLoginBO.getUserProfile(oauthToken);
+		apiResult = kakaoLogin.getUserProfile(oauthToken);
 				
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObj;
@@ -143,16 +134,16 @@ public class MemberController {
 		session.setAttribute("signIn", apiResult);
 		session.setAttribute("loginName", name);
 		
-		mvo.setId("K+"+(Long) jsonObj.get("id"));
+		mdto.setId("K+"+(Long) jsonObj.get("id"));
 		//아이디가 테이블에 있는지 조회 후 없으면 insert
-		if(memberService.findById(mvo.getId())==null) {
+		if(memberService.findById(mdto.getId())==null) {
 			if((String) response_obj.get("email")!=null) {
 				String email = (String) response_obj.get("email");
 				session.setAttribute("email", email);
-				mvo.setPassword((String) response_obj.get("email"));
+				mdto.setPassword((String) response_obj.get("email"));
 			}
-			mvo.setName(name);
-			memberService.signup(mvo);
+			mdto.setName(name);
+			memberService.signup(mdto);
 		}
 		return "redirect:/";
 	}

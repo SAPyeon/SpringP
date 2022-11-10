@@ -1,11 +1,12 @@
 package org.sap.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.sap.model.BoardVO;
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.StockDto;
+
 
 public interface BoardService {
 	//찾기 리스트 불러오기
@@ -14,6 +15,9 @@ public interface BoardService {
 	public int total(CriteriaVO cri);
 	//종목정보리스트 불러오기
 	public CompanyInfoDto companyInfo(String codeName);
-	// 종목추천글쓰기
-	public void write(BoardVO bvo);
+	//csv주식 데이터베이스에 저장
+	public void insertStockDto(List<StockDto> stockUpdateList);
+	//주식종목 기준일자별 시세 저장
+	public void insertCompanyInfo(String path);
+	
 }

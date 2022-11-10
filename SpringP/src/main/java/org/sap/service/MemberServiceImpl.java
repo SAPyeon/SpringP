@@ -1,9 +1,8 @@
 package org.sap.service;
 
-import javax.servlet.http.HttpSession;
 
 import org.sap.mapper.MemberMapper;
-import org.sap.model.MemberVO;
+import org.sap.model.MemberDto;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -14,15 +13,15 @@ public class MemberServiceImpl implements MemberService{
 	private final MemberMapper memberMapper;
 	
 	@Override
-	public void signup(MemberVO mvo) {
-		mvo.setPoint(1000000);
-		System.out.println(mvo);
-		memberMapper.signup(mvo);
+	public void signup(MemberDto mdto) {
+		mdto.setPoint(1000000);
+		System.out.println(mdto);
+		memberMapper.signup(mdto);
 	}
 
 	@Override
-	public MemberVO login(MemberVO mvo) {
-		return memberMapper.login(mvo);
+	public MemberDto login(MemberDto mdto) {
+		return memberMapper.login(mdto);
 	}
 
 	@Override

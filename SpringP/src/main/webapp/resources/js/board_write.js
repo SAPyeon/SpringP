@@ -24,17 +24,18 @@
 //	.catch( error => {
 //		console.error( error );
 //	} );
-console.log('lilil')
+
 const ckeditor_config = {
 		resize_enaleb : false,
 		enterMode:CKEDITOR.ENTER_BR,
 		shiftEnterMode : CKEDITOR.ENTER_P,
-		filebrowserUploadUrl : "/uploadAjaxAction"
+		filebrowserUploadUrl : "/uploadAjaxAction",
+		height : 500
 }
 
 CKEDITOR.replace("editor",ckeditor_config);
 
-const Form = document.querySelector("form");
+const Form = document.querySelector("#writeFrom");
 const btn = document.querySelector("#btn_submit");
 const content = document.querySelector("#content")
 

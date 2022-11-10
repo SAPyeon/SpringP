@@ -1,7 +1,9 @@
 package org.sap.model;
 
 import lombok.Data;
+import lombok.ToString;
 
+@ToString
 @Data
 public class CriteriaVO {
 	private int pageNum;
@@ -24,9 +26,5 @@ public class CriteriaVO {
 		this.amount = amount;
 	}
 	
-	@Override
-	public String toString() {
-		return "CriteriaVO [pageNum=" + pageNum + ", amount=" + amount + ", search=" + search + "]";
-	}
 	
 }

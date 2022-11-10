@@ -41,8 +41,8 @@
 					</c:otherwise>
 				</c:choose>
 				<a href="/board/list">주가리스트보기</a>
-				<a href="/board/info">상품글보기</a>
-				<a href="/board/write">상품글쓰기</a>
+				<a href="/community/list">커뮤니티글보기</a>
+				<a href="/community/write">커뮤니티글쓰기</a>
 				<P>The time on the server is ${serverTime}.</P>
 			</div>
 		</div>

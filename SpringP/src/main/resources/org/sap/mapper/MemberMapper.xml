@@ -10,7 +10,7 @@
 		values(#{id},#{password},#{name},#{point})
 	</insert>
 	
-	<select id="login" resultType="org.sap.model.MemberVO">
+	<select id="login" resultType="org.sap.model.MemberDto">
 		select * from member
 		where id=#{id} and password=#{password}
 	</select>

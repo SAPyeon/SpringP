@@ -16,10 +16,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<style>
-  .ck-editor__editable { min-height: 400px; }
-  .ck-content { font-size: 17px; }
-</style>	
+
 </head>
 <body>
 	<div class="container">
@@ -27,7 +24,7 @@
 		<div class="row main">
 			<div class="board col-xs-12">
 				<h1>글쓰기</h1>
-				<form action="/board/write" method="post">
+				<form action="/community/write" method="post" id="writeFrom">
 					<input type="text" name = "title" class="input-form col-md-12 mx-auto" placeholder="title....">
 					<div id="editor" contenteditable="true"></div>
 					<div>

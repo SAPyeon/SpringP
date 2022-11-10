@@ -1,7 +1,6 @@
 package org.sap.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.sap.model.ImageVO;
+import org.sap.model.ImageDto;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -26,12 +25,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
 
-import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 public class UploadController {
@@ -68,71 +67,78 @@ public class UploadController {
 		MultipartFile file = multiFile.getFile("upload");
 		System.out.println(file);
 		
-		ArrayList<ImageVO> list = new ArrayList();
-		System.out.println("111111");
+		ArrayList<ImageDto> list = new ArrayList();
 
 		if(file != null) {
-			if(file.getSize() >0 && StringUtils.isNotBlank(file.getName())) {
-				if(file.getContentType().toLowerCase().startsWith("image/")) {
+			if(file.getSize() >0 && StringUtils.isNotBlank(file.getName())) { // 파일 사이즈가 0보다 크고 파일 이름이 있는경우
+				if(file.getContentType().toLowerCase().startsWith("image/")) { // 파일이 이미지파일인지 유효성 검사
 				    try{
-				    	ImageVO imageVO = new ImageVO();
+				    	ImageDto ImageDto = new ImageDto();
 			            String fileName = file.getOriginalFilename();
 			            
 			            byte[] bytes = file.getBytes();
 			            // 폴더 경로
-			    		String uploadPath = "D:\\01-STUDY\\upload";
+			    		String uploadPath = "D:\\01-STUDY\\upload"; // 이미지 경로
 			            //String uploadPath = req.getSession().getServletContext().getRealPath("D:\\01-STUDY\\upload"); //저장경로
 			            System.out.println("uploadPath:"+uploadPath);
 			            
-			            File uploadFile = new File(uploadPath, getFolder());
+			            File uploadFile = new File(uploadPath, getFolder()); // 이미지 경로에 날짜폴더 붙이기
 			            
 			            if(!uploadFile.exists()) { // uploadPath가 존재하지 않으면
 			            	uploadFile.mkdir(); // 부모디렉토리를 포함해 모든 디렉토리 생성
 			            }
 			           
-			            System.out.println("경로설정 = "+uploadFile);
+			            System.out.println("경로설정 = "+uploadFile); // "D:\01-STUDY/upload\2022\11\10"
 			            String fileName2 = UUID.randomUUID().toString();
 			            uploadPath = uploadFile.getPath() + "/" + fileName2 +fileName;
 			            
 			            // 어느폴더에, 어떤파일이름으로
 						File saveFile = new File(uploadFile, fileName2+fileName);
 						System.out.println("보낼파일 = "+saveFile);
-						// 변수 리스트에 저장
-						imageVO.setUploadPath(getFolder());
-						imageVO.setFileName(fileName);
-						imageVO.setUuid(fileName2);
-						imageVO.setFullPath(uploadPath);
-						imageVO.setImage(true);
 						
-						file.transferTo(saveFile);
+						// 변수 리스트에 저장
+						ImageDto.setUploadPath(getFolder());
+						ImageDto.setFileName(fileName);
+						ImageDto.setUuid(fileName2);
+						ImageDto.setFullPath(uploadPath);
+						ImageDto.setImage(true);
+						
+						file.transferTo(saveFile); // 이미지 파일 저장할 폴더에 전송
 						
 			            out = new FileOutputStream(new File(uploadPath));
 			            out.write(bytes);
 			            
-			            printWriter = resp.getWriter();
-			            String fileUrl = "http://localhost:8080/display?fileName=" + fileName2+fileName; // 작성화면
-			            //String fileUrl = req.getContextPath() + uploadPath; //url경로
+			            // 데이터 보여주는 컨트롤러에 parameter로 넘길때  "\\"는 인코딩의 문제로 보내지지 않음 
+			            String datePath = getFolder().replace("\\", "**"); // 전송하기 위한 대체문자 **로 변경 
+			            System.out.println("날짜 = "+ datePath);
 			            
+			            printWriter = resp.getWriter();
+			            //데이터를 보여주는 컨트롤러 주소입력, localhost나 도메인이 붙어있어야함
+			            String fileUrl = "http://localhost:8080/display?fileName=" +datePath+"**"+ fileName2+fileName; // url 경로
 			            System.out.println("fileUrl :" + fileUrl);
 			            
-			            JsonObject json = new JsonObject();
-			            json.addProperty("uploaded", 1);
-			            json.addProperty("fileName", fileName);
-			            json.addProperty("url", fileUrl);
+			            // 기존 블로그에서 json타입으로 데이터를 불러오는 경우
+//			            String fileUrl = req.getContextPath() + uploadPath; //url경로
+//			            JsonObject json = new JsonObject();
+//			            json.addProperty("uploaded", 1);
+//			            json.addProperty("fileName", fileName);
+//			            json.addProperty("url", fileUrl);
+//			            printWriter.print(json); // json타입으로 불러올경우
+//			            System.out.println(json);
+			       
+			            // javascript로 함수를 불러옴
+			            String callback = req.getParameter("CKEditorFuncNum"); //1이라는 숫자가 나와야 이미지 전송가능
 			            
-			            String callback = req.getParameter("CKEditorFuncNum");
-			            System.out.println("콜백 = "+ callback);
-			            //printWriter.print(json);
 			            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
 			                    + callback
 			                    + ",'"
 			                    + fileUrl
 			                    + "','이미지를 업로드 하였습니다.'"
 			                    + ")</script>");
+			            // 서버 전송을 누르면 알림창으로 "이미지를 업로드 하였습니다." 를 띄우고 이미지주소로 해당 이미지를 불러옴
+			           
 			            
-			            System.out.println(json);
-			            
-			            list.add(imageVO);
+			            list.add(ImageDto);
 			            System.out.println("리스트 = "+list);
 			            
 			        }catch(IOException e){
@@ -153,11 +159,12 @@ public class UploadController {
 
 	// 이미지 주소 생성
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getFile(String fileName) {
-
+	public ResponseEntity<byte[]> getFile(@RequestParam String fileName) {
+		
+		fileName = fileName.replace("**", "\\"); // 대체문자인 ** 를 다시 경로설정하는 \\로 변경
 		System.out.println(fileName);
 		
-		File file = new File("D:\\01-STUDY\\upload\\" + getFolder() + "\\"+fileName);
+		File file = new File("D:\\01-STUDY\\upload\\" +fileName);
 
 		ResponseEntity<byte[]> result = null;
 		

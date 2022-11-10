@@ -1,4 +1,4 @@
-package org.sap.mapper;
+package org.sap.component;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 

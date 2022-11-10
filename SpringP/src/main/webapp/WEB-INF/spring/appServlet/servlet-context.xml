@@ -25,6 +25,4 @@
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
-	<beans:bean id="naverLoginBO" class="org.sap.mapper.NaverLoginBO" />
-	<beans:bean id="kakaoLoginBO" class="org.sap.mapper.KakaoLoginBO" />
 </beans:beans>

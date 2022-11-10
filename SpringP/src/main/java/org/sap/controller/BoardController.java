@@ -2,7 +2,6 @@ package org.sap.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.sap.model.BoardVO;
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.PageVO;
@@ -54,18 +53,6 @@ public class BoardController {
 		model.addAttribute("paging", new PageVO(cri, total));
 	}
 
-	// 상품글쓰기
-	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
-	public void boardWrite() {
-
-	}
-
-	// 상품글쓰기
-	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
-	public String boardWritePost(BoardVO bvo) {
-		boardservice.write(bvo);
-		System.out.println(bvo);
-		return "redirect:/board/list";
-	}
+	
 
 }
