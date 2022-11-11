@@ -1,23 +1,29 @@
 @charset "EUC-KR";
 
 #main {
-	marigin:0 auto;
+	marigin: 0 auto;
 }
-h1{
+
+h1 {
 	text-align: center;
 	font-size: 53px;
 }
+
 #loginForm {
-	width: 726px;
-    margin: 30px auto;
-    border: solid 1px #dae1e6;
+	width: 73%;
+	margin: 30px auto;
+	border: solid 1px #dae1e6;
+	border-radius: 40px;
 }
-#loginForm >div {
+
+#loginForm>div {
 	margin: 10px auto;
 }
-button:hover{
+
+button:hover {
 	cursor: pointer;
 }
+
 #id {
 	width: 700px;
 	height: 150px;
@@ -34,8 +40,8 @@ button:hover{
 }
 
 #checkbox {
-	height: 30px; 
-	text-align : center;
+	height: 30px;
+	text-align: center;
 	margin_bottom: 15px;
 	text-align: center;
 }
@@ -50,12 +56,14 @@ button:hover{
 	font-size: 20px;
 	color: white;
 	background-color: black;
-	width: 510px;
+	width: 73%;
 	height: 50px;
 }
-.errorMessage{
+
+.errorMessage {
 	text-align: center;
 }
+
 #find_id {
 	width: 350px;
 	height: 70px;
@@ -64,10 +72,9 @@ button:hover{
 }
 
 #button_findid, #button_createid {
-	width: 350px;
+	width: 100%;
 	height: 50px;
 	border: solid 1px #dae1e6;
-	
 }
 
 #create_id {
@@ -105,4 +112,7 @@ button:hover{
 	border: solid 1px rgba(0, 0, 0, .15);
 	width: 500px;
 	height: 50px;
+}
+
+@media ( max-width : 800px) {
 }

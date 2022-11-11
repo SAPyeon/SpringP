@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글쓰기</title>  
+<title>글쓰기</title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -25,12 +25,19 @@
 			<div class="board col-xs-12">
 				<h1>글쓰기</h1>
 				<form action="/community/write" method="post" id="writeFrom">
-					<input type="text" name = "title" class="input-form col-md-12 mx-auto" placeholder="title....">
-					<div id="editor" contenteditable="true"></div>
-					<div>
-						<button type="submit" class="btn btn-primary btn-sm" id="btn_submit">제출</button>
+					<div class="mb-3">
+						<label class="col-sm-2">제목</label> <input type="text" name="title"
+							class="input-form col-sm-12" placeholder="title....">
 					</div>
-					<input type="text" name="content" id="content">
+					<div class="mb-3">
+						<label class="col-sm-2">내용</label>
+						<div id="editor" contenteditable="true"></div>
+					</div>
+					<div class ="mb-3">
+						<button type="submit" class="btn btn-primary btn-sm"
+							id="btn_submit">제출</button>
+					</div>
+					<input type="hidden" name="content" id="content">
 				</form>
 			</div>
 		</div>
@@ -40,6 +47,6 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="../resources/js/board_write.js"></script>
-	
+
 </body>
 </html>

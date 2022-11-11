@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +27,7 @@
 		<%@ include file="../header.jsp"%>
 
 		<div class="row main">
-			<form action=""	method="post" id="loginForm">
+			<form action="/memeber/login" method="post" id="loginForm">
 				<h1>login</h1>
 				<div id="id">
 					<input type="text" placeholder="id" class="text_id" name="id">
@@ -46,18 +46,14 @@
 					</div>
 
 				</div>
-				<div class="errorMessage">
-					
-				</div>
+				<div class="errorMessage"></div>
+				<div id="id_fc">
 				<div id="find_id">
-					<div>
-						<button id="button_findid" type="button">아이디/비밀번호 찾기</button>
-					</div>
+					<button id="button_findid" type="button">아이디/비밀번호 찾기</button>
 				</div>
 				<div id="create_id">
-					<div>
-						<button id="button_createid" type="button">회원가입</button>
-					</div>
+					<button id="button_createid" type="button">회원가입</button>
+				</div>
 				</div>
 				<div id="kakao_login" class="loginbutton">
 					<div>

@@ -71,4 +71,14 @@ select * from companyInfo ;
 select count(*) from companyInfo;   
 desc companyInfo;
 
+-- drop table board;
+create table board(
+bno int auto_increment primary key,
+title varchar(1000) not null,
+content varchar(10000) 
+);
+insert into board(title,content)
+values('첫글','첫글입니다');
 
+select * from board;
+desc board;

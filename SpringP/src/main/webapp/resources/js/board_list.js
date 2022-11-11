@@ -21,21 +21,23 @@ function DisplayStockList(p){
 		let str= ""; 
 		str +=`
 		<table class="table table-bordered table table-hover" >
+			<thead class="thead-light">
 	        <tr>
-	            <th>글번호</th>
-	            <th>종목명</th>
-	            <th>현재가</th>
-	            <th>전일비</th>
-				<th>등락률</th>
-				<th>액면가</th>
-				<th>시가총액</th>
-				<th>상장 주식 수</th>
-				<th>외국인 비율</th>
-				<th>거래량</th>
-				<th>PER</th>
-				<th>ROE</th>
-				<th>토론방</th>
-	        </tr>`
+	            <th scope="col">글번호</th>
+	            <th scope="col">종목명</th>
+	            <th scope="col">현재가</th>
+	            <th scope="col">전일비</th>
+				<th scope="col">등락률</th>
+				<th scope="col">액면가</th>
+				<th scope="col">시가총액</th>
+				<th scope="col">상장 주식 수</th>
+				<th scope="col">외국인 비율</th>
+				<th scope="col">거래량</th>
+				<th scope="col">PER</th>
+				<th scope="col">ROE</th>
+				<th scope="col">토론방</th>
+	        </tr>
+	        </thead>`
 		$(list).each(function(i,stock){
 			let [a,b] = stock.discussionRoomUrl.split('?');
 			let code = b;
