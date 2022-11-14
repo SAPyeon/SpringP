@@ -11,14 +11,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor //의존성주입
 public class CommunityServiceImpl implements CommunityService{
-	public final CommMapper commmapper;
+	public final CommMapper commMapper;
 	
 	@Override
 	public void write(BoardDto bdto) {
-		commmapper.write(bdto);
+		commMapper.write(bdto);
 	}
 
 	public ArrayList<BoardDto> list(BoardDto bdto) {
-		return commmapper.list(bdto);
+		return commMapper.list(bdto);
+	}
+
+	public BoardDto detail(BoardDto bdto) {
+		return commMapper.detail(bdto);
 	}
 }

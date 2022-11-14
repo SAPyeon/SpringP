@@ -27,13 +27,14 @@
 		<%@ include file="../header.jsp"%>
 
 		<div class="row main">
-			<form action="/memeber/login" method="post" id="loginForm">
+			<form action="/member/login" method="post" id="loginForm">
 				<h1>login</h1>
 				<div id="id">
 					<input type="text" placeholder="id" class="text_id" name="id">
+				<div id="pw">	
 					<input type="password" placeholder="password" class="text_id"
 						name="password">
-
+				</div>
 				</div>
 				<div id="checkbox">
 					<label><input type="checkbox" value="save" class="checkbox">
@@ -48,23 +49,15 @@
 				</div>
 				<div class="errorMessage"></div>
 				<div id="id_fc">
-				<div id="find_id">
 					<button id="button_findid" type="button">아이디/비밀번호 찾기</button>
-				</div>
-				<div id="create_id">
 					<button id="button_createid" type="button">회원가입</button>
 				</div>
-				</div>
 				<div id="kakao_login" class="loginbutton">
-					<div>
-						<button id="button_kakaologin" type="button">카카오로 로그인</button>
-					</div>
+					<button id="button_kakaologin" type="button">카카오로 로그인</button>
 				</div>
 				<div id="naver_login" class="loginbutton">
-					<div>
-						<button id="button_naverlogin" type="button">네이버로 로그인</button>
-						<!-- <img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="50"> -->
-					</div>
+					<button id="button_naverlogin" type="button">네이버로 로그인</button>
+					<!-- <img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="50"> -->
 				</div>
 			</form>
 			<input type="hidden" value="${urlNaver}" id="naverLoginUrl">

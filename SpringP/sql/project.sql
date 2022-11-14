@@ -3,16 +3,16 @@ use project;
 
 -- drop table member;
 create table member(
-id varchar(100) primary key,
-password varchar(100) not null,
-name varchar(100) not null,
-point int default 0
+id varchar(100) primary key, -- 아이디 
+password varchar(100), -- 비밀번호 
+name varchar(100) not null unique key, -- 이름 
+point int default 0, -- 포인트 
+authority boolean default false -- 관리자여부 
 );
+insert into member(id,password,name,authority)
+values('asdf1234','asdf1234','admin',true);
 
 select * from member;
-
-delete from member where id='asdf1234';
-
 
 create table authorities(
 	id varchar(50) not null,
@@ -71,14 +71,38 @@ select * from companyInfo ;
 select count(*) from companyInfo;   
 desc companyInfo;
 
--- drop table board;
+drop table board;
 create table board(
-bno int auto_increment primary key,
-title varchar(1000) not null,
-content varchar(10000) 
+bno int auto_increment primary key, -- 게시판번호
+title varchar(1000) not null, -- 글제목
+content varchar(10000), -- 게시판 내용 
+name varchar(100), -- 작성자 
+cnt int default 0, -- 조회수 
+regdate datetime default now() -- 작성일
 );
-insert into board(title,content)
-values('첫글','첫글입니다');
-
+desc board;
 select * from board;
 desc board;
+
+drop table board_reply;
+
+create table board_reply(
+rno int auto_increment primary key, -- 리뷰번호
+reply varchar(10000), -- 리뷰글
+name varchar(100) not null, -- 리뷰작성자
+declaration int default 0, -- 신고
+regdate datetime default now(), -- 작성일
+bno int 
+);
+
+desc board_reply;
+
+ALTER TABLE board_reply ADD CONSTRAINT board_bno_fk
+FOREIGN KEY (bno) REFERENCES board(bno) 
+on delete cascade
+on update cascade;
+
+insert into board_reply(reply, name , bno)
+values('aaaaa','aaaaaa',1);
+
+select * from board_reply;

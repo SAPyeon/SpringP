@@ -16,45 +16,27 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../header.jsp"%>
-		<div class="row main">
-			<div class="board col-xs-12">
-				<h1>리스트</h1>
-				<div class="row justify-content-end">
-					<div class="col-auto">
-					<button class="btn btn-primary" id="btnWrite">글쓰기</button>
-					</div>
-				</div>
-				<table class="table">
-					<thead class="thead-light">
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">제목</th>
-							<th scope="col">조회수</th>
-						</tr>
-					</thead>
-					<c:forEach items="${commlist}" var="list">
-						<tr>
-							<th scope="row">${list.bno}</th>
-							<td><a href="/community/detail?bno=${list.bno}">${list.title}</a></td>
-							<td>${list.cnt}</td>
-						</tr>
-
-					</c:forEach>
-				</table>
+		<div class="row main d-flex flex-column justify-content-center">
+			<h1>글</h1>
+			<input type="hidden" value="${loginName}" id="loginName">
+			<div class="border mb-3 col col-sm-8 align-self-center my-3" id="title">${detail.title}</div>
+			<div class="border mb-3 col col-sm-8 align-self-center p-3" id="content">${detail.content}</div>
+			<div><label>댓글</label></div>
+			<hr>
+			<div class="row d-flex justify-content-center m-3">
+				<textarea name="reply" class="col col-sm-7 align-self-center mr-2" id="reply"></textarea>
+				<button type="submit" class="btn btn-primary col col-sm-1 mx-2" id="btn_reply">작성</button>
 			</div>
+			<div id="reply_content" class="row main d-flex flex-column justify-content-center"></div>
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script type="text/javascript">
-		$("#btnWrite").on("click",function(){location.href="/community/write"})
-	
-	</script>	
+<script type="text/javascript" src="../resources/js/comm_reply.js"></script>
 </body>
 </html>

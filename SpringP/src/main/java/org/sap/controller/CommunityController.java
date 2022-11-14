@@ -1,11 +1,14 @@
 package org.sap.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.sap.model.BoardDto;
 import org.sap.service.CommunityServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +26,8 @@ public class CommunityController {
 
 	// 커뮤니티글쓰기 - CKEDITOR4 사용
 	@RequestMapping(value = "/community/write", method = RequestMethod.POST)
-	public String commWritePost(BoardDto bdto) {
+	public String commWritePost(BoardDto bdto, HttpSession session) {
+		bdto.setName((String)session.getAttribute("loginName"));
 		csi.write(bdto);
 		System.out.println(bdto);
 		return "redirect:/community/list";
@@ -35,7 +39,13 @@ public class CommunityController {
 		model.addAttribute("commlist", csi.list(bdto));
 		
 	}
-	
+	// 커뮤니티 글 상세페이지
+	@RequestMapping(value="/community/detail", method = RequestMethod.GET)
+	public String commdetail(BoardDto bdto, Model model,@RequestParam String bno) {
+		bdto.setBno(bno);
+		model.addAttribute("detail",csi.detail(bdto));
+		return "/community/comm_detail";
+	}
 	
 	
 }

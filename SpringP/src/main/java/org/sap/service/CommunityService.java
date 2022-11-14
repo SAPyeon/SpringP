@@ -9,4 +9,6 @@ public interface CommunityService {
 	public void write(BoardDto bdto);
 	// 커뮤니티 글목록
 	public ArrayList<BoardDto> list(BoardDto bdto); 
+	//커뮤니티 상세페이지
+	public BoardDto detail(BoardDto bdto);
 }

@@ -5,13 +5,17 @@
 <mapper namespace="org.sap.mapper.CommMapper">
 
 	<insert id="write">
-		insert into board(title,content)
-		values(#{title},#{content})
+		insert into board(title,content,name)
+		values(#{title},#{content},#{name})
 	</insert>
 	<select id="list" resultType="org.sap.model.BoardDto">
 		select *
 		from board
 	</select>
-
+	<select id="detail" resultType="org.sap.model.BoardDto">
+		select *
+		from board
+		where bno=#{bno}
+	</select>
 
 </mapper>
