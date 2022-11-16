@@ -11,4 +11,8 @@ public interface CommMapper {
 	public ArrayList<BoardDto> list(BoardDto bdto);
 	// 글상세페이지
 	public BoardDto detail(BoardDto bdto);
+	// 상세페이지 조회시 조회수 올리기
+	public void cntUp(BoardDto bdto);
+	// 글 수정
+	public void modify(BoardDto bdto);
 }

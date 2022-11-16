@@ -19,7 +19,6 @@ public class ReplyServiceImpl implements ReplyService{
 		if(reply.getName() == null) {
 			reply.setName("익명");
 		}
-		
 		return replymapper.reWrite(reply);
 	}
 

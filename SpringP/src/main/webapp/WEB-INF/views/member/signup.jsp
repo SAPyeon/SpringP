@@ -19,9 +19,10 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-#signUpFrame{
-	border-radius:23px
+#signUpFrame {
+	border-radius: 23px
 }
+
 #btn_signUp {
 	margin: 30px auto;
 	width: 98%;
@@ -32,8 +33,8 @@
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<div class="row main mb-3 align-self-center" role="main" id="main">
-			<div
-				class="input-form col-md-6 offset-md-3 border mx-auto m-5" id="signUpFrame">
+			<div class="input-form col-md-6 offset-md-3 border mx-auto m-5"
+				id="signUpFrame">
 				<h1>회원가입</h1>
 				<form action="/member/signup" method="post" id="needs-validation"
 					novalidate class="row g-3">
@@ -59,6 +60,13 @@
 							class="form-control form-control-lg">
 						<div class="valid-feedback">사용할 수 있는 이름입니다.</div>
 						<div class="invalid-feedback">이름을 입력해주세요.</div>
+					</div>
+					<div class="form-group">
+						<label for="phone" class="form-label">PHONE("-"없이 입력)</label> <input
+							type="text" id="phone" placeholder="phone...." name="phone"
+							required pattern="^01(0|1|6|9|0)([0-9]{3,4})([0-9]{4})$" class="form-control form-control-lg">
+						<div class="valid-feedback">사용할 수 있는 전화번호입니다.</div>
+						<div class="invalid-feedback">전화번호를 입력해주세요.</div>
 					</div>
 					<button class="btn btn-primary btn-lg btn-block" type="submit"
 						id="btn_signUp">회원가입하기</button>

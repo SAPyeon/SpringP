@@ -6,8 +6,8 @@
 <mapper namespace="org.sap.mapper.MemberMapper">
 	
 	<insert id="signup">
-		insert into member(id, password, name, point)
-		values(#{id},#{password},#{name},#{point})
+		insert into member(id, password, name, phone, point)
+		values(#{id},#{password},#{name},#{phone},#{point})
 	</insert>
 	
 	<select id="login" resultType="org.sap.model.MemberDto">

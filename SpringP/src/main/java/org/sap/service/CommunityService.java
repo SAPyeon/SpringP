@@ -11,4 +11,6 @@ public interface CommunityService {
 	public ArrayList<BoardDto> list(BoardDto bdto); 
 	//커뮤니티 상세페이지
 	public BoardDto detail(BoardDto bdto);
+	//커뮤니티 글 수정
+	public void modify(BoardDto bdto);
 }

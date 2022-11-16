@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,6 +47,19 @@ public class CommunityController {
 		model.addAttribute("detail",csi.detail(bdto));
 		return "/community/comm_detail";
 	}
-	
-	
+	// 커뮤니티 글 수정
+	@RequestMapping(value="/community/modify", method = RequestMethod.GET)
+	public String commModify(BoardDto bdto, Model model,@RequestParam String bno) {
+		bdto.setBno(bno);
+		model.addAttribute("detail",csi.detail(bdto));
+		
+		return "/community/comm_modify";
+	}
+	@RequestMapping(value="/community/modify", method = RequestMethod.POST)
+	public String commModifyPost(BoardDto bdto, Model model,@RequestParam String bno,RedirectAttributes rttr) {
+		bdto.setBno(bno);
+		csi.modify(bdto);
+		rttr.addAttribute("bno", bdto.getBno());
+		return "redirect:/community/detail";
+	}
 }
