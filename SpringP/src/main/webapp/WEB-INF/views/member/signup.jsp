@@ -27,6 +27,7 @@
 	margin: 30px auto;
 	width: 98%;
 }
+
 </style>
 </head>
 <body>
@@ -43,6 +44,7 @@
 							id="id" placeholder="id...." name="id" required
 							pattern="^[a-z]+[a-z0-9]{5,19}$"
 							class="form-control form-control-lg">
+						<button type="button" class="btn btn-primary btn-sm mt-1" id="confirm_id">아이디 중복조회</button>	
 						<div class="valid-feedback">사용할 수 있는 아이디입니다.</div>
 						<div class="invalid-feedback">영문자로 시작하는 영문자 또는 숫자 6~20자를
 							입력해주세요.</div>
@@ -53,6 +55,13 @@
 							name="password" required class="form-control form-control-lg">
 						<div class="valid-feedback">사용할 수 있는 비밀번호입니다.</div>
 						<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+					</div>
+					<div class="form-group">
+						<label for="pwMore" class="form-label">PASSWORD 재확인</label> <input
+							type="password" id="pwMore" 
+							required class="form-control form-control-lg">
+						<div class="valid-feedback" id="valid-pwMore">사용할 수 있는 비밀번호입니다.</div>
+						<div class="invalid-feedback" id="invalid-pwMore">비밀번호와 불일치합니다.</div>
 					</div>
 					<div class="form-group">
 						<label for="name" class="form-label">NAME</label> <input
@@ -77,5 +86,7 @@
 		<%@ include file="../footer.jsp"%>
 	</div>
 	<script type="text/javascript" src="../resources/js/signup.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>

@@ -29,6 +29,6 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.findById(id);
 	}
 
-	
+		
 	
 }

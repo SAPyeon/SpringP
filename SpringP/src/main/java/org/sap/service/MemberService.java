@@ -8,4 +8,6 @@ public interface MemberService {
 	public MemberDto login(MemberDto mdto);
 
 	public String findById(String id);
+
+	
 }
