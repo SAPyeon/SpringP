@@ -1,11 +1,18 @@
 /**
  * 
  */
+//유효성검사 pattern
+const regExp_id = /^[a-z]{1}[a-z0-9-_]{5,19}$/g; 
+const regExp_pw = /[a-z0-9-_]{6,19}$/g;
+const regExp_name = /^[a-z]{1}[a-z0-9-_]{5,19}$/g;
+const regExp_phone =  /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
+const id_check = document.querySelector("#id_check");
+
 // 제출버튼 클릭시 유효성검사
 const btn_signup = document.querySelector("#btn_signUp");
 const form = document.getElementById("needs-validation");
 btn_signup.addEventListener("click", function(event) {
-	if (form.checkValidity() == false) {
+	if (form.checkValidity() == false || id_check.checked == false) {
 		event.preventDefault();
 		event.stopPropagation();
 		form.classList.add("was-validated");
@@ -13,6 +20,12 @@ btn_signup.addEventListener("click", function(event) {
 		form.submit();
 	}
 })
+
+// 폼작성시 유효성 검사
+
+
+
+
 
 // 비밀번호 재확인
 const password = document.querySelector("#pw");
@@ -38,12 +51,31 @@ let idVal ='';
 confirm_id.addEventListener("click",()=>{
 	idVal = id.value;
 	console.log(idVal)
+	
+	if(idVal.length)
+	
 	data={id:idVal};
 	confirmId(data);
 })
 
+
 function confirmId(data){
-	$.getJSON("/findId",data,function(result){
+	$.getJSON("/member/findId",data,function(result){
+			console.log(result)
+			if(result===1){
+				alert('이미 등록된 아이디 입니다.');
+				id.value = '';
+			}else{
+				alert('사용할 수 있는 아이디 입니다.');
+				id_check.disabled = false;
+				//$("#id_check").checked = true;
+			}
+	})
+}
+
+// 이름중복체크
+function confirmId(data){
+	$.getJSON("/member/findName",data,function(result){
 			console.log(result)
 			if(result===1){
 				alert('이미 등록된 아이디 입니다.');
@@ -53,9 +85,6 @@ function confirmId(data){
 			}
 	})
 }
-
-// 이름중복체크
-
 
 
 

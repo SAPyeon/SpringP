@@ -100,7 +100,7 @@ public class MemberController {
 		// session.setAttribute("email", email);
 		session.setAttribute("loginName", name);
 		mdto.setId("N+" + (String) response_obj.get("id"));
-
+		mdto.setPhone("NAVER");
 		// 아이디가 테이블에 있는지 조회 후 없으면 insert
 		if (memberService.findById(mdto.getId()) == null) {
 			mdto.setPassword((String) response_obj.get("email"));
@@ -137,6 +137,7 @@ public class MemberController {
 		session.setAttribute("loginName", name);
 
 		mdto.setId("K+" + (Long) jsonObj.get("id"));
+		mdto.setPhone("KAKAO");
 		// 아이디가 테이블에 있는지 조회 후 없으면 insert
 		if (memberService.findById(mdto.getId()) == null) {
 			if ((String) response_obj.get("email") != null) {
@@ -158,6 +159,17 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	// 중복아이디 찾기
+	@RequestMapping(value = "/member/findId", method = RequestMethod.GET)
+	public ResponseEntity<Integer> findId(@RequestParam String id) {
+		System.out.println(id);
+		int result = 0;
+		System.out.println(memberService.findById(id));
+		if (memberService.findById(id) != null) {
+			result = 1;
+		}
+		System.out.println(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
-
 }
