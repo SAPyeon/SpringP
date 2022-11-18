@@ -5,18 +5,20 @@ use project;
 create table member(
 id varchar(100) primary key, -- 아이디 
 password varchar(100), -- 비밀번호 
-name varchar(100) not null unique key, -- 이름
+name varchar(100) not null, -- 이름
 phone varchar(20) not null, 
 point int default 0, -- 포인트 
 authority boolean default false -- 관리자여부 
 );
-
+desc member;
 insert into member(id,password,name,phone,authority)
 values('asdf1234','asdf1234','admin','11111',true);
 
+delete from member where password="";
+
 select * from member;
 
-
+drop table authorities;
 create table authorities(
 	id varchar(50) not null,
     authority varchar (50) not null
