@@ -158,6 +158,17 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	
+	// 중복아이디 찾기
+	@RequestMapping(value = "/member/findId", method = RequestMethod.GET)
+	public ResponseEntity<Integer> findId(@RequestParam String id) {
+		System.out.println(id);
+		int result = 0;
+		System.out.println(memberService.findById(id));
+		if (memberService.findById(id) != null) {
+			result = 1;
+		}
+		System.out.println(result);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 
 }

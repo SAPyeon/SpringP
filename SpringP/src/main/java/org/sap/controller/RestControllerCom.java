@@ -100,18 +100,6 @@ public class RestControllerCom {
 		boardService.insertCompanyInfo(path);
 	}
 
-	// 중복아이디 찾기
-	@RequestMapping(value = "/findId", method = RequestMethod.GET)
-	public int findId(@RequestParam String id) {
-		System.out.println(id);
-		int result = 0;
-		System.out.println(memberService.findById(id));
-		if (memberService.findById(id) != null) {
-			result = 1;
-		}
-		System.out.println(result);
-		return result;
-	}
-	//중복이름찾기
+	
 	
 }

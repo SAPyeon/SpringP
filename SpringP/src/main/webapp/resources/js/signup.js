@@ -15,7 +15,7 @@ function toggle(a, b) {
 }
 
 function confirmId(data) {
-	$.getJSON("/findId", data, function(result) {
+	$.getJSON("/member/findId", data, function(result) {
 		console.log(result)
 		if (result === 1) {
 			alert('이미 등록된 아이디 입니다.');
@@ -29,7 +29,6 @@ function confirmId(data) {
 			$("#invalid-id").hide();
 			$("#valid-id").show();
 		}
-
 	})
 }
 
