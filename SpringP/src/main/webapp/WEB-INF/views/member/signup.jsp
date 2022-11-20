@@ -40,6 +40,7 @@
 				<form action="/member/signup" method="post" id="needs-validation"
 					novalidate class="row g-3">
 					<div class="form-group">
+<<<<<<< HEAD
 						<label for="id" class="form-label">ID</label> <input type="text"
 							id="id" placeholder="id...." name="id" required
 							pattern="^[a-z]+[a-z0-9]{5,19}$"
@@ -49,36 +50,61 @@
 						<div class="valid-feedback">사용할 수 있는 아이디입니다.</div>
 						<div class="invalid-feedback">영문자로 시작하는 영문자 또는 숫자 6~20자를
 							입력해주세요.</div>
+=======
+						<label for="id" class="form-label">ID</label> <input type="checkbox" disabled id="chk_id">	
+						<input type="text"
+							id="id" placeholder="id...." name="id" required	class="form-control form-control-lg">
+						<button type="button" class="btn btn-primary btn-sm mt-1" id="confirm_id">아이디 중복조회</button>
+						
+						<div id="valid-id" class="valid-feedback">사용할 수 있는 아이디입니다.</div>
+						<div id="invalid-id" class="invalid-feedback">영문자로 시작하는 영문자 또는 숫자 6~20자를 입력해주세요.</div>
+>>>>>>> refs/heads/regExp
 					</div>
 					<div class="form-group">
+<<<<<<< HEAD
 						<label for="pw" class="form-label">PASSWORD</label> <input
 							type="password" id="pw" placeholder="password...."
 							name="password" required class="form-control form-control-lg">
 						<div class="valid-feedback">사용할 수 있는 비밀번호입니다.</div>
 						<div class="invalid-feedback">영문자 또는 숫자 6~20자를 입력해주세요.</div>
+=======
+						<label for="pw" class="form-label">PASSWORD</label> <input type="checkbox" disabled id="chk_pw"> 
+						<input type="password" id="pw" placeholder="password...." name="password" required class="form-control form-control-lg">
+						<div id="valid-pw" class="valid-feedback">사용할 수 있는 비밀번호입니다.</div>
+						<div id="invalid-pw" class="invalid-feedback">6~20글자를 입력해주세요.</div>
+>>>>>>> refs/heads/regExp
 					</div>
 					<div class="form-group">
-						<label for="pwMore" class="form-label">PASSWORD 재확인</label> <input
+						<label for="pwMore" class="form-label">PASSWORD 재확인</label> <input type="checkbox" disabled id="chk_pwMore"> 
+						<input
 							type="password" id="pwMore" 
 							required class="form-control form-control-lg">
-						<div class="valid-feedback" id="valid-pwMore">사용할 수 있는 비밀번호입니다.</div>
+						<div class="valid-feedback" id="valid-pwMore">비밀번호와 일치합니다.</div>
 						<div class="invalid-feedback" id="invalid-pwMore">비밀번호와 불일치합니다.</div>
 					</div>
 					<div class="form-group">
-						<label for="name" class="form-label">NAME</label> <input
+						<label for="name" class="form-label">NAME</label><input type="checkbox" disabled id="chk_name"> 
+						<input
 							type="text" id="name" placeholder="name...." name="name" required
 							class="form-control form-control-lg">
-						<div class="valid-feedback">사용할 수 있는 이름입니다.</div>
-						<div class="invalid-feedback">이름을 입력해주세요.</div>
+						<div class="valid-feedback" id="valid-name">사용할 수 있는 이름입니다.</div>
+						<div class="invalid-feedback" id="invalid-name">특수문자를 제외한 1~20자의 이름을 입력해주세요</div>
 					</div>
 					<div class="form-group">
-						<label for="phone" class="form-label">PHONE("-"없이 입력)</label> <input
+						<label for="phone" class="form-label">PHONE("-"없이 입력)</label> <input type="checkbox" disabled id="chk_phone"> 
+						<input
 							type="text" id="phone" placeholder="phone...." name="phone"
+<<<<<<< HEAD
 							required pattern="^01(0|1|6|7|8|9)?([0-9]{3,4})([0-9]{4})$" class="form-control form-control-lg">
 						<div class="valid-feedback">사용할 수 있는 전화번호입니다.</div>
 						<div class="invalid-feedback">전화번호를 입력해주세요.</div>
+=======
+							required class="form-control form-control-lg">
+						<div class="valid-feedback" id="valid-phone">사용할 수 있는 전화번호입니다.</div>
+						<div class="invalid-feedback" id="invalid-phone">전화번호를 입력해주세요.</div>
+>>>>>>> refs/heads/regExp
 					</div>
-					<button class="btn btn-primary btn-lg btn-block" type="submit"
+					<button class="btn btn-primary btn-lg btn-block" type="button"
 						id="btn_signUp">회원가입하기</button>
 				</form>
 				<label class="col-md-6 offset-md-3">회원가입시 1,000,000 포인트 지급</label>
@@ -86,8 +112,9 @@
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>
-	<script type="text/javascript" src="../resources/js/signup.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../resources/js/signup.js"></script>
+	
 </body>
 </html>
