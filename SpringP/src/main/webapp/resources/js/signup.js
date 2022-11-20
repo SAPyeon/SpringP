@@ -14,6 +14,25 @@ function toggle(a, b) {
 	b.toggle();
 }
 
+function confirmId(data) {
+	$.getJSON("/findId", data, function(result) {
+		console.log(result)
+		if (result === 1) {
+			alert('이미 등록된 아이디 입니다.');
+			$("#id").val("");
+			chkUnchk($("#chk_id"), false);
+			$("#valid-id").hide();
+			$("#invalid-id").show();
+		} else {
+			alert('사용할 수 있는 아이디 입니다.');
+			chkUnchk($("#chk_id"), true);
+			$("#invalid-id").hide();
+			$("#valid-id").show();
+		}
+
+	})
+}
+
 check();
 
 function check() {
@@ -39,24 +58,7 @@ function check() {
 		}
 	})
 
-	function confirmId(data) {
-		$.getJSON("/findId", data, function(result) {
-			console.log(result)
-			if (result === 1) {
-				alert('이미 등록된 아이디 입니다.');
-				$("#id").val("");
-				chkUnchk($("#chk_id"), false);
-				$("#valid-id").hide();
-				$("#invalid-id").show();
-			} else {
-				alert('사용할 수 있는 아이디 입니다.');
-				chkUnchk($("#chk_id"), true);
-				$("#invalid-id").hide();
-				$("#valid-id").show();
-			}
-
-		})
-	}
+	
 
 	// 비밀번호 유효성 검사
 	const regExp_pw = RegExp(/^[a-z0-9-_]{6,19}$/g);
@@ -128,12 +130,33 @@ function check() {
 $("#btn_signUp").on("click",function(e) {
 			e.preventDefault();
 			check();
-			if ($("#chk_id").is(":checked") || $("#chk_pw").is(":checked")
-					|| $("#chk_pwMore").is(":checked")
-					|| $("#chk_name").is(":checked")
-					|| $("#chk_phone").is(":checked")) {
-
+			if(!$("#chk_id").is(":checked")){
+				console.log($("#chk_id").is(":checked"))
+				alert('id 입력란을 확인하세요')
+				$("#id").focus();
 			}
-			$("#needs-validation").submit();
+			else if(!$("#chk_pw").is(":checked")){
+				alert('password 입력란을 확인하세요')
+				$("#pw").focus();
+			}
+			else if(!$("#chk_pwMore").is(":checked")){
+				alert('비밀번호 재확인 입력란을 확인하세요')
+				$("#pwMore").focus();
+			}
+			else if(!$("#chk_name").is(":checked")){
+				alert('Name 입력란을 확인하세요')
+				$("#name").focus();
+			}
+			else if(!$("#chk_phone").is(":checked")){
+				alert('Phone 입력란을 확인하세요')
+				$("#phone").focus();
+			}
+			else if ($("#chk_id").is(":checked") && $("#chk_pw").is(":checked")
+					&& $("#chk_pwMore").is(":checked")
+					&& $("#chk_name").is(":checked")
+					&& $("#chk_phone").is(":checked")) {
+				$("#needs-validation").submit();
+			}
+			
 
 })
