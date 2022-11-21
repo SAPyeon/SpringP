@@ -9,7 +9,7 @@ public interface MemberMapper {
 	//로그인
 	public MemberDto login(MemberDto mdto);
 	//아이디 찾기
-	public String findById(String id);
+	public MemberDto findById(String id);
 	//즐겨찾기 목록 불러오기
 	public boolean findlike(LikeDto likedto);
 	//즐겨찾기 삭제

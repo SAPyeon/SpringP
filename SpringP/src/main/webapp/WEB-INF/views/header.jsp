@@ -53,6 +53,7 @@
 			</c:when>
 			<c:otherwise>
 				<label>Welcome! ${loginName}님</label>
+				<a href="/member/mypage">마이페이지</a>
 				<a href="/member/logout">로그아웃하기</a>
 			</c:otherwise>
 		</c:choose>

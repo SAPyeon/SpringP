@@ -171,14 +171,31 @@ public class MemberController {
 		System.out.println(id);
 		int result = 0;
 		//System.out.println(memberService.findById(id));
-		if (memberService.findById(id) != null) {
+		if (memberService.findById(id).getId() != null) {
 			result = 1;
 		}
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-
-	// 즐겨찾기 목록여부
+	
+	// 마이페이지
+	@RequestMapping(value="/member/mypage",method = RequestMethod.GET)
+	public void mypage(HttpSession session,Model model) {
+		String id = (String)session.getAttribute("loginId"); 
+		if(id!=null) {
+			model.addAttribute("memberInfo", memberService.findById(id));
+						
+		};
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// 해당종목 즐겨찾기 유무 
 	@RequestMapping(value = "/findLike", method = RequestMethod.GET)
 	public ResponseEntity<Integer>findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
 		

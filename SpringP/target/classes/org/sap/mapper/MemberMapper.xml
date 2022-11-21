@@ -17,8 +17,8 @@
 		and password=#{password}
 	</select>
 
-	<select id="findById" resultType="String">
-		select id
+	<select id="findById" resultType="org.sap.model.MemberDto">
+		select *
 		from member
 		where
 		id=#{id}

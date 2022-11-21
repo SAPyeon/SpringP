@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String findById(String id) {
+	public MemberDto findById(String id) {
 		return memberMapper.findById(id);
 	}
 
