@@ -22,6 +22,17 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <link rel="stylesheet" href="../resources/css/board_detail.css">
+<style type="text/css">
+#star{
+	color:grey;
+	}
+#star:hover{
+	color:yellow;
+	cursor:pointer;
+	}
+
+</style>
+
 </head>
 <body>
 	<div class="container">
@@ -29,7 +40,8 @@
 		<div class="row main">
 			<div class="board col-xs-12">
 				<input type="hidden" value="${codeName}" id="codeName">
-				<h1>${codeName}</h1>
+				
+				<h1>${codeName} <label id="star">★</label></h1>
 				<div id="chart">
 					<canvas id="chartItems" width="400" height="225"></canvas>
 				</div>

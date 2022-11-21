@@ -1,11 +1,15 @@
 package org.sap.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
+import org.sap.model.LikeDto;
 import org.sap.model.PageVO;
 import org.sap.service.BoardService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +56,8 @@ public class BoardController {
 		System.out.println("리스트 총 수 = " + total);
 		model.addAttribute("paging", new PageVO(cri, total));
 	}
-
+	
+	
 	
 
 }

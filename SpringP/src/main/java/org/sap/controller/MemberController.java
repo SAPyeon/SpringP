@@ -1,11 +1,13 @@
 package org.sap.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.sap.component.KakaoLogin;
 import org.sap.component.NaverLogin;
+import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.service.MemberService;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,6 +71,7 @@ public class MemberController {
 
 		try {
 			session.setAttribute("loginName", memberService.login(mdto).getName());
+			session.setAttribute("loginId", memberService.login(mdto).getId());
 			memberService.login(mdto);
 			return "redirect:/";
 		} catch (Exception e) {
@@ -100,6 +104,7 @@ public class MemberController {
 		// session.setAttribute("email", email);
 		session.setAttribute("loginName", name);
 		mdto.setId("N+" + (String) response_obj.get("id"));
+		session.setAttribute("loginId", mdto.getId());
 		mdto.setPhone("NAVER");
 		// 아이디가 테이블에 있는지 조회 후 없으면 insert
 		if (memberService.findById(mdto.getId()) == null) {
@@ -137,6 +142,7 @@ public class MemberController {
 		session.setAttribute("loginName", name);
 
 		mdto.setId("K+" + (Long) jsonObj.get("id"));
+		session.setAttribute("loginId", mdto.getId());
 		mdto.setPhone("KAKAO");
 		// 아이디가 테이블에 있는지 조회 후 없으면 insert
 		if (memberService.findById(mdto.getId()) == null) {
@@ -164,12 +170,45 @@ public class MemberController {
 	public ResponseEntity<Integer> findId(@RequestParam String id) {
 		System.out.println(id);
 		int result = 0;
-		System.out.println(memberService.findById(id));
+		//System.out.println(memberService.findById(id));
 		if (memberService.findById(id) != null) {
 			result = 1;
 		}
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	// 즐겨찾기 목록여부
+	@RequestMapping(value = "/findLike", method = RequestMethod.GET)
+	public ResponseEntity<Integer>findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
+		
+		likedto.setSrtnCd(request.getParameter("srtnCd"));
+		likedto.setId(request.getParameter("id"));
+		boolean result = memberService.findlike(likedto);
+		int likeResult = 1;
+		System.out.println("즐겨찾기 등록? = "+result);
+		if(result ==  false) {
+			likeResult =0;
+		}
+		return new ResponseEntity<>(likeResult, HttpStatus.OK);
+	}
+	// 즐겨찾기 삭제
+	@RequestMapping(value="/likeDelete", method = RequestMethod.DELETE)
+	public ResponseEntity<String> likeDelete(@RequestBody LikeDto likedto) {
+		//System.out.println(likedto);
+		int result = memberService.likeDelete(likedto);
+		System.out.println("즐겨찾기 삭제? = "+result);
+		return result==1? new ResponseEntity<>("success",HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	// 즐겨찾기 추가
+	@RequestMapping(value="/likeInsert", method = RequestMethod.PUT)
+	public ResponseEntity<String> likeInsert(@RequestBody LikeDto likedto) {
+		System.out.println(likedto);
+		int result = memberService.likeInsert(likedto);
+		System.out.println("즐겨찾기 추가? = "+result);
+		return result==1? new ResponseEntity<>("success",HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

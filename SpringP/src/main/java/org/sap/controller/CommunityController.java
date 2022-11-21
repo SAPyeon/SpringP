@@ -29,6 +29,7 @@ public class CommunityController {
 	@RequestMapping(value = "/community/write", method = RequestMethod.POST)
 	public String commWritePost(BoardDto bdto, HttpSession session) {
 		bdto.setName((String)session.getAttribute("loginName"));
+		bdto.setId((String)session.getAttribute("loginId"));
 		csi.write(bdto);
 		System.out.println(bdto);
 		return "redirect:/community/list";
@@ -44,6 +45,7 @@ public class CommunityController {
 	@RequestMapping(value="/community/detail", method = RequestMethod.GET)
 	public String commdetail(BoardDto bdto, Model model,@RequestParam String bno) {
 		bdto.setBno(bno);
+		//System.out.println(csi.detail(bdto)); // detail()함수 실행으로 조회수 두번찍힘
 		model.addAttribute("detail",csi.detail(bdto));
 		return "/community/comm_detail";
 	}
@@ -51,15 +53,26 @@ public class CommunityController {
 	@RequestMapping(value="/community/modify", method = RequestMethod.GET)
 	public String commModify(BoardDto bdto, Model model,@RequestParam String bno) {
 		bdto.setBno(bno);
-		model.addAttribute("detail",csi.detail(bdto));
-		
+		model.addAttribute("detail",csi.ModiDetail(bdto));
 		return "/community/comm_modify";
 	}
 	@RequestMapping(value="/community/modify", method = RequestMethod.POST)
-	public String commModifyPost(BoardDto bdto, Model model,@RequestParam String bno,RedirectAttributes rttr) {
+	public String commModifyPost(BoardDto bdto,@RequestParam String bno,RedirectAttributes rttr) {
 		bdto.setBno(bno);
 		csi.modify(bdto);
 		rttr.addAttribute("bno", bdto.getBno());
 		return "redirect:/community/detail";
 	}
+	
+	// 커뮤니티 글 삭제
+	@RequestMapping(value="/community/delete", method = RequestMethod.POST)
+	public String commDeletePost(BoardDto bdto,@RequestParam String bno) {
+		bdto.setBno(bno);
+		csi.delete(bdto);
+		return "redirect:/community/list";
+	}
+	
+	
+	
+	
 }

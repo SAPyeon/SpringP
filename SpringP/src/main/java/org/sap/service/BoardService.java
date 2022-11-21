@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.sap.model.CompanyInfoDto;
 import org.sap.model.CriteriaVO;
+import org.sap.model.LikeDto;
 import org.sap.model.StockDto;
 
 
@@ -19,5 +20,6 @@ public interface BoardService {
 	public void insertStockDto(List<StockDto> stockUpdateList);
 	//주식종목 기준일자별 시세 저장
 	public void insertCompanyInfo(String path);
+	
 	
 }

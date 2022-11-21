@@ -5,8 +5,8 @@
 <mapper namespace="org.sap.mapper.CommMapper">
 
 	<insert id="write">
-		insert into board(title,content,name)
-		values(#{title},#{content},#{name})
+		insert into board(title,content,name, id)
+		values(#{title},#{content},#{name},#{id})
 	</insert>
 	<select id="list" resultType="org.sap.model.BoardDto">
 		select *
@@ -25,7 +25,12 @@
 	</update>
 	<update id="modify">
 		update board
-		set title =#{title} , content = #{content}
+		set title =#{title} , content =
+		#{content}
 		where bno = #{bno}
 	</update>
+	<delete id="delete">
+		delete from board
+		where bno=#{bno}
+	</delete>
 </mapper>

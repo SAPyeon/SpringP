@@ -10,5 +10,7 @@ public class BoardDto {
 	private String title;
 	private String content;
 	private String name;
+	private String id;
 	private int cnt;
+	
 }

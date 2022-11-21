@@ -15,4 +15,6 @@ public interface CommMapper {
 	public void cntUp(BoardDto bdto);
 	// 글 수정
 	public void modify(BoardDto bdto);
+	// 글 삭제
+	public void delete(BoardDto bdto);
 }

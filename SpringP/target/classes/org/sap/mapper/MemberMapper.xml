@@ -4,20 +4,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.sap.mapper.MemberMapper">
-	
+
 	<insert id="signup">
+
 		insert into member(id, password, name, phone, point)
 		values(#{id},#{password},#{name},#{phone},#{point})
 	</insert>
-	
+
 	<select id="login" resultType="org.sap.model.MemberDto">
 		select * from member
-		where id=#{id} and password=#{password}
+		where id=#{id}
+		and password=#{password}
 	</select>
-	
-	<select id="findById" resultType = "String">
+
+	<select id="findById" resultType="String">
 		select id
 		from member
-		where id=#{id}
+		where
+		id=#{id}
 	</select>
+
+	<select id="findlike" resultType="boolean">
+		select exists(
+		select 1
+		from stockLike
+		where id=#{id} and srtnCd=#{srtnCd}
+		)
+	</select>
+	
+	<delete id="likeDelete">
+		delete from stockLike
+		where id=#{id} and srtnCd=#{srtnCd}
+	</delete>
+	
+	<insert id="likeInsert">
+		insert into stockLike(id, srtnCd,itmsNm)
+		values(#{id},#{srtnCd},#{itmsNm})	
+	
+	</insert>
 </mapper>

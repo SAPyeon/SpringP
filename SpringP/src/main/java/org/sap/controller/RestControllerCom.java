@@ -37,7 +37,6 @@ public class RestControllerCom {
 
 	private final BoardServiceImpl boardService;
 
-	private final MemberService memberService;
 
 	// 데이터 크롤링
 	@GetMapping("/StockList")

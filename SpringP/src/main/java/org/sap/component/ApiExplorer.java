@@ -130,7 +130,7 @@ public class ApiExplorer {
 				.build();//마지막에 써주기
 				
 				list.add(std);
-		}System.out.println("StockDto 리스트 = "+list);
+		}System.out.println("StockDto 리스트 출력");
 		return list;// 마지막에 리스트를 return 필수	
 	}
 	

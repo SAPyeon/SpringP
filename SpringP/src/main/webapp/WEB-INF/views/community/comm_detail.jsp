@@ -23,12 +23,14 @@
 		<div class="row main d-flex flex-column justify-content-center">
 			<h1>글</h1>
 			<input type="hidden" value="${loginName}" id="loginName">
+			<input type="hidden" value="${detail.bno}" id="bno">
 			<div class="border mb-3 col col-sm-8 align-self-center my-3" id="title">${detail.title}</div>
+			<div class="border mb-3 col col-sm-8 align-self-center" id="title"><label>작성자 : </label><label>${detail.name}(${detail.id})</label></div>
 			<div class="border mb-3 col col-sm-8 align-self-center p-3" id="content">${detail.content}</div>
 			<div style="text-align:right"><a href="/community/list" class="text-right">목록보기</a></div>
 			<div style="text-align:right">
 			<a href="/community/modify?bno=${detail.bno}" class="text-right">수정</a>
-			<a href="/community/remove?bno=${detail.bno}" class="text-right">삭제</a>
+			<a href="javascript:void(0)" class="text-right" id="delete">삭제</a>
 			</div>
 			<div><label>댓글</label></div>
 			<hr>
@@ -42,6 +44,7 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script type="text/javascript" src="../resources/js/comm_detail.js"></script>
 <script type="text/javascript" src="../resources/js/comm_reply.js"></script>
 </body>
 </html>
