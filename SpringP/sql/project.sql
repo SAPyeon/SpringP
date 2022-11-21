@@ -5,18 +5,20 @@ use project;
 create table member(
 id varchar(100) primary key, -- 아이디 
 password varchar(100), -- 비밀번호 
-name varchar(100) not null unique key, -- 이름
+name varchar(100) not null, -- 이름
 phone varchar(20) not null, 
 point int default 0, -- 포인트 
 authority boolean default false -- 관리자여부 
 );
-
+desc member;
 insert into member(id,password,name,phone,authority)
 values('asdf1234','asdf1234','admin','11111',true);
 
+delete from member where password="";
+
 select * from member;
 
-
+drop table authorities;
 create table authorities(
 	id varchar(50) not null,
     authority varchar (50) not null
@@ -26,6 +28,8 @@ select * from authorities;
 
 insert into authorities(id, authority)
 values('aaa','ROLE_USER');
+
+
 
 desc stockInfo;
 create table StockInfo(
@@ -53,10 +57,10 @@ from (
     where itmsNm like '%삼%'
     ) as searchlist;
 
- -- drop table companyInfo;
+-- drop table companyInfo;
 create table companyInfo(
 StaticCode varchar(30) primary key, -- 표준코드
-code varchar(20) , -- 단축코드
+code varchar(20) unique key, -- 단축코드
 nameKor varchar(50),-- 한글종목명
 itmsNm varchar(50),-- 한글 종목약명
 nameEng varchar(100),-- 영문종목명
@@ -79,7 +83,8 @@ create table board(
 bno int auto_increment primary key, -- 게시판번호
 title varchar(1000) not null, -- 글제목
 content varchar(10000), -- 게시판 내용 
-name varchar(100), -- 작성자 
+name varchar(100), -- 작성자 이름
+id varchar(100), -- 작성자 아이디 
 cnt int default 0, -- 조회수 
 regdate datetime default now() -- 작성일
 );
@@ -111,3 +116,34 @@ values('aaaaa','aaaaaa',1);
 select * from board_reply;
 
 use project;
+
+drop table stockLike;
+
+create table stockLike(
+id varchar(100) not null,
+srtnCd  varchar(50) not null,
+itmsNm varchar(100) not null
+);
+
+ALTER TABLE stockLike ADD CONSTRAINT StockInfo_srtnCd_fk2
+FOREIGN KEY (srtnCd) REFERENCES StockInfo(srtnCd) 
+on delete cascade
+on update cascade;
+
+ALTER TABLE stockLike ADD CONSTRAINT member_id_fk1
+FOREIGN KEY (id) REFERENCES member(id) 
+on delete cascade
+on update cascade;
+
+select * from stockLike;
+
+-- insert into stockLike(id, srtnCd,itmsNm)
+-- values("asdf1234","005930","삼성전자");
+
+select * from stockLike
+where id ='asdf1234';
+
+
+
+
+
