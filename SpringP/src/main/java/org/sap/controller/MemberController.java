@@ -9,6 +9,7 @@ import org.sap.component.KakaoLogin;
 import org.sap.component.NaverLogin;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
+import org.sap.model.WithdrawalDto;
 import org.sap.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -170,62 +172,75 @@ public class MemberController {
 	public ResponseEntity<Integer> findId(@RequestParam String id) {
 		System.out.println(id);
 		int result = 0;
-		//System.out.println(memberService.findById(id));
+		// System.out.println(memberService.findById(id));
 		if (memberService.findById(id).getId() != null) {
 			result = 1;
 		}
 		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
+
 	// 마이페이지
-	@RequestMapping(value="/member/mypage",method = RequestMethod.GET)
-	public void mypage(HttpSession session,Model model) {
-		String id = (String)session.getAttribute("loginId"); 
-		if(id!=null) {
+	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
+	public void mypage(HttpSession session, Model model) {
+		String id = (String) session.getAttribute("loginId");
+		if (id != null) {
 			model.addAttribute("memberInfo", memberService.findById(id));
-						
-		};
+
+		}
+		;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	// 해당종목 즐겨찾기 유무 
+
+	// 회원정보수정
+	@RequestMapping(value = "/member/infoModify", method = RequestMethod.POST)
+	public String memberModi(MemberDto mdto, HttpSession session) {
+		memberService.updateInfo(mdto);
+		return "redirect:/member/mypage";
+	}
+
+	// 회원탈퇴
+	@RequestMapping(value = "/member/Withdrawal", method = RequestMethod.POST)
+	public String Withdrawal(HttpServletRequest request, HttpSession session, WithdrawalDto wdto) {
+		wdto.setReason((String)request.getAttribute("reason"));
+		wdto.setId((String) session.getAttribute("loginId"));
+		memberService.deleteMember(wdto);
+		session.invalidate();
+		return "redirect:/";
+	}
+
+	// 해당종목 즐겨찾기 유무
 	@RequestMapping(value = "/findLike", method = RequestMethod.GET)
-	public ResponseEntity<Integer>findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
-		
+	public ResponseEntity<Integer> findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
+
 		likedto.setSrtnCd(request.getParameter("srtnCd"));
 		likedto.setId(request.getParameter("id"));
 		boolean result = memberService.findlike(likedto);
 		int likeResult = 1;
-		System.out.println("즐겨찾기 등록? = "+result);
-		if(result ==  false) {
-			likeResult =0;
+		System.out.println("즐겨찾기 등록? = " + result);
+		if (result == false) {
+			likeResult = 0;
 		}
 		return new ResponseEntity<>(likeResult, HttpStatus.OK);
 	}
+
 	// 즐겨찾기 삭제
-	@RequestMapping(value="/likeDelete", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/likeDelete", method = RequestMethod.DELETE)
 	public ResponseEntity<String> likeDelete(@RequestBody LikeDto likedto) {
-		//System.out.println(likedto);
+		// System.out.println(likedto);
 		int result = memberService.likeDelete(likedto);
-		System.out.println("즐겨찾기 삭제? = "+result);
-		return result==1? new ResponseEntity<>("success",HttpStatus.OK)
+		System.out.println("즐겨찾기 삭제? = " + result);
+		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
 	// 즐겨찾기 추가
-	@RequestMapping(value="/likeInsert", method = RequestMethod.PUT)
+	@RequestMapping(value = "/likeInsert", method = RequestMethod.PUT)
 	public ResponseEntity<String> likeInsert(@RequestBody LikeDto likedto) {
 		System.out.println(likedto);
 		int result = memberService.likeInsert(likedto);
-		System.out.println("즐겨찾기 추가? = "+result);
-		return result==1? new ResponseEntity<>("success",HttpStatus.OK)
+		System.out.println("즐겨찾기 추가? = " + result);
+		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 }

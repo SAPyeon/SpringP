@@ -6,10 +6,11 @@ create table member(
 id varchar(100) primary key, -- 아이디 
 password varchar(100), -- 비밀번호 
 name varchar(100) not null, -- 이름
-phone varchar(20) not null, 
+phone varchar(20) not null, -- 전화번호
 point int default 0, -- 포인트 
 authority boolean default false -- 관리자여부 
 );
+
 desc member;
 insert into member(id,password,name,phone,authority)
 values('asdf1234','asdf1234','admin','11111',true);
@@ -17,6 +18,13 @@ values('asdf1234','asdf1234','admin','11111',true);
 delete from member where password="";
 
 select * from member;
+
+create table Withdrawal(
+	wno int auto_increment primary key, -- 탈퇴데이터 번호 
+	id varchar(100), -- 아이디 
+    reason varchar(10000), -- 탈퇴 사유 
+    regdate datetime default now() -- 작성일
+);
 
 drop table authorities;
 create table authorities(

@@ -156,6 +156,5 @@ $("#btn_signUp").on("click",function(e) {
 					&& $("#chk_phone").is(":checked")) {
 				$("#needs-validation").submit();
 			}
-			
-
 })
+

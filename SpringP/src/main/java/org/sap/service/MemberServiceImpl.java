@@ -4,6 +4,7 @@ package org.sap.service;
 import org.sap.mapper.MemberMapper;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
+import org.sap.model.WithdrawalDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,16 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDto findById(String id) {
 		return memberMapper.findById(id);
 	}
+	
+	@Override
+	public void updateInfo(MemberDto mdto) {
+		memberMapper.updateInfo(mdto);
+	}
+	
+	@Override
+	public void deleteMember(WithdrawalDto wdto) {
+		memberMapper.deleteMember(wdto);
+	}
 
 	@Override
 	public boolean findlike(LikeDto likedto) {
@@ -46,6 +57,9 @@ public class MemberServiceImpl implements MemberService{
 	public int likeInsert(LikeDto likedto) {
 		return memberMapper.likeInsert(likedto);
 	}
+
+	
+	
 
 		
 	

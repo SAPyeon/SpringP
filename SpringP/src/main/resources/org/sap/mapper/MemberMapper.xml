@@ -6,7 +6,6 @@
 <mapper namespace="org.sap.mapper.MemberMapper">
 
 	<insert id="signup">
-
 		insert into member(id, password, name, phone, point)
 		values(#{id},#{password},#{name},#{phone},#{point})
 	</insert>
@@ -24,22 +23,35 @@
 		id=#{id}
 	</select>
 
+	<update id="updateInfo">
+		update member
+		set password = #{password}, name = #{name}, phone = #{phone}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from member
+		where id = #{id}
+	</delete>
+	
 	<select id="findlike" resultType="boolean">
 		select exists(
 		select 1
-		from stockLike
+		from
+		stockLike
 		where id=#{id} and srtnCd=#{srtnCd}
 		)
 	</select>
-	
+
 	<delete id="likeDelete">
 		delete from stockLike
-		where id=#{id} and srtnCd=#{srtnCd}
+		where id=#{id} and
+		srtnCd=#{srtnCd}
 	</delete>
-	
+
 	<insert id="likeInsert">
 		insert into stockLike(id, srtnCd,itmsNm)
-		values(#{id},#{srtnCd},#{itmsNm})	
-	
+		values(#{id},#{srtnCd},#{itmsNm})
+
 	</insert>
 </mapper>
