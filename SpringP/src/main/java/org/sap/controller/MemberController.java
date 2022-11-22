@@ -200,10 +200,15 @@ public class MemberController {
 
 	// 회원탈퇴
 	@RequestMapping(value = "/member/Withdrawal", method = RequestMethod.POST)
-	public String Withdrawal(HttpServletRequest request, HttpSession session, WithdrawalDto wdto) {
+	public String Withdrawal(HttpServletRequest request, HttpSession session, WithdrawalDto wdto, MemberDto mdto) {
+		String id = (String) session.getAttribute("loginId"); 
+		mdto.setId(id);
+		memberService.deleteMember(mdto);
+		
 		wdto.setReason((String)request.getAttribute("reason"));
-		wdto.setId((String) session.getAttribute("loginId"));
-		memberService.deleteMember(wdto);
+		wdto.setId(id);
+		memberService.withdrawalInsert(wdto);
+
 		session.invalidate();
 		return "redirect:/";
 	}

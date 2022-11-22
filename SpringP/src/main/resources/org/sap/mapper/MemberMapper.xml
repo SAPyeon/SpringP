@@ -34,6 +34,11 @@
 		where id = #{id}
 	</delete>
 	
+	<insert id="withdrawalInsert">
+		insert into withdrawal(id, reason)
+		values(#{id},#{reason})
+	</insert>
+	
 	<select id="findlike" resultType="boolean">
 		select exists(
 		select 1

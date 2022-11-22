@@ -14,7 +14,9 @@ public interface MemberService {
 	//회원정보수정
 	public void updateInfo(MemberDto mdto);
 	//회원탈퇴
-	public void deleteMember(WithdrawalDto wdto);
+	public void deleteMember(MemberDto mdto);
+	// 탈퇴이유저장
+	public void withdrawalInsert(WithdrawalDto wdto);
 	//즐겨찾기
 	public boolean findlike(LikeDto likedto);
 	//즐겨찾기 삭제

@@ -39,10 +39,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public void deleteMember(WithdrawalDto wdto) {
-		memberMapper.deleteMember(wdto);
+	public void deleteMember(MemberDto mdto) {
+		memberMapper.deleteMember(mdto);
 	}
-
+	
+	@Override
+	public void withdrawalInsert(WithdrawalDto wdto) {
+		memberMapper.withdrawalInsert(wdto);
+	}
 	@Override
 	public boolean findlike(LikeDto likedto) {
 		return memberMapper.findlike(likedto);
@@ -57,6 +61,8 @@ public class MemberServiceImpl implements MemberService{
 	public int likeInsert(LikeDto likedto) {
 		return memberMapper.likeInsert(likedto);
 	}
+
+	
 
 	
 	
