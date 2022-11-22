@@ -26,7 +26,7 @@ public class JsoupStockList {
 			Elements kospiTable = document.select("table.type2 tbody tr");
 			//System.out.println(kospiTable);
 			List<KospiStockDto> list = new ArrayList<>();
-			
+			System.out.println("시세가격조회 : "+ kospiTable.select("td").get(0).text());
 			String str = kospiTable.select("td").text();
 			String[] newStr = str.split("\\s+");
 	        for (int i = 0; i < newStr.length; i++) {
