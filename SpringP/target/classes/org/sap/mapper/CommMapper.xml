@@ -8,10 +8,27 @@
 		insert into board(title,content,name, id)
 		values(#{title},#{content},#{name},#{id})
 	</insert>
+	
 	<select id="list" resultType="org.sap.model.BoardDto">
-		select *
+		select*
+		from(
+		select @rownum:=@rownum+1 rownum, b.*
+		from board b,(select
+		@rownum:=0) as tmp
+		order by bno desc
+		) as
+		boardlist
+		<![CDATA[
+		where rownum > (#{pageNum}-1)*#{amount} and rownum <=#{pageNum}*#{amount}
+		]]>
+		
+	</select>
+	
+	<select id="total" resultType="int">
+		select count(*)
 		from board
 	</select>
+	
 	<select id="detail" resultType="org.sap.model.BoardDto">
 		select *
 		from board

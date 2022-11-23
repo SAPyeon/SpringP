@@ -24,27 +24,43 @@ public class JsoupStockList {
 		try {
 			Document document = conn.get();//연결한 주소의 데이터를 문서화(document)
 			Elements kospiTable = document.select("table.type2 tbody tr");
+			Elements kospiTable2 = document.select("table.lwidth tbody tr"); // 외국인비율 테이블
+			
 			//System.out.println(kospiTable);
 			List<KospiStockDto> list = new ArrayList<>();
-			System.out.println("시세가격조회 : "+ kospiTable.select("td").get(0).text());
+			
+			for(int i =0; i<kospiTable.size();i++) {
+				//System.out.println(kospiTable.select("th").get(i).text() + "("+ i+")");
+				//System.out.println(kospiTable.select("td").get(i).text());
+					
+			}
+			System.out.println(kospiTable2.select("td").get(2).text());
+			
+			
+			
 			String str = kospiTable.select("td").text();
+			
 			String[] newStr = str.split("\\s+");
 	        for (int i = 0; i < newStr.length; i++) {
-	            System.out.println(newStr[i]);
+	            //System.out.println(newStr[i]);
 	        }
+	        
 			for (Element element : kospiTable) {
 				
-				if (element.attr("onmouseover").isEmpty()) { //리스트 table의 종목이 있는 tr 이 비어있으면
-					continue; // 넘기고 진행
+				Elements td = element.select("td");
+					KospiStockDto kospiStockDto = new KospiStockDto();
+										
+					for (int i = 0; i < td.size(); i++) {
+						kospiStockDto.setPrice(td.get(i).text());
+						
+						
+					//System.out.println(kospiStockDto.getPrice());
+					list.add(kospiStockDto); //table.type_2 tbody tr td부분을 Dto에 넣어 리스트에 붙임	
 				}
-				for(int i=0;i<kospiTable.size();i++) {
-					//list.add(element.select("td").text()); //table.type_2 tbody tr td부분을 Dto에 넣어 리스트에 붙임	
-				}
-				
 				
 			}
 			
-			System.out.println(list);
+			//System.out.println(list);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

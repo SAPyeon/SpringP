@@ -25,6 +25,7 @@ create table Withdrawal(
     reason varchar(10000), -- 탈퇴 사유 
     regdate datetime default now() -- 작성일
 );
+select * from withdrawal;
 
 drop table authorities;
 create table authorities(
@@ -100,6 +101,8 @@ desc board;
 select * from board;
 desc board;
 
+
+
 drop table board_reply;
 
 create table board_reply(
@@ -128,9 +131,17 @@ use project;
 drop table stockLike;
 
 create table stockLike(
-id varchar(100) not null,
-srtnCd  varchar(50) not null,
-itmsNm varchar(100) not null
+id varchar(100) not null, -- 아이디
+srtnCd  varchar(50) not null, -- 종목코드 
+itmsNm varchar(100) not null, -- 종목이름
+diffAmount varchar(1000) not null, -- 전일비
+dayRange varchar(1000) not null, -- 등락률
+parValue  varchar(1000) not null, -- 액면가
+marketCap varchar(1000) not null, -- 시가총액
+numberOfListedShares varchar(1000) not null, -- 상장주식수
+foreignOwnRate varchar(1000) not null, -- 외국인비율
+turnover varchar(1000) not null, -- 거래량
+per varchar(1000) not null -- per
 );
 
 ALTER TABLE stockLike ADD CONSTRAINT StockInfo_srtnCd_fk2

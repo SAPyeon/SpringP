@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.sap.mapper.CommMapper;
 import org.sap.model.BoardDto;
+import org.sap.model.CriteriaVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,14 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	// 리스트 작성
 	@Override
-	public ArrayList<BoardDto> list(BoardDto bdto) {
-		return commMapper.list(bdto);
+	public ArrayList<BoardDto> list(CriteriaVO cri) {
+		return commMapper.list(cri);
 	}
-	
+	// 글 총 갯수
+	@Override
+	public int total() {
+		return commMapper.total();
+	}
 	//조회수 올리기
 	@Transactional
 	@Override

@@ -31,6 +31,9 @@ public class StockService {
 		
 		return apiExplorer.getStock(arg);
 	}
-	
+	// 종목 상세 정보(네이버 크롤링)
+	public KospiStockDto getStockInfoInDetail(String code, String codeName) {
+		return jsoupComponent.getStockInfoInDetail(code, codeName);
+	}
 
 }

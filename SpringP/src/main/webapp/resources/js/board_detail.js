@@ -1,11 +1,14 @@
 /**
  * 
  */
-let codeName = $("#codeName").val();
+const urlParamsD = new URL(location.href).searchParams;
+const srtnCd = urlParamsD.get('code');
+const itmsNm = urlParamsD.get('itmsNm');
+const loginID = $("#loginId").val();
 
 dataParam = {
 	numOfRows : "500",
-	itmsNm : codeName,
+	itmsNm : itmsNm,
 	likeItmsNm : null,
 	basDt : null,
 	mrktCls : "KOSPI"
@@ -104,80 +107,122 @@ function priceToString(price) {
 	return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-const urlParamsD = new URL(location.href).searchParams;
-
-const srtnCd = urlParamsD.get('code');
-const itmsNm = urlParamsD.get('itmsNm');
-const loginID = $("#loginId").val();
-
-const data = {
-	srtnCd : srtnCd,
-	id : loginID,
-	itmsNm : itmsNm
+// 현재 시세 불러오기
+dataPrice = {
+	code : srtnCd,
+	codeName : itmsNm
 }
 
-if (loginID != "") {
-	findLike(data);
-} else {
-	$("#star").on("click", function() {
-		alert("로그인 후 이용가능합니다.")
-	})
+$.getJSON("/StockDetail", dataPrice, function(stock) {
+	// 불러온 데이터 정보 입력
+	const price = stock.price; // 주가
+	const diffAmount = stock.diffAmount; // 전일비
+	const dayRange = stock.dayRange; // 등락률
+	const parValue = stock.parValue; // 액면가
+	const marketCap = stock.marketCap; // 시가총액
+	const numberOfListedShares = stock.numberOfListedShares; // 상장주식수
+	const foreignOwnRate = stock.foreignOwnRate; // 외국인비율
+	const turnover = stock.turnover; // 거래량
+	const per = stock.per; // per
+
+	let str = "";
+	if (dayRange.indexOf('-') >= 0) {
+		str += `<h2 style="color:blue">${price}</h2>`
+	} else if (diffAmount == 0) {
+		str += `<h2>${stock.price}</h2>`
+	} else {
+		str += `<h2 style="color:red">${price}</h2>`
+	}
+	$("#priceToday").html(str);
+
+	// 즐겨찾기 데이터
+	const data = {
+		srtnCd : srtnCd,
+		id : loginID,
+		itmsNm : itmsNm
+	}
+
+	const dataInsert = {
+		srtnCd : srtnCd,
+		id : loginID,
+		itmsNm : itmsNm,
+		diffAmount : diffAmount,
+		dayRange : dayRange,
+		parValue : parValue,
+		marketCap : marketCap,
+		numberOfListedShares : numberOfListedShares,
+		foreignOwnRate : foreignOwnRate,
+		turnover : turnover,
+		per : per
+	}
+
+	likeCRUD(data, dataInsert);
+
+})// getJSON 끝
+
+// 즐겨찾기 관련 데이터 crud
+function likeCRUD(data, dataInsert) {
+
+	if (loginID != "") {
+		findLike(data, dataInsert);
+	} else {
+		$("#star").on("click", function() {
+			alert("로그인 후 이용가능합니다.")
+		})
+	}
+
+	// 즐겨찾기목록 불러오기
+	function findLike(data, dataInsert) {
+		$.getJSON("/findLike", data, function(result) {
+			console.log("result = " + result);
+			if (result == 1) {
+				console.log("이미 즐겨찾기 있음")
+				$("#star").css("color", "yellow");
+			}
+			likeUpdate(result, data, dataInsert);
+		})
+	}
+
+	// 즐겨찾기 업데이트
+	function likeUpdate(result, data, dataInsert) {
+		$("#star").on("click", function() {
+			if (result == 1) {
+				likeDelete(data)
+			} else if (result == 0) {
+				likeInsert(dataInsert);
+			}
+			location.reload();
+		})
+
+	}
+
+	// 즐겨찾기 삭제
+	function likeDelete(data) {
+		console.log(data)
+		$.ajax({
+			type : "delete",
+			url : "/likeDelete",
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function() {
+				alert('즐겨찾기에 삭제되었습니다.')
+				$("#star").css("color", "grey");
+			}
+		})
+	}
+
+	// 즐겨찾기 추가
+	function likeInsert(dataInsert) {
+		$.ajax({
+			type : "put",
+			url : "/likeInsert",
+			data : JSON.stringify(dataInsert),
+			contentType : "application/json; charset=utf-8",
+			success : function() {
+				alert('즐겨찾기에 추가되었습니다.')
+				$("#star").css("color", "yellow");
+			}
+		})
+	}
+
 }
-
-// 즐겨찾기목록 불러오기
-function findLike(data) {
-	$.getJSON("/findLike", data, function(result) {
-		console.log(result);
-		if (result == 1) {
-			console.log("이미 즐겨찾기 있음")
-			$("#star").css("color", "yellow");
-		}
-		likeUpdate(result,data);
-	})
-}
-
-// 즐겨찾기 업데이트
-function likeUpdate(result, data) {
-	$("#star").on("click", function() {
-		if (result == 1) {
-			likeDelete(data)
-		} else if (result == 0) {
-			likeInsert(data);
-		}
-		location.reload();
-	})
-
-}
-
-// 즐겨찾기 삭제
-function likeDelete(data) {
-	console.log(data)
-	$.ajax({
-		type : "delete",
-		url : "/likeDelete",
-		data:JSON.stringify(data),
-		contentType : "application/json; charset=utf-8",
-		success : function() {
-			alert('즐겨찾기에 삭제되었습니다.')
-			$("#star").css("color", "grey");
-		}
-	})
-}
-
-// 즐겨찾기 추가
-function likeInsert(data) {
-	$.ajax({
-		type : "put",
-		url : "/likeInsert",
-		data : JSON.stringify(data),
-		contentType : "application/json; charset=utf-8",
-		success : function() {
-			alert('즐겨찾기에 추가되었습니다.')
-			$("#star").css("color", "yellow");
-		}
-	})
-}
-
-
-
-

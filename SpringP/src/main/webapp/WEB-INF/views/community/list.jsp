@@ -24,9 +24,9 @@
 		<div class="row main">
 			<div class="board col-xs-12">
 				<h1>리스트</h1>
-				<div class="row justify-content-end">
+				<div  class="row justify-content-end">
 					<div class="col-auto">
-					<button class="btn btn-primary" id="btnWrite">글쓰기</button>
+						<button class="btn btn-primary" id="btnWrite">글쓰기</button>
 					</div>
 				</div>
 				<table class="table">
@@ -46,6 +46,25 @@
 
 					</c:forEach>
 				</table>
+				<%-- ${paging} --%>
+				<!-- prev(이전)이 true이면 이전버튼 활성화 -->
+				<div   class="d-flex justify-content-center">
+					<c:if test="${paging.prev}">
+						<a
+							href="/community/list?pageNum=${paging.startPage-1}&amount=${paging.cri.amount}">이전</a>
+					</c:if>
+					<!-- begin(1)이 end(10)될 동안 반복 (1이 6이 될 동안 반복) -->
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}"
+						var="num">
+						<a
+							href="/community/list?pageNum=${num}&amount=${paging.cri.amount}">${num}</a>
+					</c:forEach>
+					<!-- next(다음)이 true이면 다음버튼 활성화 -->
+					<c:if test="${paging.next}">
+						<a
+							href="/community/list?pageNum=${paging.endPage+1}&amount=${paging.cri.amount}">다음</a>
+					</c:if>
+				</div>
 			</div>
 		</div>
 		<%@ include file="../footer.jsp"%>
@@ -53,8 +72,14 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		$("#btnWrite").on("click",function(){location.href="/community/write"})
-	
-	</script>	
+		$("#btnWrite").on("click", function() {
+			if($("#loginId").val()!=''){
+				location.href = "/community/write"	
+			}else{
+				alert('로그인 후 이용가능합니다.')
+			}
+			
+		})
+	</script>
 </body>
 </html>

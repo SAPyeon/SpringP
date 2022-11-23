@@ -38,13 +38,19 @@ public class RestControllerCom {
 	private final BoardServiceImpl boardService;
 
 
-	// 데이터 크롤링
+	// 주가리스트 데이터 크롤링
 	@GetMapping("/StockList")
 	public List<KospiStockDto> getKosPiStockList(HttpServletRequest request, @RequestParam int p) {
 		// System.out.println("주식서비스"+stockService.getKospiStockList(p));
 		return stockService.getKospiStockList(p);
 	}
-
+	
+	// 상세페이지 데이터 크롤링
+	@GetMapping("/StockDetail")
+	public KospiStockDto getStockInfoInDetail( @RequestParam String code,  @RequestParam String codeName) {
+		return stockService.getStockInfoInDetail(code, codeName);
+	}
+	
 	// 공공데이터 api
 	@GetMapping("/Datadetail")
 	public List<StockDto> getDataDetail(HttpServletRequest request) throws IOException, ParseException {

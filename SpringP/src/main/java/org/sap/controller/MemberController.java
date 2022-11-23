@@ -205,8 +205,9 @@ public class MemberController {
 		mdto.setId(id);
 		memberService.deleteMember(mdto);
 		
-		wdto.setReason((String)request.getAttribute("reason"));
+		wdto.setReason((String)request.getParameter("reason"));
 		wdto.setId(id);
+		System.out.println(wdto.getReason());
 		memberService.withdrawalInsert(wdto);
 
 		session.invalidate();

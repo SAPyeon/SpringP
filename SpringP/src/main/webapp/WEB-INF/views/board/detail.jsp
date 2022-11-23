@@ -42,6 +42,7 @@
 				<input type="hidden" value="${codeName}" id="codeName">
 				
 				<h1>${codeName} <label id="star">★</label></h1>
+				<div id="priceToday"></div>
 				<div id="chart">
 					<canvas id="chartItems" width="400" height="225"></canvas>
 				</div>

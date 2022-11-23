@@ -55,8 +55,8 @@
 	</delete>
 
 	<insert id="likeInsert">
-		insert into stockLike(id, srtnCd,itmsNm)
-		values(#{id},#{srtnCd},#{itmsNm})
+		insert into stockLike(id, srtnCd,itmsNm,diffAmount, dayRange, parValue, marketCap, numberOfListedShares, foreignOwnRate, turnover, per)
+		values(#{id},#{srtnCd},#{itmsNm},#{diffAmount}, #{dayRange}, #{parValue}, #{marketCap}, #{numberOfListedShares}, #{foreignOwnRate}, #{turnover}, #{per})
 
 	</insert>
 </mapper>

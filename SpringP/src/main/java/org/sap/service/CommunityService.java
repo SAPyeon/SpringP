@@ -3,12 +3,15 @@ package org.sap.service;
 import java.util.ArrayList;
 
 import org.sap.model.BoardDto;
+import org.sap.model.CriteriaVO;
 
 public interface CommunityService {
 	// 커뮤니티글쓰기
 	public void write(BoardDto bdto);
 	// 커뮤니티 글목록
-	public ArrayList<BoardDto> list(BoardDto bdto); 
+	public ArrayList<BoardDto> list(CriteriaVO cri);
+	// 커뮤니티 글 총 갯수
+	public int total();
 	//커뮤니티 상세페이지
 	public BoardDto detail(BoardDto bdto);
 	//커뮤니티 글 수정시 상세페이지 불러오기
