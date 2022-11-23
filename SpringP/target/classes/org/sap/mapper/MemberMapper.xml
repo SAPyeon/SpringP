@@ -57,6 +57,14 @@
 	<insert id="likeInsert">
 		insert into stockLike(id, srtnCd,itmsNm,diffAmount, dayRange, parValue, marketCap, numberOfListedShares, foreignOwnRate, turnover, per)
 		values(#{id},#{srtnCd},#{itmsNm},#{diffAmount}, #{dayRange}, #{parValue}, #{marketCap}, #{numberOfListedShares}, #{foreignOwnRate}, #{turnover}, #{per})
-
 	</insert>
+	
+	<select id="likeList" resultType="org.sap.model.LikeDto">
+		select * 
+		from stockLike
+		where id = #{id}
+	
+	</select>
+	
+	
 </mapper>

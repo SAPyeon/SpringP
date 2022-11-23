@@ -39,7 +39,7 @@ function DisplayStockList(p){
 	        </tr>
 	        </thead>`
 		$(list).each(function(i,stock){
-			let [a,b] = stock.discussionRoomUrl.split('?');
+			let [a,b] = stock.discussionRoomUrl.split('?');// 주소값 파라미터에서 "?"뒤 값들을 자바스크립트 변수 저장
 			let code = b;
 			//console.log(b)
 	          str+=    `<tr>

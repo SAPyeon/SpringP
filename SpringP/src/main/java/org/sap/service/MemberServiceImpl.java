@@ -1,6 +1,8 @@
 package org.sap.service;
 
 
+import java.util.ArrayList;
+
 import org.sap.mapper.MemberMapper;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
@@ -60,6 +62,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int likeInsert(LikeDto likedto) {
 		return memberMapper.likeInsert(likedto);
+	}
+
+	@Override
+	public ArrayList<LikeDto> likeList(String id) {
+		return memberMapper.likeList(id);
 	}
 
 	

@@ -1,5 +1,7 @@
 package org.sap.service;
 
+import java.util.ArrayList;
+
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.WithdrawalDto;
@@ -23,5 +25,7 @@ public interface MemberService {
 	public int likeDelete(LikeDto likedto);
 	//즐겨찾기 추가
 	public int likeInsert(LikeDto likedto);
+	//즐겨찾기 리스트
+	public ArrayList<LikeDto> likeList(String id);
 	
 }

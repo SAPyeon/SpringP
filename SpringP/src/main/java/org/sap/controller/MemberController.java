@@ -248,5 +248,11 @@ public class MemberController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
+	// 즐겨찾기 리스트 
+	@RequestMapping(value = "/member/likeList", method = RequestMethod.GET)
+	public void likeList(HttpSession session, Model model) {
+		String id = (String) session.getAttribute("loginId");
+		
+		model.addAttribute("likeList", memberService.likeList(id));
+	}
 }
