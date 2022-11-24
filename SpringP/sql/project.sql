@@ -36,7 +36,7 @@ create table authorities(
 select * from authorities;
 
 insert into authorities(id, authority)
-values('aaa','ROLE_USER');
+values('asdf1234','admin');
 
 
 
@@ -98,7 +98,7 @@ cnt int default 0, -- 조회수
 regdate datetime default now() -- 작성일
 );
 desc board;
-select * from board;
+select count(*) from board where id="asdf1234" order by bno;
 desc board;
 
 
@@ -109,6 +109,7 @@ create table board_reply(
 rno int auto_increment primary key, -- 리뷰번호
 reply varchar(10000), -- 리뷰글
 name varchar(100) not null, -- 리뷰작성자
+id varchar(100) not null,
 declaration int default 0, -- 신고
 regdate datetime default now(), -- 작성일
 bno int 
@@ -121,11 +122,17 @@ FOREIGN KEY (bno) REFERENCES board(bno)
 on delete cascade
 on update cascade;
 
+-- update시 시간변경
+ALTER TABLE board_reply CHANGE regdate regdate TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL;
+
+update board_reply set id = "zxcvzxcv" where rno= 2;
+
 insert into board_reply(reply, name , bno)
 values('aaaaa','aaaaaa',1);
 
 select * from board_reply;
 
+delete from board_reply where rno=6;
 use project;
 
 drop table stockLike;
