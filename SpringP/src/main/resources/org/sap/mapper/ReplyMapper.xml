@@ -28,6 +28,12 @@
 		set reply = #{reply} 
 		where rno= #{rno};
 	</update>
+	
+	<select id="replSelect" resultType="org.sap.model.ReplyDto">
+		select *
+		from board_reply
+		where rno=#{rno}
+	</select>
 </mapper>
 
 

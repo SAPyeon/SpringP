@@ -113,11 +113,28 @@ function clickAndModify(){
 				})
 			}
 		})
-		$("#btn_replmodify_cancel").on("click",function(){
-			
+		$("#btn_replmodify_cancel").on("click",function(e){
+			const rnoCancelVal = $(this).data('rno')
+			console.log("취소rno = "+ rnoCancelVal)
+			dataS={rno:rnoCancelVal}
+			$.getJSON("/replies/select",dataS, function(data){
+				console.log(data)
+					let str=`
+							<div><label>작성자 : </label>${data.name}</div>
+							<div class="col align-self-end">
+							<a href="#">신고하기</a>
+							</div>
+							<div>
+							<div id="">${data.reply}</div>
+							<div>${data.regdate}</div>
+							<button type="button" data-rno=${data.rno} data-id=${data.id} class="btn_replmodify">수정하기</button>
+							<button type="button" data-rno=${data.rno} data-id=${data.id} class="btn_repldelete">삭제하기</button>									
+							</div>
+							`;
+				e.target.parentNode.parentNode.innerHTML = str;
+				})
 		})
 	})
-	
 	
 }
 

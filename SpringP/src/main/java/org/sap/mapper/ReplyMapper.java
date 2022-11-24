@@ -13,6 +13,8 @@ public interface ReplyMapper {
 	public void replDelete(String rno);
 	// 댓글 수정
 	public void replModify(ReplyDto reply);
+	// 해당 댓글 불러오기
+	public ReplyDto replSelect(String rno);
 	
 	
 }

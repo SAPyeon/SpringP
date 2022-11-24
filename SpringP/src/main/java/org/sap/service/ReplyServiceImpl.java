@@ -38,4 +38,9 @@ public class ReplyServiceImpl implements ReplyService{
 		replymapper.replModify(reply);
 	}
 
+	@Override
+	public ReplyDto replSelect(String rno) {
+		return replymapper.replSelect(rno);
+	}
+
 }

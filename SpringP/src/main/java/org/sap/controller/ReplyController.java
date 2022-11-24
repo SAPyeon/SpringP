@@ -2,6 +2,8 @@ package org.sap.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.sap.model.ReplyDto;
 import org.sap.service.ReplyService;
 import org.springframework.http.HttpStatus;
@@ -47,5 +49,11 @@ public class ReplyController {
 	@RequestMapping(value="/replies/modify", method = RequestMethod.POST)
 	public void replModify(@RequestBody ReplyDto reply) {
 		replyservice.replModify(reply);
+	}
+	//해당 댓글 불러오기
+	@RequestMapping(value="/replies/select", method = RequestMethod.GET)
+	public ReplyDto replSelect(@RequestParam String rno) {
+		System.out.println("rno = "+rno);
+		return replyservice.replSelect(rno);
 	}
 }
