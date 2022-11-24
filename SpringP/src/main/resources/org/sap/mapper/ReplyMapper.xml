@@ -3,13 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sap.mapper.ReplyMapper">
+
 	<insert id="reWrite">
-		insert into board_reply(reply, name, bno)
-		values(#{reply},#{name},#{bno});
+		insert into board_reply(reply, name, bno, id)
+		values(#{reply},#{name},#{bno},#{id});
 	</insert>
+
 	<select id="relist" resultType="org.sap.model.ReplyDto">
 		select *
 		from board_reply
-		where bno=#{bno}
+		where
+		bno=#{bno}
+		order by rno desc
 	</select>
+
+	<delete id="replDelete">
+		delete from board_reply
+		where rno=#{rno}
+
+	</delete>
+	
+	<update id="replModify">
+		update board_reply 
+		set reply = #{reply} 
+		where rno= #{rno};
+	</update>
 </mapper>
+
+
+
+
+
+
+
+
+

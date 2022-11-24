@@ -37,9 +37,9 @@
 							<th scope="col">조회수</th>
 						</tr>
 					</thead>
-					<c:forEach items="${commlist}" var="list">
+					<c:forEach items="${commlist}" var="list" varStatus="status">
 						<tr>
-							<th scope="row">${list.bno}</th>
+							<td scope="row">${status.count}</td>
 							<td><a href="/community/detail?bno=${list.bno}">${list.title}</a></td>
 							<td>${list.cnt}</td>
 						</tr>

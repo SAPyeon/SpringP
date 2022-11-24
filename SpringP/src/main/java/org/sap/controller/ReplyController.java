@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ReplyController {
 	
@@ -34,5 +36,16 @@ public class ReplyController {
 		System.out.println(bno);
 		return new ResponseEntity<>(replyservice.relist(bno), HttpStatus.OK);
 							 
+	}
+	// 댓글 삭제 리스트
+	@RequestMapping(value="/replies/delete", method = RequestMethod.DELETE)
+	public void replDelete(@RequestBody ReplyDto reply) {
+		String rno = reply.getRno();
+		replyservice.replDelete(rno);
+	}
+	// 댓글 수정 리스트
+	@RequestMapping(value="/replies/modify", method = RequestMethod.POST)
+	public void replModify(@RequestBody ReplyDto reply) {
+		replyservice.replModify(reply);
 	}
 }
