@@ -7,14 +7,27 @@
 
 
 ## 기본셋팅  
-
-eclipse 
-Spring MVC 
-Tomcat 8.5
-java8
-MySQL
-bootstrap
+	  	
+  eclipse
   
+  
+  Spring MVC 
+  
+  
+  Tomcat 8.5   
+  
+  
+  
+  java8    	
+  
+  
+  MySQL  
+  
+  
+  bootstrap   
+  
+  
+  		
 ## 패키지 설명
 
 **component**     
@@ -143,23 +156,57 @@ OAuth20Service를 사용하여 builder에 코드를 넣어서 토큰을 불러�
     
 
 #### CKEditor4 사용		  
-위지윅(WISIWYG what you see is what you get) 에디터		       
-CKEditor5를 사용하려 했으나 유료기능이 많고 nodeJS로 구현하는게 많아서 버전 다운을 함		         
+위지윅(WISIWYG what you see is what you get) 에디터
+
+
+CKEditor5를 사용하려 했으나 유료기능이 많고 nodeJS로 구현하는게 많아서 버전 다운을 함	
+
+
 CKEditor4를 홈페이지에서 다운로드		         
-프로젝트의 webapp - resource(js,css폴더가 있는 디렉터리)에 다운로드한 파일을 복사 붙여넣기함		          
-<script>를 사용하여 src= "../resources/ckeditor/ckeditor.js" 로 jsp와 js파일을 연결		    
+
+
+프로젝트의 webapp - resource(js,css폴더가 있는 디렉터리)에 다운로드한 파일을 복사 붙여넣기함	
+
+
+<script>를 사용하여 src= "../resources/ckeditor/ckeditor.js" 로 jsp와 js파일을 연결		
+        
+        
 		   <div id=editor contenteditable="true">		  
+                           
+                           
 로 에디터를 적용할 태그를 만듬		          
-새로 javascript파일을 연결하여 CKEDITOR.replace("적용할 태그 아이디")를 작성 ,		                
-이 때 적용할 id 앞에 #를 붙이지 않음		          
-CKEDITOR.replace("태그아이디",{이미지 업로드 - filebrowserUploadUrl:"업로드를 구현할 컨트롤러 주소"})입력		         
-서버에 전송하기 전 컨트롤러(before)와 서버에 전송한 후 보여지는 컨트롤러(after) 두개를 구분하여 생성		          
-before에 multipart를 사용하여 after에 보내질 경로를 작성하고 해당 이미지 파일을 지정한 경로에 전송하여 저장,		          
-printwriter를 사용하여 ckedior자체 함수에 주소를 전송, after에 받은 주소를 가공하여 뷰에 보여줌		           
-(주의 : 날짜폴더 경로를 after에 보내주려고 했으나 error발생 - ckeditor함수에 경로를 의미하는 "\\" 문자를 인코딩할 수 없음,		        
+                           
+                           
+새로 javascript파일을 연결하여 CKEDITOR.replace("적용할 태그 아이디")를 작성 ,	
+                                                      
+             
+이 때 적용할 id 앞에 #를 붙이지 않음		       
+                           
+                           
+CKEDITOR.replace("태그아이디",{이미지 업로드 - filebrowserUploadUrl:"업로드를 구현할 컨트롤러 주소"})입력	
+                           
+                           
+서버에 전송하기 전 컨트롤러(before)와 서버에 전송한 후 보여지는 컨트롤러(after) 두개를 구분하여 생성		
+                           
+                           
+before에 multipart를 사용하여 after에 보내질 경로를 작성하고 해당 이미지 파일을 지정한 경로에 전송하여 저장,		
+                           
+                           
+printwriter를 사용하여 ckedior자체 함수에 주소를 전송, after에 받은 주소를 가공하여 뷰에 보여줌	
+                           
+                           
+(주의 : 날짜폴더 경로를 after에 보내주려고 했으나 error발생 - ckeditor함수에 경로를 의미하는 "\\" 문자를 인코딩할 수 없음,	
+                           
+                           
 따라서 \\ 대신에 다른 특수문자를 대체하여 보낸후 after에 다시 \\로 바꿔줌)		        
-form으로 db에 저장할 때 에디터에 쓴 내용은 input hidden에 value값으로 따로 보내줌		         
-이때 해당 에디터 데이터는 CKEDITOR.instances.editor.getData(); 로 가져올 수 있음		            
+                           
+                           
+form으로 db에 저장할 때 에디터에 쓴 내용은 input hidden에 value값으로 따로 보내줌		
+                           
+                           
+이때 해당 에디터 데이터는 CKEDITOR.instances.editor.getData(); 로 가져올 수 있음	
+                           
+                           
 		      
     
 
