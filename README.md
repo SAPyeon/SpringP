@@ -17,7 +17,9 @@
   /reply/** : 댓글부분    
     
 **RestController**    
-: 뷰 없이 json타입 데이터를 받아올 때 사용    
+: 뷰 없이 json타입 데이터를 받아올 때 사용   
+    RestConrollerCom: 주가 정보 불러오는 컨트롤러
+  /reply/** : 댓글부분, 댓글이 비동기 식으로 처리하기 위해 Restcontroller로 사용
 
     
 **mapper**     
