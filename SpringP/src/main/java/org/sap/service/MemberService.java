@@ -2,11 +2,14 @@ package org.sap.service;
 
 import java.util.ArrayList;
 
+import org.sap.model.BoardDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
+import org.sap.model.ReplyDto;
 import org.sap.model.WithdrawalDto;
 
 public interface MemberService {
+	
 	//회원가입
 	public void signup(MemberDto mdto);
 	//로그인
@@ -27,5 +30,11 @@ public interface MemberService {
 	public int likeInsert(LikeDto likedto);
 	//즐겨찾기 리스트
 	public ArrayList<LikeDto> likeList(String id);
+	//해당 아이디 커뮤니티 게시판 리스트
+	public ArrayList<BoardDto> memCommList(String id);
+	//해당 아이디 커뮤니티 게시판 댓글 리스트
+	public ArrayList<ReplyDto> memCommReplyList(String id);
+	
+	
 	
 }

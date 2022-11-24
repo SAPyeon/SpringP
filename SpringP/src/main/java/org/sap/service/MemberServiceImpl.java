@@ -4,8 +4,10 @@ package org.sap.service;
 import java.util.ArrayList;
 
 import org.sap.mapper.MemberMapper;
+import org.sap.model.BoardDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
+import org.sap.model.ReplyDto;
 import org.sap.model.WithdrawalDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
+	
 	private final MemberMapper memberMapper;
 	
 	@Transactional
@@ -67,6 +70,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public ArrayList<LikeDto> likeList(String id) {
 		return memberMapper.likeList(id);
+	}
+
+	@Override
+	public ArrayList<BoardDto> memCommList(String id) {
+		return memberMapper.memCommList(id);
+	}
+
+	@Override
+	public ArrayList<ReplyDto> memCommReplyList(String id) {
+		return memberMapper.memCommReplyList(id);
 	}
 
 	

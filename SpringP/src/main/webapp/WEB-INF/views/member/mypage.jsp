@@ -70,6 +70,8 @@
 				</div>
 			
 			</form>
+			<a href="/member/likeList">즐겨찾기 목록보기</a>
+			<a href="/member/boardList">내가쓴 글 보기</a>
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>

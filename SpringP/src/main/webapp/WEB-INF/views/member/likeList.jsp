@@ -40,31 +40,56 @@
 								<th scope="col">PER</th>
 							</tr>
 						</thead>
+
 						<c:forEach items="${likeList}" var="likeList" varStatus="status">
-							<td>${status.count}</td>
-							<td>${likeList.itmsNm}</td>
-							<td>현재가</td>
-							<td>${likeList.diffAmount}</td>
-							<td>${likeList.dayRange}</td>
-							<td>${likeList.parValue}</td>
-							<td>${likeList.marketCap}</td>
-							<td>${likeList.numberOfListedShares}</td>
-							<td>${likeList.foreignOwnRate}</td>
-							<td>${likeList.turnover}</td>
-							<td>${likeList.per}</td>
+							<tr>
+								<td>${status.count}</td>
+								<td><a href="/board/detail?itmsNm=${likeList.itmsNm}&code=${likeList.srtnCd}">${likeList.itmsNm}</a></td>
+								<td>${likeList.diffAmount}</td>
+								<td>${likeList.dayRange}</td>
+								<td>${likeList.parValue}</td>
+								<td>${likeList.marketCap}</td>
+								<td>${likeList.numberOfListedShares}</td>
+								<td>${likeList.foreignOwnRate}</td>
+								<td>${likeList.turnover}</td>
+								<td>${likeList.per}</td>
+								<td><input type="button" value="삭제" id="btn_likeDelete"></td>
+								<input type="hidden" value="${likeList.itmsNm}" id="itmsNm">
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
-
-
-
 			</div>
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+	<script type="text/javascript">
+	$("#btn_likeDelete").on("click",function(){
+		console.log($("#srtnCd").val())
+		console.log($("#loginId").val())// post로 변경
+		data={srtnCd:$("#srtnCd").val(), id:$("#loginId").val()}
+		if(confirm("해당종목을 삭제하시겠습니까?")){
+			likeDelete(data);	
+		}
+		location.href="/member/likeList";
+		
+	})
+	// 즐겨찾기 삭제
+	function likeDelete(data) {
+		console.log(data)
+		$.ajax({
+			type : "delete",
+			url : "/likeDelete",
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function() {
+				alert('즐겨찾기에 삭제되었습니다.')
+				$("#star").css("color", "grey");
+			}
+		})
+	}
+	</script>
 </body>
 </html>

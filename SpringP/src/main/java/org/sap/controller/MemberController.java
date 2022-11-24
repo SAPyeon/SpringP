@@ -255,4 +255,15 @@ public class MemberController {
 		
 		model.addAttribute("likeList", memberService.likeList(id));
 	}
+	
+	// 해당 멤버가 쓴 글 불러오기
+	@RequestMapping(value = "/member/boardList", method = RequestMethod.GET)
+	public void memBoardList(Model model, HttpSession session) {
+		
+		String id = (String) session.getAttribute("loginId");
+		model.addAttribute("memCommList", memberService.memCommList(id));
+		
+		model.addAttribute("memCommReplyList", memberService.memCommReplyList(id));
+		
+	}
 }

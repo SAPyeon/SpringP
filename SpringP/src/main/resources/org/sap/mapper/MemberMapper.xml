@@ -63,8 +63,19 @@
 		select * 
 		from stockLike
 		where id = #{id}
-	
+		
 	</select>
 	
-	
+	<select id="memCommList" resultType="org.sap.model.BoardDto">
+		select * 
+		from board
+		where id = #{id}
+		order by regdate desc
+	</select>
+	<select id="memCommReplyList" resultType = "org.sap.model.ReplyDto">
+		select * 
+		from board_reply
+		where id = #{id}
+		order by regdate desc
+	</select>
 </mapper>

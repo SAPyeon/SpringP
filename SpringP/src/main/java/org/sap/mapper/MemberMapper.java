@@ -2,8 +2,10 @@ package org.sap.mapper;
 
 import java.util.ArrayList;
 
+import org.sap.model.BoardDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
+import org.sap.model.ReplyDto;
 import org.sap.model.WithdrawalDto;
 
 public interface MemberMapper {
@@ -27,6 +29,10 @@ public interface MemberMapper {
 	public int likeInsert(LikeDto likedto);
 	//주식종목 즐겨찾기 리스트
 	public ArrayList<LikeDto> likeList(String id);
+	// 해당아이디 커뮤니티 글 불러오기
+	public ArrayList<BoardDto> memCommList(String id);
+	/// 해당 아이디 커뮤니티 게시판 댓글 불러오기
+	public ArrayList<ReplyDto> memCommReplyList(String id);
 	
 	
 	
