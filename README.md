@@ -7,7 +7,7 @@ component
 : DB에 저장하지는 않지만 다른곳에서 불러온 데이터를 DTO에 저장하여 사용하는 곳
 
 
-controller 
+controller     
   : 용도별로 분류, 
   / : 기본 메인페이지
   /member/** : 각각 회원이 개인적으로 사용하는 곳
