@@ -68,7 +68,6 @@
 					<button class="btn btn-primary" type="button" id="btn_mem_Modify">수정</button>
 					<button class="btn btn-primary" type="button" id="btn_mem_Remove">회원탈퇴</button>
 				</div>
-			
 			</form>
 			<a href="/member/likeList">즐겨찾기 목록보기</a>
 			<a href="/member/boardList">내가쓴 글 보기</a>

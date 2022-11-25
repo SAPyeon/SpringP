@@ -78,4 +78,9 @@
 		where id = #{id}
 		order by regdate desc
 	</select>
+	
+	<delete id="boardDetail">
+		delete from board
+		where bno=#{bno}
+	</delete>
 </mapper>

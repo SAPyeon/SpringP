@@ -34,6 +34,8 @@ public interface MemberService {
 	public ArrayList<BoardDto> memCommList(String id);
 	//해당 아이디 커뮤니티 게시판 댓글 리스트
 	public ArrayList<ReplyDto> memCommReplyList(String id);
+	// 해당 아이디 커뮤니티 게시판 삭제
+	public int boardDelete(String bno);
 	
 	
 	

@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.sap.component.KakaoLogin;
 import org.sap.component.NaverLogin;
+import org.sap.model.BoardDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.WithdrawalDto;
@@ -264,6 +265,16 @@ public class MemberController {
 		model.addAttribute("memCommList", memberService.memCommList(id));
 		
 		model.addAttribute("memCommReplyList", memberService.memCommReplyList(id));
+		
+	}
+	// 해당 멤버가 쓴 글 삭제하기
+	@RequestMapping(value = "/member/boardDelete", method = RequestMethod.POST)
+	public ResponseEntity<String> memBoardDelete(@RequestBody BoardDto bdto) {
+		String bno = bdto.getBno();
+		System.out.println("bno = "+bdto.getBno());
+		int result = memberService.boardDelete(bno);
+		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
 }

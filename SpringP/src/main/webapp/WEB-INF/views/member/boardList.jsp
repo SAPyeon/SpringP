@@ -43,7 +43,8 @@
 								<td>${memCommList.content}</td>
 								<td>${memCommList.cnt}</td>
 								<td>${memCommList.regdate}</td>
-								<td>삭제</td>
+								<td><button type="button" data-bno="${memCommList.bno}" class="btn_boardDelete">삭제</button></td>
+								
 							</tr>
 						</c:forEach>
 					</table>
@@ -66,7 +67,7 @@
 								<td>${memCommReplyList.reply}</td>
 								<td>${memCommReplyList.regdate}</td>
 								<td><a href="/community/detail?bno=${memCommReplyList.bno}">해당글보기</a></td>
-								<td>삭제</td>
+								<td><button type="button" data-rno="${memCommReplyList.rno}" class="btn_replDelete">삭제</button></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -77,6 +78,6 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
+	<script type="text/javascript" src="../resources/js/member_boardList.js"></script>
 </body>
 </html>

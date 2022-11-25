@@ -23,6 +23,7 @@ $("#btn_reply").on("click",function(){
 
 })
 
+//댓글 추가하는 함수
 function add(reply){
 	$.ajax({
 		type:"post",
@@ -38,7 +39,7 @@ function add(reply){
 			
 	})
 }
-
+// 댓글리스트를 불러오는 함수
 function list(bno){
 	$.getJSON("/replies/"+bno+".json", function(data){
 		for(let list of data){
@@ -63,6 +64,7 @@ function list(bno){
 	
 }
 
+// 버튼 클릭해서 리뷰 삭제하는 함수
 function clickAndDelete(){
 	$(".btn_repldelete").on("click",function(e){
 		
@@ -84,7 +86,7 @@ function clickAndDelete(){
 	})
 
 }
-
+// 버튼 클릭해서 리뷰 수정하는 함수
 function clickAndModify(){
 	$(".btn_replmodify").on("click",function(){
 		const rnoModiVal = $(this).data("rno")
@@ -131,11 +133,11 @@ function clickAndModify(){
 							<button type="button" data-rno=${data.rno} data-id=${data.id} class="btn_repldelete">삭제하기</button>									
 							</div>
 							`;
-				e.target.parentNode.parentNode.innerHTML = str;
+					e.target.parentNode.parentNode.innerHTML = str;
+					clickAndModify()
 				})
 		})
 	})
-	
 }
 
 

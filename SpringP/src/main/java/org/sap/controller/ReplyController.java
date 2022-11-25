@@ -42,6 +42,7 @@ public class ReplyController {
 	// 댓글 삭제 리스트
 	@RequestMapping(value="/replies/delete", method = RequestMethod.DELETE)
 	public void replDelete(@RequestBody ReplyDto reply) {
+		System.out.println("댓글 삭제 컨트롤러 이동");
 		String rno = reply.getRno();
 		replyservice.replDelete(rno);
 	}

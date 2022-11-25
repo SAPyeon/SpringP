@@ -31,8 +31,10 @@ public interface MemberMapper {
 	public ArrayList<LikeDto> likeList(String id);
 	// 해당아이디 커뮤니티 글 불러오기
 	public ArrayList<BoardDto> memCommList(String id);
-	/// 해당 아이디 커뮤니티 게시판 댓글 불러오기
+	// 해당 아이디 커뮤니티 게시판 댓글 불러오기
 	public ArrayList<ReplyDto> memCommReplyList(String id);
+	// 해당 아이디 커뮤니티 게시판 글 삭제하기
+	public int boardDetail(String bno);
 	
 	
 	

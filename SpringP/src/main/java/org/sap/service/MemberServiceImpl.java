@@ -82,6 +82,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.memCommReplyList(id);
 	}
 
+	@Override
+	public int boardDelete(String bno) {
+		return memberMapper.boardDetail(bno);
+	}
+
 	
 
 	

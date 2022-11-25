@@ -74,6 +74,7 @@ public class CommunityController {
 	// 커뮤니티 글 삭제
 	@RequestMapping(value="/community/delete", method = RequestMethod.POST)
 	public String commDeletePost(BoardDto bdto,@RequestParam String bno) {
+		System.out.println("게시글 삭제");
 		bdto.setBno(bno);
 		cs.delete(bdto);
 		return "redirect:/community/list";
