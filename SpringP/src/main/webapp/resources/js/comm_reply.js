@@ -19,7 +19,11 @@ $("#btn_reply").on("click",function(){
 	
 	const replyVal = $("#reply").val();
 	console.log(replyVal);
-	add({bno:bnoVal, reply:replyVal, name:loginName, id:$("#loginId").val()});
+	if($("#loginId").val()!=''){
+		add({bno:bnoVal, reply:replyVal, name:loginName, id:$("#loginId").val()});
+	}else{
+		alert('로그인 후 이용가능합니다.');
+	}
 
 })
 
