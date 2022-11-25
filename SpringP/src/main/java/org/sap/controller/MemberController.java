@@ -239,7 +239,7 @@ public class MemberController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
+  
 	// 즐겨찾기 추가
 	@RequestMapping(value = "/likeInsert", method = RequestMethod.PUT)
 	public ResponseEntity<String> likeInsert(@RequestBody LikeDto likedto) {
