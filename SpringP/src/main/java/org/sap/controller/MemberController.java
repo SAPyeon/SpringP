@@ -31,24 +31,25 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private final MemberService memberService;
 	private final NaverLogin naverLogin;
 	private final KakaoLogin kakaoLogin;
 	private String apiResult = null;
-
+	
 	// 회원가입
 	@RequestMapping(value = "/member/signup", method = RequestMethod.GET)
 	public void SignUp() {
 
 	}
-
+	
 	@RequestMapping(value = "/member/signup", method = RequestMethod.POST)
 	public String SignUpPost(MemberDto mdto) {
 		memberService.signup(mdto);
 		return "redirect:/";
 	}
-
+	
 	// 로그인
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public void login(Model model, HttpSession session) {
@@ -68,7 +69,7 @@ public class MemberController {
 		model.addAttribute("urlKakao", kakaoAuthUrl);
 
 	}
-
+	
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public String loginPost(MemberDto mdto, HttpSession session) {
 
@@ -81,7 +82,7 @@ public class MemberController {
 			return "redirect:/member/login";
 		}
 	}
-
+	
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callbackNaver", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callbackNaver(Model model, @RequestParam String code, @RequestParam String state, HttpSession session,
@@ -117,7 +118,7 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-
+	
 	// 카카오로그인 성공시 callback
 	@RequestMapping(value = "/callbackKakao", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session,
@@ -218,7 +219,6 @@ public class MemberController {
 	// 해당종목 즐겨찾기 유무
 	@RequestMapping(value = "/findLike", method = RequestMethod.GET)
 	public ResponseEntity<Integer> findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
-
 		likedto.setSrtnCd(request.getParameter("srtnCd"));
 		likedto.setId(request.getParameter("id"));
 		boolean result = memberService.findlike(likedto);
@@ -249,12 +249,13 @@ public class MemberController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 	// 즐겨찾기 리스트 
 	@RequestMapping(value = "/member/likeList", method = RequestMethod.GET)
 	public void likeList(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("loginId");
-		
 		model.addAttribute("likeList", memberService.likeList(id));
+		
 	}
 	
 	// 해당 멤버가 쓴 글 불러오기
@@ -275,6 +276,5 @@ public class MemberController {
 		int result = memberService.boardDelete(bno);
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
 	}
 }

@@ -48,6 +48,8 @@ public class ReplyController {
 	// 댓글 수정 리스트
 	@RequestMapping(value="/replies/modify", method = RequestMethod.POST)
 	public void replModify(@RequestBody ReplyDto reply) {
+		System.out.println("댓글 수정");
+		//System.out.println("rno = "+rno);
 		replyservice.replModify(reply);
 	}
 	//해당 댓글 불러오기

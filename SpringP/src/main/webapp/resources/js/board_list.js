@@ -11,16 +11,18 @@ $("#prev").on("click",function(){
 	}
 	DisplayStockList(p);
 })
+
 $("#next").on("click",function(){
 	p +=1;
 	DisplayStockList(p);
 })
+
 function DisplayStockList(p){
 	console.log(p)
 	$.getJSON("/StockList/",{p:p},function(list){
 		let str= ""; 
 		str +=`
-		<table class="table table-bordered table table-hover" >
+		<table class="table table-bordered table table-hover">
 			<thead class="thead-light">
 	        <tr>
 	            <th scope="col">글번호</th>
@@ -38,11 +40,13 @@ function DisplayStockList(p){
 				<th scope="col">토론방</th>
 	        </tr>
 	        </thead>`
+		
+			
 		$(list).each(function(i,stock){
 			let [a,b] = stock.discussionRoomUrl.split('?');// 주소값 파라미터에서 "?"뒤 값들을 자바스크립트 변수 저장
 			let code = b;
 			//console.log(b)
-	          str+=    `<tr>
+	          str+=	`<tr>
 	                        <td>${stock.no}</td>
 	                        <td><a href="/board/detail?itmsNm=${stock.stockName}&${code}">${stock.stockName}</a></td>
 	                        <td>${stock.price}</td>`
@@ -54,17 +58,16 @@ function DisplayStockList(p){
 	                        else{
 	                        	str+=`<td style="color:red">${stock.diffAmount}</td>`
 	                        }
-	                        
 	        	  str+=`<td>${stock.dayRange}</td>
-	        	  <td>${stock.parValue}</td>
-	        	  <td>${stock.marketCap}</td>
-	        	  <td>${stock.numberOfListedShares}</td>
-	        	  <td>${stock.foreignOwnRate}</td>
-	        	  <td>${stock.turnover}</td>
-	        	  <td>${stock.per}</td>
-	        	  <td>${stock.roe}</td>
-	        	  <td><a href="${stock.discussionRoomUrl}">토론방</a></td>
-	                    </tr>`
+	        		  <td>${stock.parValue}</td>
+	        		  <td>${stock.marketCap}</td>
+	        		  <td>${stock.numberOfListedShares}</td>
+	        		  <td>${stock.foreignOwnRate}</td>
+	        		  <td>${stock.turnover}</td>
+	        		  <td>${stock.per}</td>
+	        		  <td>${stock.roe}</td>
+	        		  <td><a href="${stock.discussionRoomUrl}">토론방</a></td>
+	              </tr>`
 		})
 		str+=`</table>`;
 		$("#stockListTable").html(str);
@@ -72,32 +75,3 @@ function DisplayStockList(p){
 	})
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

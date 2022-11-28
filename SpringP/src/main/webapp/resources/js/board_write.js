@@ -24,32 +24,3 @@ btn.addEventListener("click",function(e){
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

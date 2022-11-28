@@ -36,7 +36,6 @@
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
 
-
 	<interceptors>
 		
 		<interceptor>
@@ -57,11 +56,10 @@
 		<interceptor>
 			<mapping path="/community/modify"/>
 			<mapping path="/community/delete"/>
-			<mapping path="/member/mypage"/>
+			<!-- <mapping path="/replies/delete"/>
+			<mapping path="/replies/modify"/> -->
 			<beans:bean id="privateInterceptor" class="org.sap.interceptor.PrivateInterceptor" />
 		</interceptor>
-		
-		
-		
+				
 	</interceptors>
 </beans:beans>
