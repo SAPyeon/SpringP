@@ -50,7 +50,7 @@ function list(bno){
 			str=`<div class="border col col-sm-8 align-self-center mb-2" data-rno=${list.rno}>
 				<div><label>작성자 : </label>${list.name}</div>
 				<div class="col align-self-end">
-				<a href="#">신고하기</a>
+				<a href="javascript:void(0)" data-rno=${list.rno} class="declaration">신고하기</a>
 				</div>
 				<div>
 				<div id="">${list.reply}</div>
@@ -64,6 +64,7 @@ function list(bno){
 		}
 		clickAndDelete();
 		clickAndModify();
+		showLoginPopup();
 	})
 	
 }
@@ -142,6 +143,17 @@ function clickAndModify(){
 				})
 		})
 	})
+}
+
+//신고 팝업창 생성
+function showLoginPopup(){
+	$(".declaration").on("click",function(e){
+		let uri = "/community/replDeclaration?rno="+$(this).data("rno")
+		// 사용자가 사용하기 편하게끔 팝업창으로 띄어준다.
+		window.open(uri, "신고하기", "width=500, height=600, top=100, left=200");
+	})
+	 
+  
 }
 
 

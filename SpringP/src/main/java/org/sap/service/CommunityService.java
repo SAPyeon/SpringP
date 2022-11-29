@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.sap.model.BoardDto;
 import org.sap.model.CriteriaVO;
+import org.sap.model.ReplyDto;
 
 public interface CommunityService {
 	// 커뮤니티글쓰기
@@ -22,4 +23,5 @@ public interface CommunityService {
 	public void delete(BoardDto bdto);
 	//커뮤니티 게시판 아이디 찾기
 	public String findId(String bno);
+	
 }

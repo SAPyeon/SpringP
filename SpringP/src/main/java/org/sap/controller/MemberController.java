@@ -31,25 +31,25 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private final MemberService memberService;
 	private final NaverLogin naverLogin;
 	private final KakaoLogin kakaoLogin;
 	private String apiResult = null;
-	
+
 	// 회원가입
 	@RequestMapping(value = "/member/signup", method = RequestMethod.GET)
 	public void SignUp() {
 
 	}
-	
+
 	@RequestMapping(value = "/member/signup", method = RequestMethod.POST)
 	public String SignUpPost(MemberDto mdto) {
 		memberService.signup(mdto);
 		return "redirect:/";
 	}
-	
+
 	// 로그인
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public void login(Model model, HttpSession session) {
@@ -69,7 +69,7 @@ public class MemberController {
 		model.addAttribute("urlKakao", kakaoAuthUrl);
 
 	}
-	
+
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public String loginPost(MemberDto mdto, HttpSession session) {
 
@@ -82,7 +82,7 @@ public class MemberController {
 			return "redirect:/member/login";
 		}
 	}
-	
+
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callbackNaver", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callbackNaver(Model model, @RequestParam String code, @RequestParam String state, HttpSession session,
@@ -118,7 +118,7 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-	
+
 	// 카카오로그인 성공시 callback
 	@RequestMapping(value = "/callbackKakao", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session,
@@ -203,11 +203,11 @@ public class MemberController {
 	// 회원탈퇴
 	@RequestMapping(value = "/member/Withdrawal", method = RequestMethod.POST)
 	public String Withdrawal(HttpServletRequest request, HttpSession session, WithdrawalDto wdto, MemberDto mdto) {
-		String id = (String) session.getAttribute("loginId"); 
+		String id = (String) session.getAttribute("loginId");
 		mdto.setId(id);
 		memberService.deleteMember(mdto);
-		
-		wdto.setReason((String)request.getParameter("reason"));
+
+		wdto.setReason((String) request.getParameter("reason"));
 		wdto.setId(id);
 		System.out.println(wdto.getReason());
 		memberService.withdrawalInsert(wdto);
@@ -216,6 +216,36 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	// 회원 찾기
+	@RequestMapping(value = "/member/findUser", method = RequestMethod.GET)
+	public void findUser() {
+
+	}
+
+	// 아이디 찾기
+	@RequestMapping(value = "/member/findLoginId", method = RequestMethod.GET)
+	public void findLoginId(Model model, MemberDto mdto) {
+		model.addAttribute("findUser", memberService.findLoginId(mdto));
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping(value = "/member/findLoginPw", method = RequestMethod.GET)
+	public void findLoginpw(Model model, MemberDto mdto,@RequestParam String id,@RequestParam String name,@RequestParam String phone) {
+		mdto.setId(id);
+		mdto.setName(name);
+		mdto.setPhone(phone);
+		
+		model.addAttribute("user", mdto);
+		
+	}
+	
+	//비밀번호 변경
+	@RequestMapping(value = "/member/modiPassword", method = RequestMethod.POST)
+	public String findAndModipw(MemberDto mdto) {
+		memberService.updateInfo(mdto);
+		return "/member/login";
+	}
+	
 	// 해당종목 즐겨찾기 유무
 	@RequestMapping(value = "/findLike", method = RequestMethod.GET)
 	public ResponseEntity<Integer> findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
@@ -239,7 +269,7 @@ public class MemberController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-  
+
 	// 즐겨찾기 추가
 	@RequestMapping(value = "/likeInsert", method = RequestMethod.PUT)
 	public ResponseEntity<String> likeInsert(@RequestBody LikeDto likedto) {
@@ -249,32 +279,34 @@ public class MemberController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	// 즐겨찾기 리스트 
+
+	// 즐겨찾기 리스트
 	@RequestMapping(value = "/member/likeList", method = RequestMethod.GET)
 	public void likeList(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("loginId");
 		model.addAttribute("likeList", memberService.likeList(id));
-		
+
 	}
-	
+
 	// 해당 멤버가 쓴 글 불러오기
 	@RequestMapping(value = "/member/boardList", method = RequestMethod.GET)
 	public void memBoardList(Model model, HttpSession session) {
-		
+
 		String id = (String) session.getAttribute("loginId");
 		model.addAttribute("memCommList", memberService.memCommList(id));
-		
+
 		model.addAttribute("memCommReplyList", memberService.memCommReplyList(id));
-		
+
 	}
+
 	// 해당 멤버가 쓴 글 삭제하기
 	@RequestMapping(value = "/member/boardDelete", method = RequestMethod.POST)
 	public ResponseEntity<String> memBoardDelete(@RequestBody BoardDto bdto) {
 		String bno = bdto.getBno();
-		System.out.println("bno = "+bdto.getBno());
+		System.out.println("bno = " + bdto.getBno());
 		int result = memberService.boardDelete(bno);
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 }

@@ -39,6 +39,11 @@
 		values(#{id},#{reason})
 	</insert>
 	
+	<select id="findLoginId" resultType="org.sap.model.MemberDto">
+		select * from member
+		where name=#{name} and phone=#{phone}
+	</select>
+	
 	<select id="findlike" resultType="boolean">
 		select exists(
 		select 1

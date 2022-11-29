@@ -47,7 +47,7 @@
 			</div>
 		</nav>
 	</div>
-	<div style="text-align: right">
+	<div style="text-align: right" class="mb-4">
 		<c:choose>
 			<c:when test="${loginName==null}">
 				<a href="/member/login">로그인하기</a>

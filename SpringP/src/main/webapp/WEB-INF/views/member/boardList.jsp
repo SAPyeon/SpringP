@@ -22,6 +22,7 @@
 <div class="container">
 		<%@ include file="../header.jsp"%> 
 		<div class="row main">
+			
 			<div class="board col-xs-12">
 				<h1>내가쓴 글</h1>
 				<div id="memberComuunityListTable">
@@ -44,7 +45,7 @@
 								<td>${memCommList.content}</td>
 								<td>${memCommList.cnt}</td>
 								<td>${memCommList.regdate}</td>
-								<td><button type="button" data-bno="${memCommList.bno}" class="btn_boardDelete">삭제</button></td>
+								<td><button type="button" data-bno="${memCommList.bno}" class="btn_boardDelete btn btn-secondary btn-sm">삭제</button></td>
 								
 							</tr>
 						</c:forEach>
@@ -69,7 +70,7 @@
 								<td>${memCommReplyList.reply}</td>
 								<td>${memCommReplyList.regdate}</td>
 								<td><a href="/community/detail?bno=${memCommReplyList.bno}">해당글보기</a></td>
-								<td><button type="button" data-rno="${memCommReplyList.rno}" class="btn_replDelete">삭제</button></td>
+								<td><button type="button" data-rno="${memCommReplyList.rno}" class="btn_replDelete btn btn-secondary btn-sm">삭제</button></td>
 							</tr>
 						</c:forEach>
 					</table>

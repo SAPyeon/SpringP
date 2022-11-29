@@ -3,8 +3,10 @@ package org.sap.service;
 import java.util.ArrayList;
 
 import org.sap.mapper.CommMapper;
+import org.sap.mapper.ReplyMapper;
 import org.sap.model.BoardDto;
 import org.sap.model.CriteriaVO;
+import org.sap.model.ReplyDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //의존성주입
 public class CommunityServiceImpl implements CommunityService{
 	public final CommMapper commMapper;
+	public final ReplyMapper replmapper;
 	// 글쓰기
 	@Override
 	public void write(BoardDto bdto) {
@@ -61,5 +64,6 @@ public class CommunityServiceImpl implements CommunityService{
 	public String findId(String bno) {
 		return commMapper.findId(bno);
 	}
+	
 	
 }

@@ -100,7 +100,7 @@ regdate datetime default now() -- 작성일
 desc board;
 select count(*) from board where id="asdf1234" order by bno;
 desc board;
-
+select * from board;
 
 
 drop table board_reply;
@@ -132,7 +132,18 @@ values('aaaaa','aaaaaa',1);
 
 select * from board_reply;
 
-delete from board_reply where rno=6;
+delete from board_reply where rno=7;
+
+-- drop table declaration;
+create table declaration(
+	id varchar(100),
+    rno int,
+    bno int,
+    reason varchar(10000)
+);
+
+select * from declaration;
+
 use project;
 
 drop table stockLike;
@@ -170,6 +181,6 @@ select * from stockLike
 where id ='asdf1234';
 
 
-
+use project;
 
 

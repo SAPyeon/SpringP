@@ -52,6 +52,27 @@ public class MemberServiceImpl implements MemberService{
 	public void withdrawalInsert(WithdrawalDto wdto) {
 		memberMapper.withdrawalInsert(wdto);
 	}
+	
+	@Override
+	public MemberDto findLoginId(MemberDto mdto) {
+		
+		//네이버 카카오 회원제외
+		ArrayList<MemberDto> member = memberMapper.findLoginId(mdto);
+		
+		MemberDto mdto2 = new MemberDto();
+		
+		for(int i =0; i<member.size(); i++) {
+			String id = member.get(i).getId();
+			if(!id.substring(0, 2).equals("K+")) {
+				mdto2.setId(id);
+				mdto2.setName(member.get(i).getName());
+			}
+		}
+								
+		return mdto2;
+	}
+
+	
 	@Override
 	public boolean findlike(LikeDto likedto) {
 		return memberMapper.findlike(likedto);
@@ -86,6 +107,10 @@ public class MemberServiceImpl implements MemberService{
 	public int boardDelete(String bno) {
 		return memberMapper.boardDetail(bno);
 	}
+
+	
+
+	
 
 	
 

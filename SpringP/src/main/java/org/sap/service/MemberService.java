@@ -22,6 +22,8 @@ public interface MemberService {
 	public void deleteMember(MemberDto mdto);
 	// 탈퇴이유저장
 	public void withdrawalInsert(WithdrawalDto wdto);
+	// 아이디찾기
+	public MemberDto findLoginId(MemberDto mdto);
 	//즐겨찾기
 	public boolean findlike(LikeDto likedto);
 	//즐겨찾기 삭제
@@ -36,6 +38,7 @@ public interface MemberService {
 	public ArrayList<ReplyDto> memCommReplyList(String id);
 	// 해당 아이디 커뮤니티 게시판 삭제
 	public int boardDelete(String bno);
+	
 	
 	
 	

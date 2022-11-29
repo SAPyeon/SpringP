@@ -34,6 +34,11 @@
 		from board_reply
 		where rno=#{rno}
 	</select>
+	
+	<insert id="declaration">
+		insert into declaration(id, rno, reason)
+		values(#{id},#{rno},#{reason}) 
+	</insert>
 </mapper>
 
 

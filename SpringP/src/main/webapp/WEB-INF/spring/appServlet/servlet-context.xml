@@ -50,6 +50,10 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/member/login"/>
 			<exclude-mapping path="/member/signup"/>
+			<exclude-mapping path="/member/findUser"/>
+			<exclude-mapping path="/member/findLoginId"/>
+			<exclude-mapping path="/member/findLoginPw"/>
+			<exclude-mapping path="/member/modiPassword"/>
 			<beans:bean id="loginInterceptor" class="org.sap.interceptor.LoginInterceptor" />
 		</interceptor>
 		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.sap.model.BoardDto;
 import org.sap.model.CriteriaVO;
+import org.sap.model.ReplyDto;
 
 public interface CommMapper {
 	// 글쓰기
@@ -22,5 +23,6 @@ public interface CommMapper {
 	public void delete(BoardDto bdto);
 	// 게시판 아이디(작성자) 찾기
 	public String findId(String bno);
+	
 	
 }

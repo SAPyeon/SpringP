@@ -17,4 +17,5 @@ public class ReplyDto {
 	private String regdate;
 	private String bno;
 	private String id;
+	private String reason;
 }

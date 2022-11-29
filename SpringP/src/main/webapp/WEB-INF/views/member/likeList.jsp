@@ -67,7 +67,7 @@
 								<td>${likeList.foreignOwnRate}</td>
 								<td>${likeList.turnover}</td>
 								<td>${likeList.per}</td>
-								<td><button type="button" class="btn_likeDelete" data-code="${likeList.srtnCd}">삭제</button></td>
+								<td><button type="button" class="btn_likeDelete btn btn-secondary btn-sm" data-code="${likeList.srtnCd}">삭제</button></td>
 								<input type="hidden" value="${likeList.itmsNm}" class="itmsNm">
 								<input type="hidden" value="${likeList.srtnCd}" class="srtnCd">
 							</tr>

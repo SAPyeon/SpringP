@@ -21,6 +21,8 @@ public interface MemberMapper {
 	public void deleteMember(MemberDto mdto);
 	//탈퇴이유쓰기
 	public void withdrawalInsert(WithdrawalDto wdto);
+	//회원 아이디 찾기
+	public ArrayList<MemberDto> findLoginId(MemberDto mdto);
 	//즐겨찾기 목록 불러오기
 	public boolean findlike(LikeDto likedto);
 	//즐겨찾기 삭제
@@ -35,6 +37,8 @@ public interface MemberMapper {
 	public ArrayList<ReplyDto> memCommReplyList(String id);
 	// 해당 아이디 커뮤니티 게시판 글 삭제하기
 	public int boardDetail(String bno);
+	
+	
 	
 	
 	

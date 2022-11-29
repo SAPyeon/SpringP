@@ -36,3 +36,10 @@ btn_kakaologin.addEventListener("click",gotologinKakao);
 function gotologinKakao(){
 	location.href=kakaoLoginUrl.value;
 }
+
+// 아이디/비밀번호 찾기 버튼 클릭
+const btn_findid = document.querySelector("#button_findid");
+
+btn_findid.addEventListener("click",function(){
+	location.href="/member/findUser"
+})

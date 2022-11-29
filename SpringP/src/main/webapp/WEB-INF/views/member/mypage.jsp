@@ -31,7 +31,25 @@
 <body>
 	<div class="container">
 		<%@ include file="../header.jsp"%>
-		<div class="row main d-flex flex-column justify-content-center">
+		<div class="row">
+		<div class="col-md-3">
+            <!-- 사이드 바 메뉴-->
+            <!-- 패널 타이틀1 -->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">마이페이지</h3>
+                </div>
+                <!-- 사이드바 메뉴목록1 -->
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="/member/likeList">즐겨찾기 목록보기</a></li>
+                    <li class="list-group-item"><a href="/member/boardList">내가쓴 글</a></li>
+                    <li class="list-group-item"><a href="#">ECMAScript5</a></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div class="d-flex flex-column justify-content-center col-md-9">
+			<h1 class="text-center">내 프로필</h1>
 			<form class="border mb-3 col col-sm-5 align-self-center my-3" id="form_member">
 			<div>
 				<div class="d-flex justify-content-between my-1">
@@ -69,8 +87,8 @@
 					<button class="btn btn-primary" type="button" id="btn_mem_Remove">회원탈퇴</button>
 				</div>
 			</form>
-			<a href="/member/likeList">즐겨찾기 목록보기</a>
-			<a href="/member/boardList">내가쓴 글 보기</a>
+			
+		</div>
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>
