@@ -47,7 +47,7 @@ function add(reply){
 function list(bno){
 	$.getJSON("/replies/"+bno+".json", function(data){
 		for(let list of data){
-			str=`<div class="border col col-sm-8 align-self-center" data-rno=${list.rno}>
+			str=`<div class="border col col-sm-8 align-self-center mb-2" data-rno=${list.rno}>
 				<div><label>작성자 : </label>${list.name}</div>
 				<div class="col align-self-end">
 				<a href="#">신고하기</a>

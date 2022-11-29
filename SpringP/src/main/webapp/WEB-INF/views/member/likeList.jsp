@@ -58,7 +58,7 @@
 							<tr>
 								<td>${status.count}</td>
 								<td><a href="/board/detail?itmsNm=${likeList.itmsNm}&code=${likeList.srtnCd}">${likeList.itmsNm}</a></td>
-								<td id="priceToday" data-i="${status.count-1}">현재가</td>
+								<td class="priceToday">현재가</td>
 								<td class="diffAmount">${likeList.diffAmount}</td>
 								<td class="dayRange">${likeList.dayRange}</td>
 								<td>${likeList.parValue}</td>

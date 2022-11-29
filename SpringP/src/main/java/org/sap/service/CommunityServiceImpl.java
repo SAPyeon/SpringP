@@ -57,4 +57,9 @@ public class CommunityServiceImpl implements CommunityService{
 		commMapper.delete(bdto);
 	}
 	
+	@Override
+	public String findId(String bno) {
+		return commMapper.findId(bno);
+	}
+	
 }

@@ -14,10 +14,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class PrivateInterceptor implements HandlerInterceptor {
 	
 	@Autowired
-	CommunityService commSerivce;
+	CommunityService commService;
 	
 	@Autowired
-	ReplyService replySerivce;
+	ReplyService replyService;
 	
 	
 	@Override
@@ -34,12 +34,8 @@ public class PrivateInterceptor implements HandlerInterceptor {
 			String replyId = null;
 			
 			if(bno!=null) {
-				BoardDto bdto = new BoardDto();
-				
-				bdto.setBno(bno);
-				
-				boardId = commSerivce.detail(bdto).getId();
-				
+							
+				boardId = commService.findId(bno);
 			}
 			
 			// 댓글 아이디 = 로그인 아이디
@@ -52,7 +48,7 @@ public class PrivateInterceptor implements HandlerInterceptor {
 				
 				reply.setRno(rno);
 				
-				replyId = replySerivce.replSelect(rno).getId();
+				replyId = replyService.replSelect(rno).getId();
 				
 				System.out.println("리뷰아이디"+replyId);
 				
@@ -61,15 +57,22 @@ public class PrivateInterceptor implements HandlerInterceptor {
 			// 세션아이디(로그인)
 		 	String id = (String)request.getSession().getAttribute("loginId");
 		 	
-		 	System.out.println("게시판 아이디 = "+ boardId + "댓글아이디 = " + replyId);
+		 	System.out.println("세션아이디 = " + id);
+		 	System.out.println("게시판 아이디 = "+ boardId);
+		 	System.out.println("댓글아이디 = " + replyId);
 		 	
-			if(id == boardId || id == replyId) {
+		 	System.out.println(id.equals(boardId));
+		 	System.out.println(id == replyId);
+		 	
+			if(id.equals(boardId) || id.equals(replyId)) {
+				System.out.println("통과");
 		 		return true;
+		 		
 		 	}else {
+		 		System.out.println("통과못함");
 		 		response.sendRedirect(request.getContextPath()+"/error");
 		 		return false;
 		 	}
-		 	
 		 	
     }		
 			
