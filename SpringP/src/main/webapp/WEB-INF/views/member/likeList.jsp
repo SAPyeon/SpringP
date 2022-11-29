@@ -16,6 +16,19 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+
+<style type="text/css">
+.increase{
+	color:red;
+}
+.decrease{
+	color:blue;
+}
+.decrease:hover{
+	color:blue;
+}
+</style>		
+	
 </head>
 <body>
 	<div class="container">
@@ -38,23 +51,25 @@
 								<th scope="col">외국인 비율</th>
 								<th scope="col">거래량</th>
 								<th scope="col">PER</th>
+								<th scope="col"></th>
 							</tr>
 						</thead>
-
 						<c:forEach items="${likeList}" var="likeList" varStatus="status">
 							<tr>
 								<td>${status.count}</td>
 								<td><a href="/board/detail?itmsNm=${likeList.itmsNm}&code=${likeList.srtnCd}">${likeList.itmsNm}</a></td>
-								<td>${likeList.diffAmount}</td>
-								<td>${likeList.dayRange}</td>
+								<td class="priceToday">현재가</td>
+								<td class="diffAmount">${likeList.diffAmount}</td>
+								<td class="dayRange">${likeList.dayRange}</td>
 								<td>${likeList.parValue}</td>
 								<td>${likeList.marketCap}</td>
 								<td>${likeList.numberOfListedShares}</td>
 								<td>${likeList.foreignOwnRate}</td>
 								<td>${likeList.turnover}</td>
 								<td>${likeList.per}</td>
-								<td><input type="button" value="삭제" id="btn_likeDelete"></td>
-								<input type="hidden" value="${likeList.itmsNm}" id="itmsNm">
+								<td><button type="button" class="btn_likeDelete" data-code="${likeList.srtnCd}">삭제</button></td>
+								<input type="hidden" value="${likeList.itmsNm}" class="itmsNm">
+								<input type="hidden" value="${likeList.srtnCd}" class="srtnCd">
 							</tr>
 						</c:forEach>
 					</table>
@@ -65,31 +80,7 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script type="text/javascript">
-	$("#btn_likeDelete").on("click",function(){
-		console.log($("#srtnCd").val())
-		console.log($("#loginId").val())// post로 변경
-		data={srtnCd:$("#srtnCd").val(), id:$("#loginId").val()}
-		if(confirm("해당종목을 삭제하시겠습니까?")){
-			likeDelete(data);	
-		}
-		location.href="/member/likeList";
-		
-	})
-	// 즐겨찾기 삭제
-	function likeDelete(data) {
-		console.log(data)
-		$.ajax({
-			type : "delete",
-			url : "/likeDelete",
-			data : JSON.stringify(data),
-			contentType : "application/json; charset=utf-8",
-			success : function() {
-				alert('즐겨찾기에 삭제되었습니다.')
-				$("#star").css("color", "grey");
-			}
-		})
-	}
-	</script>
+	<script type="text/javascript" src="../resources/js/member_likeList.js"></script>	
+	
 </body>
 </html>

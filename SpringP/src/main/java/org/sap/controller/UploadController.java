@@ -60,6 +60,7 @@ public class UploadController {
 		JsonObject jsonObject = new JsonObject();
 		PrintWriter printWriter = null;
 		OutputStream out = null;
+		
 		// 인코딩
 		resp.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
@@ -137,7 +138,6 @@ public class UploadController {
 			                    + ")</script>");
 			            // 서버 전송을 누르면 알림창으로 "이미지를 업로드 하였습니다." 를 띄우고 이미지주소로 해당 이미지를 불러옴
 			           
-			            
 			            list.add(ImageDto);
 			            System.out.println("리스트 = "+list);
 			            
@@ -153,23 +153,17 @@ public class UploadController {
 			        }
 				}
 		}
-		
 	}
 	}// uploadAjaxPost 끝
 
 	// 이미지 주소 생성
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getFile(@RequestParam String fileName) {
-		
 		fileName = fileName.replace("**", "\\"); // 대체문자인 ** 를 다시 경로설정하는 \\로 변경
 		System.out.println(fileName);
-		
 		File file = new File("D:\\01-STUDY\\upload\\" +fileName);
-
 		ResponseEntity<byte[]> result = null;
-		
 		HttpHeaders headers = new HttpHeaders();
-
 		try {
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
@@ -179,7 +173,7 @@ public class UploadController {
 		}
 		return result;
 	} // getFile 끝
-
+	
 	// 다운로드 주소 생성
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	public ResponseEntity<Resource> downloadFile(String fileName) {

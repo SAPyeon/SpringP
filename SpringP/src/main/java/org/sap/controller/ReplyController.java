@@ -23,14 +23,13 @@ import lombok.RequiredArgsConstructor;
 public class ReplyController {
 	
 	public final ReplyService replyservice;
-	
+	// 댓글쓰기
 	@RequestMapping(value = "/replies/new", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	public ResponseEntity<String> replywrite(@RequestBody ReplyDto reply) {
 		System.out.println(reply);
 		int result = replyservice.reWrite(reply);
 		return result == 1?new ResponseEntity<>("success", HttpStatus.OK)
 				:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
 	}
 	//댓글목록리스트
 	@RequestMapping(value = "/replies/{bno}", method = RequestMethod.GET)
@@ -49,6 +48,8 @@ public class ReplyController {
 	// 댓글 수정 리스트
 	@RequestMapping(value="/replies/modify", method = RequestMethod.POST)
 	public void replModify(@RequestBody ReplyDto reply) {
+		System.out.println("댓글 수정");
+		//System.out.println("rno = "+rno);
 		replyservice.replModify(reply);
 	}
 	//해당 댓글 불러오기

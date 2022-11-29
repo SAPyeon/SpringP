@@ -50,4 +50,11 @@
 		delete from board
 		where bno=#{bno}
 	</delete>
+	
+	<select id="findId" resultType="String">
+		select id
+		from board
+		where bno = #{bno}
+	
+	</select>
 </mapper>

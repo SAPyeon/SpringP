@@ -20,5 +20,7 @@ public interface CommMapper {
 	public void modify(BoardDto bdto);
 	// 글 삭제
 	public void delete(BoardDto bdto);
+	// 게시판 아이디(작성자) 찾기
+	public String findId(String bno);
 	
 }

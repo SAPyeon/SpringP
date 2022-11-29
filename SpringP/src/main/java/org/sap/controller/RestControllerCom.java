@@ -36,8 +36,8 @@ public class RestControllerCom {
 	private final StockService stockService;
 
 	private final BoardServiceImpl boardService;
-
-
+	
+	
 	// 주가리스트 데이터 크롤링
 	@GetMapping("/StockList")
 	public List<KospiStockDto> getKosPiStockList(HttpServletRequest request, @RequestParam int p) {

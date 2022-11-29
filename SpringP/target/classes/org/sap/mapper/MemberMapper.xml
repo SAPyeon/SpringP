@@ -22,7 +22,7 @@
 		where
 		id=#{id}
 	</select>
-
+	
 	<update id="updateInfo">
 		update member
 		set password = #{password}, name = #{name}, phone = #{phone}

@@ -21,27 +21,31 @@
 <body>
 	<div class="container">
 		<%@ include file="../header.jsp"%>
-		<div class="row main">
-			<div class="board col-xs-12">
+		<div class="row main d-flex justify-content-center">
+			<div class="board col-sm-10">
 				<h1>리스트</h1>
 				<div  class="row justify-content-end">
 					<div class="col-auto">
-						<button class="btn btn-primary" id="btnWrite">글쓰기</button>
+						<button class="btn btn-primary mb-2" id="btnWrite">글쓰기</button>
 					</div>
 				</div>
-				<table class="table">
+				<table  class="table table-bordered table table-hover">
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
 							<th scope="col">조회수</th>
+							<th scope="col">등록일</th>
 						</tr>
 					</thead>
 					<c:forEach items="${commlist}" var="list" varStatus="status">
 						<tr>
 							<td scope="row">${status.count}</td>
 							<td><a href="/community/detail?bno=${list.bno}">${list.title}</a></td>
+							<td>${list.name}</td>
 							<td>${list.cnt}</td>
+							<td>${list.regdate}</td>
 						</tr>
 
 					</c:forEach>
