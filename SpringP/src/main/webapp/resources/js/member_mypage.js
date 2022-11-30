@@ -47,34 +47,25 @@ $("#btn_mem_Modify").on(
 function check() {
 
 	// 비밀번호 유효성 검사
-	const regExp_pw = RegExp(/^[a-z]+[a-z0-9]{5,19}$/g);
-
-	$("input[name='password']").on("input", function() {
-		console.log($(this).val());
-		const testVal = regExp_pw.test($(this).val());
-		console.log(testVal)
-		if (testVal == false) {
-			if ($("#chk_pw").is(':checked') == true) {
-				chkUnchk($("#chk_pw"), false)
-			}
-		} else {
-			chkUnchk($("#chk_pw"), true)
+	const regExp_pw = RegExp(/^[a-z0-9-_]{6,20}$/g);
+	$("#pw").on("input", function() {
+		//console.log($(this).val());
+		if (regExp_pw.test($(this).val())) {
+			console.log(regExp_pw.test($(this).val()))
+			chkUnchk($("#chk_pw"), true);
+		}else{
+			chkUnchk($("#chk_pw"), false);
 		}
 	})
 
 	// 이름 유효성 검사
 	const regExp_name = RegExp(/^[가-힣ㄱ-ㅎㅏ-ㅣa-z0-9-_]{1,10}$/g);
-
 	$("input[name='name']").on("input", function() {
-		chkUnchk($("#chk_name"), false)
-		const testVal2 = regExp_name.test($(this).val());
-		console.log(testVal2)
-		if (testVal2 == false) {
-			if ($("#chk_name").is(':checked') == true) {
-				chkUnchk($("#chk_name"), false)
-			}
-		} else {
+		if (regExp_name.test($(this).val())) {
+			console.log(regExp_name.test($(this).val()))
 			chkUnchk($("#chk_name"), true)
+		} else {
+			chkUnchk($("#chk_name"), false)
 		}
 
 	})
@@ -83,15 +74,11 @@ function check() {
 	const regExp_phone = RegExp(/^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/);
 
 	$("input[name='phone']").on("input", function() {
-		chkUnchk($("#chk_phone"), false)
-		const testVal3 = regExp_phone.test($(this).val());
-		console.log(testVal3)
-		if (testVal3 == false) {
-			if ($("#chk_phone").is(':checked') == true) {
-				chkUnchk($("#chk_phone"), false)
-			}
-		} else {
+		if (regExp_phone.test($(this).val())) {
+			console.log(regExp_phone.test($(this).val()))
 			chkUnchk($("#chk_phone"), true)
+		} else {
+			chkUnchk($("#chk_phone"), false)
 		}
 
 	})

@@ -25,7 +25,7 @@ $(".btn_replDelete").on("click",function(){
 	console.log("rno = "+$(this).data("rno"))
 	
 	const data = {rno:$(this).data("rno")}
-	if(confirm("게시글을 삭제하겠습니까?")){
+	if(confirm("댓글을 삭제하겠습니까?")){
 		$.ajax({
 			type : "delete",
 			url : "/replies/delete",

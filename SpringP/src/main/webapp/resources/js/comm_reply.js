@@ -27,7 +27,7 @@ $("#btn_reply").on("click",function(){
 
 })
 
-//댓글 추가하는 함수
+// 댓글 추가하는 함수
 function add(reply){
 	$.ajax({
 		type:"post",
@@ -47,18 +47,20 @@ function add(reply){
 function list(bno){
 	$.getJSON("/replies/"+bno+".json", function(data){
 		for(let list of data){
-			str=`<div class="border col col-sm-8 align-self-center mb-2" data-rno=${list.rno}>
-				<div><label>작성자 : </label>${list.name}</div>
-				<div class="col align-self-end">
-				<a href="javascript:void(0)" data-rno=${list.rno} class="declaration">신고하기</a>
-				</div>
-				<div>
-				<div id="">${list.reply}</div>
-				<div>${list.regdate}</div>
-				<button type="button" data-rno=${list.rno} data-id=${list.id} class="btn_replmodify">수정하기</button>
-				<button type="button" data-rno=${list.rno} data-id=${list.id} class="btn_repldelete">삭제하기</button>
-				</div>
-				</div>
+			str=` <div class="border col col-sm-8 align-self-center mb-2" data-rno="${list.rno}">
+            <div><label>작성자 : </label>
+                <span>${list.name}</span>
+                <span><a href="#" style="font-size: 13px;" class="declaration" data-rno="${list.rno}">신고하기</a></span>
+            </div>
+            <div>
+                <div class="my-3" style="font-size: 18px;">${list.reply}</div>
+                <div style="font-size: 13px;">${list.regdate}</div>
+                <button type="button" data-rno="${list.rno}" data-id="${list.id}" class="btn_replmodify btn btn-default"
+                    style="font-size: 13px;">수정하기</button>
+                <button type="button" data-rno="${list.rno}" data-id="${list.id}" class="btn_repldelete btn btn-default"
+                    style="font-size: 13px;">삭제하기</button>
+            </div>
+        </div>
 			`;
 		$("#reply_content").append(str);
 		}
@@ -127,30 +129,39 @@ function clickAndModify(){
 			$.getJSON("/replies/select",dataS, function(data){
 				console.log(data)
 					let str=`
-							<div><label>작성자 : </label>${data.name}</div>
-							<div class="col align-self-end">
-							<a href="#">신고하기</a>
+							<div><label>작성자 : </label>
+								<span>${data.name}</span>
+								<span><a href="#" style="font-size: 13px;" class="declaration" data-rno="${data.rno}">신고하기</a></span>
 							</div>
 							<div>
-							<div id="">${data.reply}</div>
-							<div>${data.regdate}</div>
-							<button type="button" data-rno=${data.rno} data-id=${data.id} class="btn_replmodify">수정하기</button>
-							<button type="button" data-rno=${data.rno} data-id=${data.id} class="btn_repldelete">삭제하기</button>									
+								<div class="my-3" style="font-size: 18px;">${data.reply}</div>
+								<div style="font-size: 13px;">${data.regdate}</div>
+								<button type="button" data-rno="${data.rno}" data-id="${data.id}" class="btn_replmodify btn btn-default"
+									style="font-size: 13px;">수정하기</button>
+								<button type="button" data-rno="${data.rno}" data-id="${data.id}" class="btn_repldelete btn btn-default"
+									style="font-size: 13px;">삭제하기</button>
 							</div>
 							`;
 					e.target.parentNode.parentNode.innerHTML = str;
-					clickAndModify()
+					clickAndModify();
+					showLoginPopup();
 				})
 		})
 	})
 }
 
-//신고 팝업창 생성
+// 신고 팝업창 생성
 function showLoginPopup(){
 	$(".declaration").on("click",function(e){
-		let uri = "/community/replDeclaration?rno="+$(this).data("rno")
-		// 사용자가 사용하기 편하게끔 팝업창으로 띄어준다.
-		window.open(uri, "신고하기", "width=500, height=600, top=100, left=200");
+		if($("#loginId").val()!=''){
+			window.name="communityDetail";
+			let uri = "/community/replDeclaration?rno="+$(this).data("rno")
+			// 사용자가 사용하기 편하게끔 팝업창으로 띄어준다.
+			window.open(uri, "declare", "width=500, height=600, top=100, left=200");
+		}else{
+			alert('로그인 후 이용가능합니다.')
+		}
+		
 	})
 	 
   

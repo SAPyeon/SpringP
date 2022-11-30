@@ -11,6 +11,8 @@ import org.sap.service.CommunityService;
 import org.sap.service.CommunityServiceImpl;
 import org.sap.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,9 +100,10 @@ public class CommunityController {
 
 	// 댓글 신고하기
 	@RequestMapping(value = "/community/replDeclaration", method = RequestMethod.POST)
-	public void commdeclarPost(ReplyDto reply) {
+	public ResponseEntity<String> commdeclarPost(ReplyDto reply) {
 		System.out.println(reply);
-		replyservice.declaration(reply);
-		
+		int result = replyservice.declaration(reply);
+		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

@@ -6,10 +6,34 @@
 
 <mapper namespace="org.sap.mapper.AdminMapper">
 
-<select id="memberList" resultType="org.sap.model.MemberDto">
-	select * 
-	from member
-</select>
-
-
+	<resultMap type="org.sap.model.ReplyDto" id="ReplyDto">
+		<result column="rno" property="rno" />
+		<result column="reply" property="reply" />
+		<result column="bno" property="bno" />
+	</resultMap>
+	<resultMap type="org.sap.model.DeclareDto" id="DeclareDto">
+	<result column="id" property="id"/>
+	<result column="rno" property="rno"/>
+	<result column="reason" property="reason"/>
+	<result column="regdate" property="regdate"/>
+	<collection property="reply" resultMap="ReplyDto"></collection>
+	</resultMap>
+	
+	<select id="memberList" resultType="org.sap.model.MemberDto">
+		select *
+		from member
+	</select>
+	
+	<select id="declareReplList" resultMap="DeclareDto">
+		select *
+		from declaration
+		join board_reply
+		on declaration.rno = board_reply.rno
+		order by declaration.rno desc
+	</select>
+	
+	<delete id="declareReplDelete">
+		delete from declaration
+		where rno=#{rno}
+	</delete>
 </mapper>

@@ -26,9 +26,9 @@
 					class="border mb-3 my-3 col-xs-6 form-control" id="form_decl">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="col col-xm-12">
-							<label>작성자</label> <input type="text" value="${declUser.id}"
-								name="id"> <input type="hidden" value="${declUser.rno}"
-								name="rno">
+							<label>작성자</label> 
+							<input type="text" value="${declUser.id}" name="id" readonly> 
+							<input type="hidden" value="${declUser.rno}" name="rno">
 						</div>
 						<div>
 							<div class="col col-xm-12">
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<button class="btn btn-primary" id="btn_declare">신고하기</button>
 				</form>
 			</div>
@@ -47,15 +47,37 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		
 	<script type="text/javascript">
-	$(function() {
-	    $("#btn_declare").click( function() {
-	         $('#form_decl').submit();
-	         setTimeout(function() {   
-	             window.close();
-	          }, 100);
-	      });
-	</script>	
+	    $("#btn_declare").click( function(e) {
+	    	e.preventDefault();
+	    	
+	    	console.log($("input[name=rno]").val())
+	    	console.log($("input[name=id]").val())
+	    	console.log($("textarea[name=reason]").val())
+	    	
+	    	
+	    	const formData = new FormData();
+	    	formData.append("rno",$("input[name=rno]").val())
+	    	formData.append("id",$("input[name=id]").val())
+	    	formData.append("reason",$("textarea[name=reason]").val())
+	    	
+	         window.opener.document.location.href = window.opener.document.URL;
+	    	if(confirm("신고하시겠습니까?")){
+	    		$.ajax({
+		    		type : "post",
+					url : "/community/replDeclaration",
+					data : formData, // 데이터를 formData메서드를 사용함
+					contentType: false, //자바에서 충돌을 방지하기 위해 contentType과 processData를 false로 함
+					processData: false,
+					success:function(result){
+						alert("신고되었습니다.")
+							window.close();	
+					}
+		    	})
+	    	}
+	     })
+	</script>
 </body>
 
 </html>

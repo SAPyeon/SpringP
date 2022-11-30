@@ -56,7 +56,7 @@
 					<label>ID : </label> <input type="text"	value=${memberInfo.id} name = "id" readonly>
 				</div>
 				<div class="d-flex justify-content-between my-1">
-					<label>PW : </label> <input type="password"	value=${memberInfo.password} name="password" readonly>
+					<label>PW : </label> <input type="password"	value=${memberInfo.password} name="password" readonly id="pw">
 				</div>
 				<div class="regExp">
 					<p>6~20글자를 입력해주세요.</p>

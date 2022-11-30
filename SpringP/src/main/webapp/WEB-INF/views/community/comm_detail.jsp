@@ -18,7 +18,6 @@
 	crossorigin="anonymous"></script>
 <style type="text/css">
 #content{min-height: 400px;}
-
 </style>
 </head>
 <body>

@@ -175,11 +175,17 @@ public class MemberController {
 		System.out.println(id);
 		int result = 0;
 		// System.out.println(memberService.findById(id));
-		if (memberService.findById(id).getId() != null) {
-			result = 1;
+		try {
+			if (memberService.findById(id).getId() != null) {
+				result = 1;
+			}else {
+				result = 0;
+			}
+		}catch(Exception e) {
+			System.out.println(result);
 		}
-		System.out.println(result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
+		
 	}
 
 	// 마이페이지

@@ -38,7 +38,7 @@
 						<c:forEach items="${memberList}" var="memberList" varStatus="status">
 							<tr>
 								<td>${status.count}</td>
-								<td>${memberList.id}</td>
+								<td><a href="/admin/memberDetail?id=${memberList.id}">${memberList.id}</a></td>
 								<td>${memberList.name}</td>
 								<td>${memberList.phone}</td>
 								<td>${memberList.point}</td>

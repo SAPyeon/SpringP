@@ -44,8 +44,8 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public void declaration(ReplyDto reply) {
-		replymapper.declaration(reply);
+	public int declaration(ReplyDto reply) {
+		return replymapper.declaration(reply);
 	}
 
 }

@@ -16,6 +16,6 @@ public interface ReplyService {
 	// 해당 댓글 불러오기
 	public ReplyDto replSelect(String rno);
 	// 댓글신고
-	public void declaration(ReplyDto reply);
+	public int declaration(ReplyDto reply);
 	
 }
