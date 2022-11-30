@@ -38,8 +38,6 @@ select * from authorities;
 insert into authorities(id, authority)
 values('asdf1234','admin');
 
-
-
 desc stockInfo;
 create table StockInfo(
 	srtnCd varchar(50) primary key, -- 종목코드
@@ -102,7 +100,6 @@ select count(*) from board where id="asdf1234" order by bno;
 desc board;
 select * from board;
 
-
 drop table board_reply;
 
 create table board_reply(
@@ -139,10 +136,26 @@ create table declaration(
 	id varchar(100),
     rno int,
     bno int,
-    reason varchar(10000)
+    reason varchar(10000),
+    regdate datetime default now()
 );
 
+-- primary key가 아님, 외래키 설정 불가
+ALTER TABLE declaration ADD CONSTRAINT board_reply_rno_fk2
+FOREIGN KEY (rno) REFERENCES board_reply(rno) 
+on delete cascade
+on update cascade;
+
 select * from declaration;
+
+delete from declaration where rno=11;
+
+select * 
+from declaration d
+join board_reply br
+on d.rno = br.rno
+order by d.regdate desc;
+
 
 use project;
 
