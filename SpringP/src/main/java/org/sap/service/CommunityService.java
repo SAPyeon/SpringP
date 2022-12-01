@@ -23,5 +23,6 @@ public interface CommunityService {
 	public void delete(BoardDto bdto);
 	//커뮤니티 게시판 아이디 찾기
 	public String findId(String bno);
-	
+	//게시판 공지사항 리스트
+	public ArrayList<BoardDto> noticeList();
 }

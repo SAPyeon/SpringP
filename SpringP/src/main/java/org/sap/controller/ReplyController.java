@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.sap.model.BoardDto;
+import org.sap.model.DeclareDto;
 import org.sap.model.ReplyDto;
 import org.sap.service.ReplyService;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class ReplyController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
+	
 	// 댓글목록리스트
 	@RequestMapping(value = "/replies/{bno}", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<ReplyDto>> getlist(@PathVariable String bno) {

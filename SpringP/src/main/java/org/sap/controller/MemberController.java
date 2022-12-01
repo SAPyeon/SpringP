@@ -76,6 +76,7 @@ public class MemberController {
 		try {
 			session.setAttribute("loginName", memberService.login(mdto).getName());
 			session.setAttribute("loginId", memberService.login(mdto).getId());
+			session.setAttribute("admin", memberService.login(mdto).isAuthority());
 			memberService.login(mdto);
 			return "redirect:/";
 		} catch (Exception e) {
@@ -178,14 +179,14 @@ public class MemberController {
 		try {
 			if (memberService.findById(id).getId() != null) {
 				result = 1;
-			}else {
+			} else {
 				result = 0;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(result);
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
-		
+
 	}
 
 	// 마이페이지
@@ -233,25 +234,26 @@ public class MemberController {
 	public void findLoginId(Model model, MemberDto mdto) {
 		model.addAttribute("findUser", memberService.findLoginId(mdto));
 	}
-	
+
 	// 비밀번호 찾기
 	@RequestMapping(value = "/member/findLoginPw", method = RequestMethod.GET)
-	public void findLoginpw(Model model, MemberDto mdto,@RequestParam String id,@RequestParam String name,@RequestParam String phone) {
+	public void findLoginpw(Model model, MemberDto mdto, @RequestParam String id, @RequestParam String name,
+			@RequestParam String phone) {
 		mdto.setId(id);
 		mdto.setName(name);
 		mdto.setPhone(phone);
-		
+
 		model.addAttribute("user", mdto);
-		
+
 	}
-	
-	//비밀번호 변경
+
+	// 비밀번호 변경
 	@RequestMapping(value = "/member/modiPassword", method = RequestMethod.POST)
 	public String findAndModipw(MemberDto mdto) {
 		memberService.updateInfo(mdto);
 		return "/member/login";
 	}
-	
+
 	// 해당종목 즐겨찾기 유무
 	@RequestMapping(value = "/findLike", method = RequestMethod.GET)
 	public ResponseEntity<Integer> findLike(HttpServletRequest request, LikeDto likedto, HttpSession session) {
@@ -314,5 +316,13 @@ public class MemberController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
+	// 해당 멤버가 쓴 글 삭제하기
+	@RequestMapping(value = "/member/registerAdmin", method = RequestMethod.POST)
+	public ResponseEntity<String> registerAdmin(@RequestBody MemberDto mdto) {
+		return null;
+//		int result = memberService.boardDelete(bno);
+//		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

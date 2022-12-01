@@ -8,6 +8,7 @@ const urlParams = new URL(location.href).searchParams;
 const bnoVal = urlParams.get('bno');
 
 console.log(bnoVal)
+
 list(bnoVal)
 
 const loginName = $("#loginName").val();
@@ -16,15 +17,15 @@ console.log(loginName);
 console.log($("#loginId").val())	
 
 $("#btn_reply").on("click",function(){
-	
 	const replyVal = $("#reply").val();
 	console.log(replyVal);
 	if($("#loginId").val()!=''){
-		add({bno:bnoVal, reply:replyVal, name:loginName, id:$("#loginId").val()});
+		
+			add({bno:bnoVal, reply:replyVal, name:loginName, id:$("#loginId").val()});
+		
 	}else{
 		alert('로그인 후 이용가능합니다.');
 	}
-
 })
 
 // 댓글 추가하는 함수

@@ -23,4 +23,14 @@ btn.addEventListener("click",function(e){
 	Form.submit();
 })
 
+$("#chk_notice").on("change",function(){
+	if($(this).is(":checked")){
+		$("#writeFrom").attr("action","/admin/notice")
+	}else{
+		$("#writeFrom").attr("action","/community/write")
+	}
+	console.log($("#writeFrom").attr("action"))
+})
+
+
 

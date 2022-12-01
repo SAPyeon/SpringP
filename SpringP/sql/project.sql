@@ -93,8 +93,12 @@ content varchar(10000), -- 게시판 내용
 name varchar(100), -- 작성자 이름
 id varchar(100), -- 작성자 아이디 
 cnt int default 0, -- 조회수 
-regdate datetime default now() -- 작성일
+regdate datetime default now(), -- 작성일
+notice boolean default false -- 공지사항여부
 );
+insert into board(title, content, name, id, notice)
+values('작성','게시글작성','aaaaa','1111',true);
+
 desc board;
 select count(*) from board where id="asdf1234" order by bno;
 desc board;
@@ -109,7 +113,8 @@ name varchar(100) not null, -- 리뷰작성자
 id varchar(100) not null,
 declaration int default 0, -- 신고
 regdate datetime default now(), -- 작성일
-bno int 
+bno int, -- 게시판번호
+nno int -- 공지사항 번호
 );
 
 desc board_reply;

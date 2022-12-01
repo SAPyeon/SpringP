@@ -2,6 +2,7 @@ package org.sap.service;
 
 import java.util.ArrayList;
 
+import org.sap.model.DeclareDto;
 import org.sap.model.ReplyDto;
 
 public interface ReplyService {

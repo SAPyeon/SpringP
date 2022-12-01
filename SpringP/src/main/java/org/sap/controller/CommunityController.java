@@ -6,6 +6,7 @@ import org.sap.model.BoardDto;
 import org.sap.model.CriteriaVO;
 import org.sap.model.PageVO;
 import org.sap.model.ReplyDto;
+import org.sap.service.AdminService;
 import org.sap.service.BoardService;
 import org.sap.service.CommunityService;
 import org.sap.service.CommunityServiceImpl;
@@ -28,6 +29,10 @@ public class CommunityController {
 
 	@Autowired
 	CommunityService cs;
+	
+	@Autowired
+	AdminService adminservice;
+	
 
 	public final ReplyService replyservice;	
 	
@@ -53,30 +58,32 @@ public class CommunityController {
 		model.addAttribute("commlist", cs.list(cri));
 		int total = cs.total();
 		model.addAttribute("paging", new PageVO(cri, total));
+		model.addAttribute("notice",cs.noticeList());
 	}
-
+	
 	// 커뮤니티 글 상세페이지
 	@RequestMapping(value = "/community/detail", method = RequestMethod.GET)
 	public String commdetail(BoardDto bdto, Model model, @RequestParam String bno) {
-		bdto.setBno(bno);
-		// System.out.println(csi.detail(bdto)); // detail()함수 실행으로 조회수 두번찍힘
-		model.addAttribute("detail", cs.detail(bdto));
+			bdto.setBno(bno);
+			// System.out.println(csi.detail(bdto)); // detail()함수 실행으로 조회수 두번찍힘
+			model.addAttribute("detail", cs.detail(bdto));
 		return "/community/comm_detail";
 	}
 
 	// 커뮤니티 글 수정
 	@RequestMapping(value = "/community/modify", method = RequestMethod.GET)
 	public String commModify(BoardDto bdto, Model model, @RequestParam String bno) {
-		bdto.setBno(bno);
-		model.addAttribute("detail", cs.ModiDetail(bdto));
+			bdto.setBno(bno);
+			model.addAttribute("detail", cs.ModiDetail(bdto));
 		return "/community/comm_modify";
 	}
 
 	@RequestMapping(value = "/community/modify", method = RequestMethod.POST)
 	public String commModifyPost(BoardDto bdto, @RequestParam String bno, RedirectAttributes rttr) {
-		bdto.setBno(bno);
-		cs.modify(bdto);
-		rttr.addAttribute("bno", bdto.getBno());
+			bdto.setBno(bno);
+			cs.modify(bdto);
+			rttr.addAttribute("bno", bdto.getBno());
+			rttr.addAttribute("nno", "notice");
 		return "redirect:/community/detail";
 	}
 
@@ -106,4 +113,5 @@ public class CommunityController {
 		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 }

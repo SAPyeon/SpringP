@@ -27,13 +27,14 @@
 				<form action="/community/modify" method="post" id="writeFrom">
 					<div class="mb-3">
 						<label class="col-sm-2">제목</label> <input type="text" name="title"
-							class="input-form col-sm-12" placeholder="title...." value="${detail.title}">
+							class="input-form col-sm-12" placeholder="title...."
+							value="${detail.title}">
 					</div>
 					<div class="mb-3">
 						<label class="col-sm-2">내용</label>
 						<div id="editor" contenteditable="true">${detail.content}</div>
 					</div>
-					<div class ="mb-3">
+					<div class="mb-3">
 						<button type="submit" class="btn btn-primary btn-sm"
 							id="btn_submit">제출</button>
 					</div>

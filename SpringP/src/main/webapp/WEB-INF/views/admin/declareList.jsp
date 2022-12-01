@@ -44,7 +44,7 @@
 								<td>${declareReplList.reply.reply}</td>
 								<td>${declareReplList.regdate}</td>
 								<td><button type="button" class="btn_replDelete btn btn-secondary btn-sm" data-rno="${declareReplList.rno}">삭제</button></td>
-								<td><button type="button" class="btn btn-secondary btn-sm" class="btn_repl">유지</button></td>
+								<td><button type="button" class="btn_replKeep btn btn-secondary btn-sm" data-rno="${declareReplList.rno}">유지</button></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -72,6 +72,13 @@
 		}
 		
 	})
+	$(".btn_replKeep").on("click",function(){
+		const data = {rno:$(this).data("rno")}
+		if(confirm("댓글을 유지하겠습니까?(신고게시판에는 사라집니다.)")){
+			declareReplDelete(data);
+		}
+	})
+	
 	function declareReplDelete(data){
 		$.ajax({
 			type : "delete",
@@ -79,7 +86,7 @@
 			data : JSON.stringify(data),
 			contentType : "application/json; charset=utf-8",
 			success : function() {
-				alert('댓글이 삭제되었습니다.')
+				alert('댓글 신고 처리 완료')
 				location.reload();
 			}
 		})

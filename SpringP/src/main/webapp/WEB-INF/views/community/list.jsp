@@ -16,7 +16,11 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
- 
+ <style type="text/css">
+ .notice{
+ 	background:#ced4da;
+ }
+ </style>
 </head>
 <body>
 	<div class="container">
@@ -39,6 +43,16 @@
 							<th scope="col">등록일</th>
 						</tr>
 					</thead>
+					<c:forEach items="${notice}" var="notice" varStatus="status">
+						<tr class="notice">
+							<td scope="row">${status.count}</td>
+							<td><a href="/community/detail?bno=${notice.bno}">${notice.title}</a></td>
+							<td>관리자</td>
+							<td></td>
+							<td>${notice.regdate}</td>
+						</tr>
+					</c:forEach>
+					
 					<c:forEach items="${commlist}" var="list" varStatus="status">
 						<tr>
 							<td scope="row">${status.count}</td>

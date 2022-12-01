@@ -13,4 +13,5 @@ public class BoardDto {
 	private String id;
 	private int cnt;
 	private String regdate;
+	private boolean notice;
 }

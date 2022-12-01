@@ -1,5 +1,8 @@
 package org.sap.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.sap.model.BoardDto;
 import org.sap.model.DeclareDto;
 import org.sap.service.AdminService;
 import org.sap.service.MemberService;
@@ -42,10 +45,20 @@ public class AdminController {
 		model.addAttribute("declareReplList", adminService.declareReplList());
 	}
 	
-	// 신고댓글 삭제시 신고테이블에서도 삭제
+	// 신고댓글 삭제 혹은 유지시 신고테이블에서도 삭제
 	@RequestMapping(value="/admin/declareReplDelete",method=RequestMethod.DELETE)
 	public ResponseEntity<Integer> declareReplDelete(@RequestBody DeclareDto ddto) {
 		int result = adminService.declareReplDelete(ddto);
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	// 공지사항 등록
+	@RequestMapping(value="/admin/notice", method=RequestMethod.POST)
+	public String notice(BoardDto bdto, HttpSession session) {
+		bdto.setId((String) session.getAttribute("loginId"));
+		bdto.setName("관리자");
+		bdto.setNotice(true);
+		adminService.noticeWrite(bdto);
+		System.out.println(bdto);
+		return "redirect:/community/list";
 	}
 }

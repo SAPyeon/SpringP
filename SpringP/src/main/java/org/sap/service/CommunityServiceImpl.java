@@ -64,6 +64,11 @@ public class CommunityServiceImpl implements CommunityService{
 	public String findId(String bno) {
 		return commMapper.findId(bno);
 	}
+	@Override
+	public ArrayList<BoardDto> noticeList() {
+		return commMapper.noticeList();
+	}
+
 	
 	
 }

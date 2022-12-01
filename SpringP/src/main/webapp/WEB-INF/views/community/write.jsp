@@ -24,6 +24,14 @@
 		<div class="row main">
 			<div class="board col-xs-12">
 				<h1>글쓰기</h1>
+				<c:choose>
+					<c:when test="${admin==true}">
+						<div class="d-flex justify-content-end">
+							<input type="checkbox" name="chk_notice" id="chk_notice">
+							<lable for="chk_notice">공지사항으로 등록</lable>
+						</div>
+					</c:when>
+				</c:choose>
 				<form action="/community/write" method="post" id="writeFrom">
 					<div class="mb-3">
 						<label class="col-sm-2">제목</label> <input type="text" name="title"
@@ -33,7 +41,7 @@
 						<label class="col-sm-2">내용</label>
 						<div id="editor" contenteditable="true"></div>
 					</div>
-					<div class ="mb-3">
+					<div class="mb-3">
 						<button type="submit" class="btn btn-primary btn-sm"
 							id="btn_submit">제출</button>
 					</div>

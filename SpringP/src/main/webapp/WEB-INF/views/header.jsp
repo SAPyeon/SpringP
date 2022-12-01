@@ -18,7 +18,8 @@
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="/">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="/board/list">주가리스트</a></li>
-						<li class="nav-item"><a class="nav-link" href="/community/list">커뮤니티</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/community/list">커뮤니티</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,6 +53,7 @@
 			<c:when test="${loginName==null}">
 				<a href="/member/login">로그인하기</a>
 			</c:when>
+
 			<c:otherwise>
 				<label>Welcome! ${loginName}님</label>
 				<a href="/member/mypage">마이페이지</a>

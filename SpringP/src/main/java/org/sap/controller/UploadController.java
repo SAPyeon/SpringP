@@ -86,9 +86,9 @@ public class UploadController {
 			            File uploadFile = new File(uploadPath, getFolder()); // 이미지 경로에 날짜폴더 붙이기
 			            
 			            if(!uploadFile.exists()) { // uploadPath가 존재하지 않으면
-			            	uploadFile.mkdir(); // 부모디렉토리를 포함해 모든 디렉토리 생성
+			            	uploadFile.mkdirs(); // 부모디렉토리를 포함해 모든 디렉토리 생성
 			            }
-			           
+			            
 			            System.out.println("경로설정 = "+uploadFile); // "D:\01-STUDY/upload\2022\11\10"
 			            String fileName2 = UUID.randomUUID().toString();
 			            uploadPath = uploadFile.getPath() + "/" + fileName2 +fileName;
@@ -96,6 +96,7 @@ public class UploadController {
 			            // 어느폴더에, 어떤파일이름으로
 						File saveFile = new File(uploadFile, fileName2+fileName);
 						System.out.println("보낼파일 = "+saveFile);
+						System.out.println(uploadPath);
 						
 						// 변수 리스트에 저장
 						ImageDto.setUploadPath(getFolder());
@@ -104,7 +105,7 @@ public class UploadController {
 						ImageDto.setFullPath(uploadPath);
 						ImageDto.setImage(true);
 						
-						file.transferTo(saveFile); // 이미지 파일 저장할 폴더에 전송
+						file.transferTo(saveFile); // 이미지 파일 저장할 폴더에 전송  // error!!!!
 						
 			            out = new FileOutputStream(new File(uploadPath));
 			            out.write(bytes);

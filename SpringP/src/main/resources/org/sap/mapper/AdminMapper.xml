@@ -36,4 +36,11 @@
 		delete from declaration
 		where rno=#{rno}
 	</delete>
+	<insert id="noticeWrite">
+		insert into board(title, content, id, name, notice)
+		values(#{title},#{content},#{id},#{name},#{notice})
+	</insert>
+	
+
+		
 </mapper>

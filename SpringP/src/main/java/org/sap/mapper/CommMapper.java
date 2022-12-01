@@ -23,6 +23,7 @@ public interface CommMapper {
 	public void delete(BoardDto bdto);
 	// 게시판 아이디(작성자) 찾기
 	public String findId(String bno);
-	
+	// 게시판 공지사항 리스트
+	public ArrayList<BoardDto> noticeList();
 	
 }

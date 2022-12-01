@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.sap.mapper.AdminMapper;
 import org.sap.mapper.MemberMapper;
+import org.sap.model.BoardDto;
 import org.sap.model.DeclareDto;
 import org.sap.model.MemberDto;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,13 @@ public class AdminServiceImpl implements AdminService{
 	public int declareReplDelete(DeclareDto ddto) {
 		return adminMapper.declareReplDelete(ddto);
 	}
+
+	@Override
+	public void noticeWrite(BoardDto bdto) {
+		adminMapper.noticeWrite(bdto);
+	}
+
+	
+
+	
 }

@@ -3,6 +3,7 @@ package org.sap.service;
 import java.util.ArrayList;
 
 import org.sap.mapper.ReplyMapper;
+import org.sap.model.DeclareDto;
 import org.sap.model.ReplyDto;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,6 @@ public class ReplyServiceImpl implements ReplyService{
 	public int declaration(ReplyDto reply) {
 		return replymapper.declaration(reply);
 	}
+
 
 }
