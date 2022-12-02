@@ -40,6 +40,7 @@ public class ReplyController {
 	@RequestMapping(value = "/replies/{bno}", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<ReplyDto>> getlist(@PathVariable String bno) {
 		System.out.println(bno);
+		System.out.println(replyservice.relist(bno).size());
 		return new ResponseEntity<>(replyservice.relist(bno), HttpStatus.OK);
 
 	}

@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.sap.component.KakaoLogin;
 import org.sap.component.NaverLogin;
 import org.sap.model.BoardDto;
+import org.sap.model.ChangeAuthDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.WithdrawalDto;
@@ -317,12 +318,26 @@ public class MemberController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	// 해당 멤버가 쓴 글 삭제하기
-	@RequestMapping(value = "/member/registerAdmin", method = RequestMethod.POST)
-	public ResponseEntity<String> registerAdmin(@RequestBody MemberDto mdto) {
-		return null;
-//		int result = memberService.boardDelete(bno);
-//		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
-//				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 관리자로 신청하기
+	@RequestMapping(value = "/member/changeAuth", method = RequestMethod.GET)
+	public void registerAdmin() {
+
 	}
+
+	// 관리자로 신청하기
+	@RequestMapping(value = "/member/changeAuth", method = RequestMethod.POST)
+	public String registerAdminPost(ChangeAuthDto cadto) {
+		if(cadto.getBeforeAuthno().equals("회원")) {
+			cadto.setBeforeAuthno("30");
+		}
+		if(cadto.getAfterAuthno().equals("관리자")) {
+			cadto.setAfterAuthno("20");
+		}
+		System.out.println(cadto);
+		
+		memberService.changeAuth(cadto);
+		
+		return "redirect:/member/mypage";
+	}
+
 }

@@ -12,4 +12,5 @@ public class MemberDto {
 	private String phone;
 	private int point;
 	private boolean authority;
+	private String authno;
 }

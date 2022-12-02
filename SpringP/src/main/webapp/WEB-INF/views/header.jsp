@@ -6,7 +6,7 @@
 	<div class="col-xs-12">
 		<nav class="navbar navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Navbar</a>
+				<a class="navbar-brand" href="#">MYCOM</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,7 +51,7 @@
 	<div style="text-align: right" class="mb-4">
 		<c:choose>
 			<c:when test="${loginName==null}">
-				<a href="/member/login">로그인하기</a>
+				<a href="/member/login" id="loginIdHeader">로그인하기</a>
 			</c:when>
 
 			<c:otherwise>

@@ -88,4 +88,9 @@
 		delete from board
 		where bno=#{bno}
 	</delete>
+	
+	<insert id="changeAuth">
+		insert into changeAuth(id,beforeAuthno,afterAuthno,reasonChange)
+		values(#{id},#{beforeAuthno},#{afterAuthno},#{reasonChange})	
+	</insert>
 </mapper>

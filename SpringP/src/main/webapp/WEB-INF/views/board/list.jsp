@@ -27,8 +27,10 @@
                 <div id="stockListTable">
                 
                 </div>
+                <div class="text-center">
                 <button type="button" class="btn btn-primary btn-sm" id="prev">이전</button>
                 <button type="button" class="btn btn-primary btn-sm" id="next">다음</button>
+                </div>
             </div>
         </div>
         <%@ include file="../footer.jsp"%>

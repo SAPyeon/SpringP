@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.sap.mapper.AdminMapper;
 import org.sap.mapper.MemberMapper;
 import org.sap.model.BoardDto;
+import org.sap.model.ChangeAuthDto;
 import org.sap.model.DeclareDto;
 import org.sap.model.MemberDto;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,26 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void noticeWrite(BoardDto bdto) {
 		adminMapper.noticeWrite(bdto);
+	}
+
+	@Override
+	public ArrayList<ChangeAuthDto> changeAuthList() {
+		return adminMapper.changeAuthList();
+	}
+
+	@Override
+	public ChangeAuthDto findAuthChange(String id) {
+		return adminMapper.findAuthChange(id);
+	}
+
+	@Override
+	public int changeAuthUp(MemberDto mdto) {
+		return adminMapper.changeAuthUp(mdto);
+	}
+
+	@Override
+	public int changeAllowAuth(ChangeAuthDto cadto) {
+		return adminMapper.changeAllowAuth(cadto);
 	}
 
 	

@@ -3,7 +3,9 @@
 #main {
 	marigin: 0 auto;
 }
-
+#loginIdHeader{
+	display:none;
+}
 h1 {
 	text-align: center;
 	font-size: 53px;

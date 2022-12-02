@@ -20,15 +20,23 @@
 #content {
 	min-height: 400px;
 }
+.re{
+	text-decoration: underline;
+	
+}
+.btn_pa{
+	border:none;
+	background:white;
+}
 </style>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<div class="row main d-flex flex-column justify-content-center">
-			<h1>글</h1>
+			<h1>상세보기</h1>
 			<input type="hidden" value="${loginName}" id="loginName"> <input
-				type="hidden" value="${detail.bno}" id="bno"> 
+				type="hidden" value="${detail.bno}" id="bno">
 			<div class="border mb-3 col col-sm-8 align-self-center my-3"
 				id="title">${detail.title}</div>
 			<div class="border mb-3 col col-sm-8 align-self-center" id="title">
@@ -40,12 +48,11 @@
 				<a href="/community/list" class="text-right">목록보기</a>
 			</div>
 			<div style="text-align: right">
-				<a href="/community/modify?bno=${detail.bno}"
-					class="text-right">수정</a> <a href="javascript:void(0)"
-					class="text-right" id="delete">삭제</a>
+				<a href="/community/modify?bno=${detail.bno}" class="text-right">수정</a>
+				<a href="javascript:void(0)" class="text-right" id="delete">삭제</a>
 			</div>
 			<div>
-				<label>댓글</label>
+				<h3>댓글</h3>
 			</div>
 			<hr>
 			<div class="row d-flex justify-content-center m-3">
@@ -56,6 +63,11 @@
 			</div>
 			<div id="reply_content"
 				class="row main d-flex flex-column justify-content-center"></div>
+			<div class="d-flex justify-content-center">
+				<button id="prev" class="btn btn-primary btn-sm">이전</button>
+				<div id="pagination"></div>
+				<button id="next" class="btn btn-primary btn-sm">다음</button>
+			</div>
 		</div>
 		<%@ include file="../footer.jsp"%>
 	</div>

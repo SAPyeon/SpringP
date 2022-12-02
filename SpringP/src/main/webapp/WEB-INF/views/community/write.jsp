@@ -41,9 +41,9 @@
 						<label class="col-sm-2">내용</label>
 						<div id="editor" contenteditable="true"></div>
 					</div>
-					<div class="mb-3">
-						<button type="submit" class="btn btn-primary btn-sm"
-							id="btn_submit">제출</button>
+					<div class="mb-3 text-center">
+						<button type="submit" class="btn btn-primary btn-lg"
+							id="btn_submit">글쓰기</button>
 					</div>
 					<input type="hidden" name="content" id="content">
 				</form>

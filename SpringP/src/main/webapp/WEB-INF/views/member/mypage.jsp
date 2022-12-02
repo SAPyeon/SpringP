@@ -24,13 +24,16 @@
 	color: red;
 	display: none;
 }
+#main{
+	min-height:500px;
+}
 </style>
 
 </head>
 <body>
 	<div class="container">
 		<%@ include file="../header.jsp"%>
-		<div class="row">
+		<div class="row" id="main">
 			<div class="col-md-3">
 				<!-- 사이드 바 메뉴-->
 				<!-- 패널 타이틀1 -->
@@ -44,11 +47,11 @@
 								목록보기</a></li>
 						<li class="list-group-item"><a href="/member/boardList">내가쓴
 								글</a></li>
-						<li class="list-group-item"><a href="#">관리자 신청</a></li>
+						<li class="list-group-item"><a href="/member/changeAuth">관리자 신청</a></li>
 					</ul>
 					<c:choose>
 						<c:when test="${admin == true}">
-							<div class="panel panel-default">
+							<div class="panel panel-default mt-3">
 								<div class="panel-heading">
 									<h3 class="panel-title">관리자전용</h3>
 								</div>
@@ -56,7 +59,7 @@
 								<ul class="list-group">
 									<li class="list-group-item"><a href="/admin/memberList">회원리스트</a></li>
 									<li class="list-group-item"><a href="/admin/declareList">댓글 신고리스트</a></li>
-									<li class="list-group-item"><a href="#">관리자 수락</a></li>
+									<li class="list-group-item"><a href="/admin/changeAuthList">관리자 수락</a></li>
 								</ul>
 							</div>
 						</c:when>
@@ -93,7 +96,6 @@
 						<div class="d-flex justify-content-between my-1">
 							<label>PHONE : </label> <input type="text"
 								value=${memberInfo.phone } name="phone" readonly>
-
 						</div>
 						<div class="regExp">
 							<p>전화번호를 입력해주세요.("-"없이 입력)</p>
@@ -104,7 +106,6 @@
 								value=${memberInfo.point } readonly>
 						</div>
 					</div>
-
 					<div class="d-flex justify-content-between my-1">
 						<button class="btn btn-primary" type="button" id="btn_mem_Modify">수정</button>
 						<button class="btn btn-primary" type="button" id="btn_mem_Remove">회원탈퇴</button>

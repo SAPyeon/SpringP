@@ -23,7 +23,7 @@
 		<%@ include file="../header.jsp"%>
 		<div class="row main">
 			<div class="board col-xs-12">
-				<h1>글쓰기</h1>
+				<h1>수정하기</h1>
 				<form action="/community/modify" method="post" id="writeFrom">
 					<div class="mb-3">
 						<label class="col-sm-2">제목</label> <input type="text" name="title"

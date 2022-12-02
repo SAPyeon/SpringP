@@ -3,6 +3,7 @@ package org.sap.mapper;
 import java.util.ArrayList;
 
 import org.sap.model.BoardDto;
+import org.sap.model.ChangeAuthDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.ReplyDto;
@@ -37,6 +38,8 @@ public interface MemberMapper {
 	public ArrayList<ReplyDto> memCommReplyList(String id);
 	// 해당 아이디 커뮤니티 게시판 글 삭제하기
 	public int boardDetail(String bno);
+	// 관리자 신청 테이블에 insert하기
+	public void changeAuth(ChangeAuthDto cadto);
 	
 	
 	

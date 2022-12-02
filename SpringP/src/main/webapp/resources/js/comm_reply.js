@@ -16,6 +16,18 @@ const loginName = $("#loginName").val();
 console.log(loginName);
 console.log($("#loginId").val())	
 
+//const Rtotal = document.getElementById('Rtotal')
+
+const list_element = document.querySelector('#reply_content');
+const pagination_element = document.querySelector("#pagination");
+
+
+let current_page = 1; //현재페이지
+let amount = 5; // 페이지에 나타낼 갯수
+let startPage = 1;
+let endPage = startPage + 9;
+
+
 $("#btn_reply").on("click",function(){
 	const replyVal = $("#reply").val();
 	console.log(replyVal);
@@ -47,27 +59,50 @@ function add(reply){
 // 댓글리스트를 불러오는 함수
 function list(bno){
 	$.getJSON("/replies/"+bno+".json", function(data){
-		for(let list of data){
-			str=` <div class="border col col-sm-8 align-self-center mb-2" data-rno="${list.rno}">
-            <div><label>작성자 : </label>
-                <span>${list.name}</span>
-                <span><a href="#" style="font-size: 13px;" class="declaration" data-rno="${list.rno}">신고하기</a></span>
-            </div>
-            <div>
-                <div class="my-3" style="font-size: 18px;">${list.reply}</div>
-                <div style="font-size: 13px;">${list.regdate}</div>
-                <button type="button" data-rno="${list.rno}" data-id="${list.id}" class="btn_replmodify btn btn-default"
-                    style="font-size: 13px;">수정하기</button>
-                <button type="button" data-rno="${list.rno}" data-id="${list.id}" class="btn_repldelete btn btn-default"
-                    style="font-size: 13px;">삭제하기</button>
-            </div>
-        </div>
-			`;
-		$("#reply_content").append(str);
+		//페이징처리
+		let total = Math.ceil(data.length / amount);
+		console.log("리뷰총갯수="+total)
+		DisplayList(data, list_element, amount, current_page);
+		SetupPagination(data, pagination_element, amount, current_page, startPage);
+		if(data.length===0){
+			$("#prev").css("display","none")
+			$("#next").css("display","none")
 		}
+		if(data!=''){
+			$("#next").on("click", function (e) {
+				startPage = startPage+10;
+		        if(startPage > total){
+		            startPage = startPage -10;
+		        }else{
+		        	current_page = startPage;
+		        }
+		        DisplayList(data, list_element, amount, current_page);
+		        SetupPagination(data, pagination_element, amount, current_page,startPage);
+		        
+			})
+			$("#prev").on("click",function(e){
+				if(startPage === 1){
+					e.preventDefault();
+				}else{
+					startPage = startPage-10;
+					if(startPage<1){
+						startPage = 1;
+						DisplayList(data, list_element, amount, current_page);
+					}else{
+						endPage= startPage+9
+						DisplayList(data, list_element, amount, endPage);
+					}
+					current_page = endPage;
+					SetupPagination(data, pagination_element, amount, current_page,startPage);	
+				}
+				
+			})
+			}
+		
 		clickAndDelete();
 		clickAndModify();
 		showLoginPopup();
+		
 	})
 	
 }
@@ -94,6 +129,7 @@ function clickAndDelete(){
 	})
 
 }
+
 // 버튼 클릭해서 리뷰 수정하는 함수
 function clickAndModify(){
 	$(".btn_replmodify").on("click",function(){
@@ -167,5 +203,90 @@ function showLoginPopup(){
 	 
   
 }
+
+
+//댓글 페이징처리
+
+//리스트를 보여주는 함수
+function DisplayList(items, wrapper, amount, page) {
+    wrapper.innerHTML = "";
+    page--; // 페이지번호를 1 다운
+
+    let start = amount * page; //현재페이지:(2-1)*5 = 5
+    let end = start + amount; // 5+5 = 10
+
+    let paginatedItems = items.slice(start, end); //6-10번까지 불러오기
+    //데이터보여지는 곳 - GETJSON 데이터는 여기로
+    for(let list of paginatedItems){
+		str=` <div class="border col col-sm-8 align-self-center mb-2" data-rno="${list.rno}">
+        <div><label>작성자 : </label>
+            <span>${list.name}</span>
+            <span><a href="#" style="font-size: 13px;" class="declaration" data-rno="${list.rno}">신고하기</a></span>
+        </div>
+        <div>
+            <div class="my-3" style="font-size: 18px;">${list.reply}</div>
+            <div style="font-size: 13px;">${list.regdate}</div>
+            <button type="button" data-rno="${list.rno}" data-id="${list.id}" class="btn_replmodify btn btn-default"
+                style="font-size: 13px;">수정하기</button>
+            <button type="button" data-rno="${list.rno}" data-id="${list.id}" class="btn_repldelete btn btn-default"
+                style="font-size: 13px;">삭제하기</button>
+        </div>
+    </div>
+		`;
+	$("#reply_content").append(str);
+	}
+}
+
+
+//버튼 안에 숫자를 넣는 함수
+function SetupPagination(items, wrapper, amount, current_page , startPage) {
+	if(items.length != 0){
+    	wrapper.innerHTML = "";
+        let page_count = Math.ceil(items.length / amount); 
+        let PageGroup = Math.ceil(current_page / 10) * 10; 
+        let endPage = startPage + 9;
+        let RealEnd = page_count; // 21
+        if (RealEnd < endPage) {
+            endPage = RealEnd ;
+        }
+        console.log("startPage = "+startPage);
+        if(startPage===1){
+        	$("#prev").css("display","none")
+        }else{
+        	$("#prev").css("display","")
+        }
+        if(endPage === RealEnd){
+        	$("#next").css("display","none")
+        }else{
+        	$("#next").css("display","")
+        }
+        
+        for (let i = startPage; i < endPage+1; i++) {
+            let btn = PaginationButton(i, items);
+            wrapper.appendChild(btn);
+        }
+        
+	}
+}
+
+//버튼만들어 페이징 하는 함수
+function PaginationButton(page, items) {
+    let button = document.createElement('button');
+    button.innerText = page;
+    button.classList.add("btn_pa")
+    if (current_page == page) {
+            button.classList.add('re')
+    }
+    button.addEventListener("click", function () {
+        //button.classList.remove('re')
+        current_page = page;           
+        DisplayList(items, list_element, amount, current_page);
+        let current_btn = document.querySelector('.re');
+        current_btn.classList.remove('re');
+        button.classList.add('re');
+    })
+    return button;
+}
+
 
 

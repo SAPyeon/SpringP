@@ -41,6 +41,25 @@
 		values(#{title},#{content},#{id},#{name},#{notice})
 	</insert>
 	
-
-		
+	<select id="changeAuthList" resultType="org.sap.model.ChangeAuthDto">
+		select * 
+		from changeAuth
+	</select>
+	
+	<select id="findAuthChange" resultType="org.sap.model.ChangeAuthDto">
+		select * 
+		from changeAuth
+		where id = #{id}
+	</select>
+	
+	<update id="changeAuthUp">
+		update member
+		set authority=#{authority}, authno=#{authno}
+		where id=#{id}
+	</update>
+	
+	<update id="changeAllowAuth">
+		update changeAuth
+		set allow=#{allow}
+	</update>
 </mapper>

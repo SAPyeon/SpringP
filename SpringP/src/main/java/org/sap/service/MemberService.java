@@ -3,6 +3,7 @@ package org.sap.service;
 import java.util.ArrayList;
 
 import org.sap.model.BoardDto;
+import org.sap.model.ChangeAuthDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.ReplyDto;
@@ -38,6 +39,8 @@ public interface MemberService {
 	public ArrayList<ReplyDto> memCommReplyList(String id);
 	// 해당 아이디 커뮤니티 게시판 삭제
 	public int boardDelete(String bno);
+	//관리자신청 등록하기
+	public void changeAuth(ChangeAuthDto cadto);
 	
 	
 	

@@ -69,6 +69,9 @@
 				</div>
 			</div>
 			<a href="/admin/memberList">회원목록보기</a>
+			<c:if test="${registerAuthChange !=null}">
+				<a href="/admin/changeAuthList">관리자 신청 목록보기</a>
+			</c:if>
 		</div>
 		<%@ include file="../footer.jsp"%> 
 	</div>

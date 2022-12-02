@@ -1,24 +1,53 @@
 create database project;
+
 use project;
 
--- drop table member;
+-- 회원테이블
+drop table member;
 create table member(
 id varchar(100) primary key, -- 아이디 
 password varchar(100), -- 비밀번호 
 name varchar(100) not null, -- 이름
 phone varchar(20) not null, -- 전화번호
 point int default 0, -- 포인트 
-authority boolean default false -- 관리자여부 
+authority boolean default false, -- 관리자여부 
+authno varchar(100) not null default 30
 );
 
 desc member;
-insert into member(id,password,name,phone,authority)
-values('asdf1234','asdf1234','admin','11111',true);
 
-delete from member where password="";
+insert into member(id,password,name,phone,authority,authno)
+values('asdf1234','asdf1234','admin','11111',true, 10);
 
 select * from member;
 
+-- 멤버 등급 테이블
+-- drop table authorities;
+create table authorities(
+	authno varchar(100) primary key,
+    authority varchar (100) not null
+);
+
+select * from authorities;
+
+insert into authorities(authno, authority)
+values('10','manager'),('20','admin'),('30','member');
+
+-- 등급업 테이블
+create table changeAuth(
+	id varchar(100), 
+    beforeAuthno varchar(100),
+    AfterAuthno varchar(100),
+    ReasonChange varchar(10000),
+    regdate datetime default now(),
+    allow boolean default false
+);
+
+select * from changeAuth;
+
+delete from changeAuth where regdate = "2022-12-02 15:05:37";
+ 
+-- 회원탈퇴 테이블
 create table Withdrawal(
 	wno int auto_increment primary key, -- 탈퇴데이터 번호 
 	id varchar(100), -- 아이디 
@@ -27,17 +56,11 @@ create table Withdrawal(
 );
 select * from withdrawal;
 
-drop table authorities;
-create table authorities(
-	id varchar(50) not null,
-    authority varchar (50) not null
-);
 
-select * from authorities;
 
-insert into authorities(id, authority)
-values('asdf1234','admin');
 
+
+-- 주가정보 테이블
 desc stockInfo;
 create table StockInfo(
 	srtnCd varchar(50) primary key, -- 종목코드
@@ -64,6 +87,7 @@ from (
     where itmsNm like '%삼%'
     ) as searchlist;
 
+-- kospi 회사 정보테이블
 -- drop table companyInfo;
 create table companyInfo(
 StaticCode varchar(30) primary key, -- 표준코드
@@ -85,6 +109,7 @@ select * from companyInfo ;
 select count(*) from companyInfo;   
 desc companyInfo;
 
+-- 커뮤니티 게시판 테이블
 drop table board;
 create table board(
 bno int auto_increment primary key, -- 게시판번호
@@ -104,8 +129,9 @@ select count(*) from board where id="asdf1234" order by bno;
 desc board;
 select * from board;
 
-drop table board_reply;
 
+-- 커뮤니티 댓글 테이블
+-- drop table board_reply;
 create table board_reply(
 rno int auto_increment primary key, -- 리뷰번호
 reply varchar(10000), -- 리뷰글
@@ -132,10 +158,11 @@ update board_reply set id = "zxcvzxcv" where rno= 2;
 insert into board_reply(reply, name , bno)
 values('aaaaa','aaaaaa',1);
 
-select * from board_reply;
+select * from board_reply where bno=4;
 
-delete from board_reply where rno=7;
 
+
+-- 게시판 신고테이블
 -- drop table declaration;
 create table declaration(
 	id varchar(100),
@@ -164,8 +191,8 @@ order by d.regdate desc;
 
 use project;
 
+-- 주식정보 즐겨찾기 테이블
 drop table stockLike;
-
 create table stockLike(
 id varchar(100) not null, -- 아이디
 srtnCd  varchar(50) not null, -- 종목코드 

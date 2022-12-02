@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.sap.mapper.MemberMapper;
 import org.sap.model.BoardDto;
+import org.sap.model.ChangeAuthDto;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.ReplyDto;
@@ -106,6 +107,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int boardDelete(String bno) {
 		return memberMapper.boardDetail(bno);
+	}
+
+	@Override
+	public void changeAuth(ChangeAuthDto cadto) {
+		memberMapper.changeAuth(cadto);
 	}
 
 	
