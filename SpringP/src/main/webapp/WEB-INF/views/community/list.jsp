@@ -45,7 +45,7 @@
 					</thead>
 					<c:forEach items="${notice}" var="notice" varStatus="status">
 						<tr class="notice">
-							<td scope="row">${status.count}</td>
+							<td scope="row">#</td>
 							<td><a href="/community/detail?bno=${notice.bno}">${notice.title}</a></td>
 							<td>관리자</td>
 							<td></td>

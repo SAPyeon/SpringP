@@ -41,7 +41,9 @@ public class AdminController {
 
 		model.addAttribute("memCommReplyList", memberService.memCommReplyList(id));
 
-		model.addAttribute("registerAuthChange", adminService.findAuthChange(id).getId());
+		if (adminService.findAuthChange(id) != null) {
+			model.addAttribute("registerAuthChange", adminService.findAuthChange(id).getId());
+		}
 	}
 
 	// 신고 댓글 조회
@@ -74,14 +76,14 @@ public class AdminController {
 		model.addAttribute("AuthList", adminService.changeAuthList());
 	}
 
-	// 관리자신청 승인 
+	// 관리자신청 승인
 	@RequestMapping(value = "/admin/ChangeAllowAuth", method = RequestMethod.POST)
 	public ResponseEntity<Integer> ChangeAllowAuth(@RequestBody MemberDto mdto) {
 		System.out.println(mdto);
 		ChangeAuthDto cadto = new ChangeAuthDto();
 		cadto.setAllow(true);
 		int result = adminService.changeAuthUp(mdto);
-		int result2 = adminService.changeAllowAuth(cadto); 
-		return new ResponseEntity<>(result+result2, HttpStatus.OK);
+		int result2 = adminService.changeAllowAuth(cadto);
+		return new ResponseEntity<>(result + result2, HttpStatus.OK);
 	}
 }

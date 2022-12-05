@@ -9,6 +9,7 @@ import org.sap.component.KakaoLogin;
 import org.sap.component.NaverLogin;
 import org.sap.model.BoardDto;
 import org.sap.model.ChangeAuthDto;
+import org.sap.model.CriteriaVO;
 import org.sap.model.LikeDto;
 import org.sap.model.MemberDto;
 import org.sap.model.WithdrawalDto;
@@ -291,10 +292,10 @@ public class MemberController {
 
 	// 즐겨찾기 리스트
 	@RequestMapping(value = "/member/likeList", method = RequestMethod.GET)
-	public void likeList(HttpSession session, Model model) {
+	public void likeList(HttpSession session, Model model, CriteriaVO cri) {		
 		String id = (String) session.getAttribute("loginId");
 		model.addAttribute("likeList", memberService.likeList(id));
-
+		
 	}
 
 	// 해당 멤버가 쓴 글 불러오기
