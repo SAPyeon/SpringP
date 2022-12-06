@@ -65,9 +65,13 @@
 							<td>${Info.price}</td>
 							<td>${Info.mrktTotAmt}</td>
 						</tr>
-
 					</table>
-
+				</div>
+				<div id="DARTInfo">
+					<h2>공시정보</h2>
+					<iframe title="전자공시 영역" src="https://dart.fss.or.kr/html/search/SearchCompany_M2.html?textCrpNM=${Info.code}"
+                		width="800" height="1000" border="0" frameborder="0" marginheight="0" marginwidth="0">
+                	</iframe>
 				</div>
 				<div>
 					<a href="/board/list">목록보기</a>

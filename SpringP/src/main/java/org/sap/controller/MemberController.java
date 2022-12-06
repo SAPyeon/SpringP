@@ -48,8 +48,14 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/signup", method = RequestMethod.POST)
 	public String SignUpPost(MemberDto mdto) {
+		System.out.println(mdto);
 		memberService.signup(mdto);
 		return "redirect:/";
+	}
+	// 이용약관 확인 페이지
+	@RequestMapping(value = "/member/readAgree", method = RequestMethod.GET)
+	public void readAgree() {
+		
 	}
 
 	// 로그인
@@ -110,12 +116,15 @@ public class MemberController {
 		session.setAttribute("signIn", apiResult);
 		// session.setAttribute("email", email);
 		session.setAttribute("loginName", name);
+		
+		
 		mdto.setId("N+" + (String) response_obj.get("id"));
 		session.setAttribute("loginId", mdto.getId());
 		mdto.setPhone("NAVER");
+		
 		// 아이디가 테이블에 있는지 조회 후 없으면 insert
 		if (memberService.findById(mdto.getId()) == null) {
-			mdto.setPassword((String) response_obj.get("email"));
+			mdto.setPassword("NAVER");
 			mdto.setName(name);
 			memberService.signup(mdto);
 		}
@@ -156,8 +165,9 @@ public class MemberController {
 			if ((String) response_obj.get("email") != null) {
 				String email = (String) response_obj.get("email");
 				session.setAttribute("email", email);
-				mdto.setPassword((String) response_obj.get("email"));
+				
 			}
+			mdto.setPassword("KAKAO");
 			mdto.setName(name);
 			memberService.signup(mdto);
 		}

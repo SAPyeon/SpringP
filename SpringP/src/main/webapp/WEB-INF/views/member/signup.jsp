@@ -27,7 +27,9 @@
 	margin: 30px auto;
 	width: 98%;
 }
-
+hr{
+	margin:0;
+}
 </style>
 </head>
 <body>
@@ -36,7 +38,7 @@
 		<div class="row main mb-3 align-self-center" role="main" id="main">
 			<div class="input-form col-md-6 offset-md-3 border mx-auto m-5"
 				id="signUpFrame">
-				<h1>회원가입</h1>
+				<h1 class="text-center">회원가입</h1>
 				<form action="/member/signup" method="post" id="needs-validation"
 					novalidate class="row g-3">
 					<div class="form-group">
@@ -78,6 +80,50 @@
 						<div class="valid-feedback" id="valid-phone">사용할 수 있는 전화번호입니다.</div>
 						<div class="invalid-feedback" id="invalid-phone">전화번호를 입력해주세요.</div>
 					</div>
+					<div class="from-group">
+						<label>이용약관동의</label> <input type="checkbox" disabled id="chk_agree">
+						<div class="border"> 
+						 	<div class="agreement-allcheck p-2">
+                                <input type="checkbox" id="allcheck">
+                                <label for="allcheck">전체동의(필수)</label>
+                            
+                            </div>
+                            <hr>
+                            <div class="p-2">
+							<div class="check-group">
+                                <input type="checkbox" id="check_01" class="agreement" name="check">
+                                <label for="check_01">이용약관</label>
+                                <input type="button" value="내용보기" class="read_agreement">
+                            </div>
+                            <div class="check-group">
+                                <input type="checkbox" id="check_02" class="agreement" name="check">
+                                <label for="check_02">개인정보 수집 및 이용안내</label>
+                                <input type="button" value="내용보기" class="read_agreement">
+                            </div>
+                            <div class="check-group">
+                                <input type="checkbox" id="check_03" class="agreement" name="check">
+                                <label for="check_03">개인정보 제3자 제공</label>
+                                <input type="button" value="내용보기" class="read_agreement">
+                            </div>
+                            </div>
+					</div>
+					</div>
+					<div class="form-group">
+					<div class="check-group">
+                                    <input type="checkbox" id="check_allMrk">
+                                    <label for="check_04">마케팅 수신동의(선택)</label> 
+                                    <input type="checkbox" id="check_05" class="marketchk" name="check2">
+                                    <label for="check_05">이메일</label>
+                                    <input type="checkbox" id="check_06" class="marketchk" name="check2">
+                                    <label for="check_06">SMS</label>
+                                    <input type="checkbox" id="check_07" class="marketchk" name="check2">
+                                    <label for="check_07">앱(Push알림)</label>
+                                    )
+                                </div>
+					</div>
+					<input type="hidden" name = "agree_email">
+					<input type="hidden" name = "agree_sms">
+					<input type="hidden" name = "agree_app">
 					<button class="btn btn-primary btn-lg btn-block" type="button"
 						id="btn_signUp">회원가입하기</button>
 				</form>

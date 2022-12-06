@@ -11,7 +11,10 @@ name varchar(100) not null, -- 이름
 phone varchar(20) not null, -- 전화번호
 point int default 0, -- 포인트 
 authority boolean default false, -- 관리자여부 
-authno varchar(100) not null default 30
+authno varchar(100) not null default 30, -- 관리자 권한 번호
+agree_email boolean default false,
+agree_sms boolean default false,
+agree_app boolean default false
 );
 
 desc member;
@@ -21,6 +24,7 @@ values('asdf1234','asdf1234','admin','11111',true, 10);
 
 select * from member;
 
+delete from member where phone="KAKAO";
 -- 멤버 등급 테이블
 -- drop table authorities;
 create table authorities(
@@ -128,7 +132,7 @@ desc board;
 select count(*) from board where id="asdf1234" order by bno;
 desc board;
 select * from board;
-
+update board set title = "ckeditor4 이미지 업로드 문제" where bno = '10';
 
 -- 커뮤니티 댓글 테이블
 -- drop table board_reply;
@@ -179,8 +183,9 @@ on delete cascade
 on update cascade;
 
 select * from declaration;
+select * from board_reply;
 
-delete from declaration where rno=11;
+delete from declaration where rno=8;
 
 select * 
 from declaration d

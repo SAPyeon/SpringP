@@ -42,7 +42,7 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		System.out.println(cs.list(cri));
+		//System.out.println(cs.list(cri));
 		model.addAttribute("commList",cs.list(cri));
 		model.addAttribute("notice",cs.noticeList());
 		model.addAttribute("serverTime", formattedDate);

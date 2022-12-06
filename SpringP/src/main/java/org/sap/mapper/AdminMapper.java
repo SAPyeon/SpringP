@@ -6,6 +6,7 @@ import org.sap.model.BoardDto;
 import org.sap.model.ChangeAuthDto;
 import org.sap.model.DeclareDto;
 import org.sap.model.MemberDto;
+import org.sap.model.ReplyDto;
 
 public interface AdminMapper {
 	// 멤버 데이터 불러오기
@@ -24,5 +25,9 @@ public interface AdminMapper {
 	public int changeAuthUp(MemberDto mdto);
 	// changeAuth테이블에 승인을 true로 변경
 	public int changeAllowAuth(ChangeAuthDto cadto);
+	// 해당 아이디가 작성한 커뮤니티 게시판 글 board table에서 불러오기
+	public ArrayList<BoardDto> memCommList(String id);
+	// 해당 아이디가 작성한 커뮤니티 게시판 댓글 board_reply table에서 불러오기
+	public ArrayList<ReplyDto> memCommReplyList(String id);
 		
 }

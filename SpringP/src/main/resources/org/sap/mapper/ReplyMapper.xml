@@ -39,6 +39,15 @@
 		insert into declaration(id, rno, reason)
 		values(#{id},#{rno},#{reason}) 
 	</insert>
+	
+	<insert id="insertPlusDeclaration">
+		update board_reply
+		set declaration = declaration+1
+		where rno = #{rno}
+	</insert>
+	
+	
+	
 </mapper>
 
 

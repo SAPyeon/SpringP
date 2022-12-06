@@ -23,9 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class AdminController {
-
+	
 	public final AdminService adminService;
-	private final MemberService memberService;
 
 	// 회원목록불러오기
 	@RequestMapping(value = "/admin/memberList", method = RequestMethod.GET)
@@ -37,9 +36,9 @@ public class AdminController {
 	@RequestMapping(value = "/admin/memberDetail", method = RequestMethod.GET)
 	public void memberDetail(Model model, @RequestParam String id) {
 
-		model.addAttribute("memCommList", memberService.memCommList(id));
+		model.addAttribute("memCommList", adminService.memCommList(id));
 
-		model.addAttribute("memCommReplyList", memberService.memCommReplyList(id));
+		model.addAttribute("memCommReplyList", adminService.memCommReplyList(id));
 
 		if (adminService.findAuthChange(id) != null) {
 			model.addAttribute("registerAuthChange", adminService.findAuthChange(id).getId());

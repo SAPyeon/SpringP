@@ -1,6 +1,8 @@
 /**
  * 
  */
+
+
 // 유효성검사 성공하면 체크
 function chkUnchk(a, b) {
 	const disabledChk = a
@@ -32,7 +34,7 @@ function confirmId(data) {
 	})
 }
 
-check();
+
 
 function check() {
 	// 아이디 유효성 검사
@@ -126,8 +128,82 @@ function check() {
 	})
 }
 
+// 약관동의 체크박스체크
+//전체동의
+const allcheck = document.querySelector('#allcheck');
+const agreement = document.querySelectorAll('.agreement');
+const check_agree = document.querySelector('#chk_agree');
+const query = 'input[name = "check"]:checked';
+const query2 = 'input[name = "check2"]:checked';
+
+function makeAllCheck(query, a, b , c) {
+	console.log(typeof c)
+	
+    for (let check of b) {
+        //console.log(b.length)
+        a.addEventListener('input', () => {
+            if (a.checked === true) {
+            	check.checked = true;
+            	if(typeof c !== 'undefined'){
+            		chkUnchk(c, true);
+            	}
+                
+            } else {
+                check.checked = false;
+                if(typeof c !== 'undefined'){
+                	chkUnchk(c, false);
+            	}
+            }
+        })
+        check.addEventListener('change', () => {
+            getCheckedCnt(query);
+            //console.log(selectedElementsCnt)
+            if (b.length === selectedElementsCnt) {
+                a.checked = true;
+                if(typeof c !== 'undefined'){
+            		chkUnchk(c, true);
+            	}
+            }
+            else if (check.checked === false) {
+                a.checked = false;
+                if(typeof c !== 'undefined'){
+                	chkUnchk(c, false);
+            	}
+            }
+        })
+    }
+}
+
+//체크된 갯수세기
+function getCheckedCnt(query) {
+    const selectedElements = document.querySelectorAll(query);
+    selectedElementsCnt = selectedElements.length;
+    console.log(selectedElementsCnt)
+    return selectedElementsCnt;
+}
+
+//마케팅 동의
+const allcheckMrk = document.querySelector("#check_allMrk");
+const marketchk = document.querySelectorAll(".marketchk")
+
+
+check();
+
+makeAllCheck(query, allcheck, agreement, $("#chk_agree"));
+
+makeAllCheck(query2, allcheckMrk, marketchk);
+
+console.log($($(".marketchk")[0]).is(":checked"))
+
+
+
 $("#btn_signUp").on("click",function(e) {
 			e.preventDefault();
+			// 마케팅 체크 전달
+			$("input[name='agree_email']").val($($(".marketchk")[0]).is(":checked"))	
+			$("input[name='agree_sms']").val($($(".marketchk")[1]).is(":checked"))	
+			$("input[name='agree_app']").val($($(".marketchk")[2]).is(":checked"))	
+			
 			check();
 			if(!$("#chk_id").is(":checked")){
 				console.log($("#chk_id").is(":checked"))
@@ -150,11 +226,22 @@ $("#btn_signUp").on("click",function(e) {
 				alert('Phone 입력란을 확인하세요')
 				$("#phone").focus();
 			}
+			else if(!$("#chk_agree").is(":checked")){
+				alert('이용약관에 동의하세요')
+			}
 			else if ($("#chk_id").is(":checked") && $("#chk_pw").is(":checked")
 					&& $("#chk_pwMore").is(":checked")
 					&& $("#chk_name").is(":checked")
-					&& $("#chk_phone").is(":checked")) {
+					&& $("#chk_phone").is(":checked")
+					&& $("#chk_agree").is(":checked")) {
 				$("#needs-validation").submit();
 			}
 })
 
+//내용보기 팝업창생성
+$(".read_agreement").on("click",function(){
+	let uri = "/member/readAgree"
+	window.open(uri, "readAgree", "width=600, height=700, top = 100, left=200")	
+	
+	
+})

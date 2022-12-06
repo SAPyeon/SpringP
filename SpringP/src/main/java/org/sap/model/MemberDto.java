@@ -13,4 +13,7 @@ public class MemberDto {
 	private int point;
 	private boolean authority;
 	private String authno;
+	private boolean agree_email;
+	private boolean agree_sms;
+	private boolean agree_app;
 }

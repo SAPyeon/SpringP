@@ -46,6 +46,8 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public int declaration(ReplyDto reply) {
+		String rno = reply.getRno();
+		replymapper.insertPlusDeclaration(rno);
 		return replymapper.declaration(reply);
 	}
 

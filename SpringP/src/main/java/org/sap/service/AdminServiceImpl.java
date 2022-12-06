@@ -8,6 +8,7 @@ import org.sap.model.BoardDto;
 import org.sap.model.ChangeAuthDto;
 import org.sap.model.DeclareDto;
 import org.sap.model.MemberDto;
+import org.sap.model.ReplyDto;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -55,6 +56,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int changeAllowAuth(ChangeAuthDto cadto) {
 		return adminMapper.changeAllowAuth(cadto);
+	}
+
+	@Override
+	public ArrayList<BoardDto> memCommList(String id) {
+		return adminMapper.memCommList(id);
+	}
+
+	@Override
+	public ArrayList<ReplyDto> memCommReplyList(String id) {
+		return adminMapper.memCommReplyList(id);
 	}
 
 	
