@@ -1,6 +1,7 @@
 /**
  * 
  */
+// 회원가입 버튼 클릭시 회원가입 페이지 이동
 const gotoRegiter = document.querySelector("#button_createid");
 gotoRegiter.addEventListener("click",function(){
 	location.href="/member/signup"
@@ -37,7 +38,7 @@ function gotologinKakao(){
 	location.href=kakaoLoginUrl.value;
 }
 
-// 아이디/비밀번호 찾기 버튼 클릭
+// 아이디/비밀번호 찾기 버튼 클릭시 해당 페이지 이동
 const btn_findid = document.querySelector("#button_findid");
 
 btn_findid.addEventListener("click",function(){

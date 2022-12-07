@@ -16,6 +16,7 @@ function toggle(a, b) {
 	b.toggle();
 }
 
+// 아이디 중복조회 함수
 function confirmId(data) {
 	$.getJSON("/member/findId", data, function(result) {
 		console.log(result)
@@ -34,8 +35,7 @@ function confirmId(data) {
 	})
 }
 
-
-
+// 유효성 검사 함수
 function check() {
 	// 아이디 유효성 검사
 	const regExp_id = RegExp(/^[a-z]{1}[a-z0-9-_]{5,19}$/g);
