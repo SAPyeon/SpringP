@@ -56,17 +56,17 @@ table{
 			<div class="board col-xs-12">
 				
 				<div class="center">
-					<div style="background-color: red">
+					<div>
 						<img alt="stock"
 							src="https://cdn.pixabay.com/photo/2018/08/10/15/43/entrepreneur-3597096_960_720.jpg"
 							class="img">
 					</div>
-					<div style="background-color: blue">
+					<div>
 						<img alt="stock"
 							src="https://cdn.pixabay.com/photo/2014/09/15/17/23/euro-447214_960_720.jpg"
 							class="img">
 					</div>
-					<div style="background-color: green">
+					<div>
 						<img alt="stock"
 							src="https://cdn.pixabay.com/photo/2017/04/20/09/09/businessman-2245098_960_720.jpg"
 							class="img">

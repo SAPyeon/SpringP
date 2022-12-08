@@ -1,16 +1,20 @@
 /**
  * 
  */
+// 소셜로그인일 시 아이디 보여지는 값이 소셜로그인으로 출력
+//if($("#idname").val().indexOf("+")>=0){
+//	$("#idname").val("소셜로그인")
+//}
+
 // readonly 제거
 function readOnlyfalse() {
-	if($("input[name='id']").val().indexOf("+")>=0){
+	if($("#idname").val()==="소셜로그인"){
 	}else{
 		$("input[name='password']").attr("readonly", false)
 	}
 	$("input[name='name']").attr("readonly", false)
 	$("input[name='phone']").attr("readonly", false)
 }
-console.log($("input[name='password']").val())
 
 // 유효성검사 성공하면 체크
 function chkUnchk(a, b) {
@@ -83,6 +87,7 @@ function check() {
 	})
 }
 
+//url로 폼을 post방식으로 submit하는 함수
 function formSubmit(url) {
 	$("#form_member").attr("action", url);
 	$("#form_member").attr("method", "post");

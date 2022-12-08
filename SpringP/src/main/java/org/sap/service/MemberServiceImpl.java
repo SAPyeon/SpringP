@@ -36,6 +36,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDto findById(String id) {
+		
 		return memberMapper.findById(id);
 	}
 	
@@ -64,7 +65,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		for(int i =0; i<member.size(); i++) {
 			String id = member.get(i).getId();
-			if(!id.substring(0, 2).equals("K+")) {
+			if(!id.substring(0, 2).equals("K+") && !id.substring(0,2).equals("N+")) {
 				mdto2.setId(id);
 				mdto2.setName(member.get(i).getName());
 			}

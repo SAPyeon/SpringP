@@ -72,13 +72,11 @@
 					id="form_member">
 					<div>
 						<div class="d-flex justify-content-between my-1">
-							<label>ID : </label> <input type="text"
-								value=${memberInfo.id
-								} name="id" readonly>
+							<label>ID : </label> <input type="text" value="${memberInfo.id}" id="idname" readonly>
 						</div>
 						<div class="d-flex justify-content-between my-1">
 							<label>PW : </label> <input type="password"
-								value=${memberInfo.password } name="password" readonly id="pw">
+								value="${memberInfo.password}" name="password" readonly id="pw">
 						</div>
 						<div class="regExp">
 							<p>6~20글자를 입력해주세요.</p>
@@ -86,8 +84,8 @@
 						</div>
 						<div class="d-flex justify-content-between my-1">
 							<label>NAME : </label> <input type="text"
-								value=${memberInfo.name
-								} name="name" readonly>
+								value="${memberInfo.name
+								}" name="name" readonly>
 						</div>
 						<div class="regExp">
 							<p>특수문자를 제외한 1~20자의 이름을 입력해주세요.</p>
@@ -95,7 +93,7 @@
 						</div>
 						<div class="d-flex justify-content-between my-1">
 							<label>PHONE : </label> <input type="text"
-								value=${memberInfo.phone } name="phone" readonly>
+								value="${memberInfo.phone}" name="phone" readonly>
 						</div>
 						<div class="regExp">
 							<p>전화번호를 입력해주세요.("-"없이 입력)</p>
@@ -103,7 +101,7 @@
 						</div>
 						<div class="d-flex justify-content-between my-1">
 							<label>POINT : </label> <input type="text"
-								value=${memberInfo.point } readonly>
+								value="${memberInfo.point}" readonly>
 						</div>
 					</div>
 					<div class="d-flex justify-content-between my-1">

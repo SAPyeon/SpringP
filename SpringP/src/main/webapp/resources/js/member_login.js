@@ -11,7 +11,7 @@ gotoRegiter.addEventListener("click",function(){
 const btn_naverlogin = document.querySelector("#button_naverlogin");
 
 const naverLoginUrl = document.querySelector("#naverLoginUrl");
-console.log(naverLoginUrl.value)
+//console.log(naverLoginUrl.value)
 
 btn_naverlogin.addEventListener("click",gotologinNaver);
 
@@ -30,7 +30,7 @@ function gotologinNaver(){
 const btn_kakaologin = document.querySelector("#button_kakaologin");
 
 const kakaoLoginUrl = document.querySelector("#kakaoLoginUrl");
-console.log(kakaoLoginUrl.value)
+//console.log(kakaoLoginUrl.value)
 
 btn_kakaologin.addEventListener("click",gotologinKakao);
 

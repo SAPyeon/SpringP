@@ -23,9 +23,9 @@ public class CSVReader {
 	@Test
 	public void main() throws UnsupportedEncodingException, FileNotFoundException {
 		//CSVReader csvReader = new CSVReader();
-		String path = "D:\\01-STUDY\\csvDownload\\data_4303_20221020.csv";
-		System.out.println(CSVReader.readCSV(path));
-		//CSVReader.readCSV(path);
+		String path = "D:\\01-STUDY\\csvDownload\\data_3604_20221121.csv";
+		//System.out.println(CSVReader.readCSV(path));
+		CSVReader.readCSV(path);
 		//readCSV(path);
 	}
 	public static List<CompanyInfoDto> readCSV(String path) throws UnsupportedEncodingException, FileNotFoundException {
@@ -45,21 +45,22 @@ public class CSVReader {
                String[] lineArr = line.replace(" ", "").split("\""); // 파일의 한 줄을 ,로 나누어 배열에 저장 후 리스트로 변환한다.               
                if (num != 0) {
    				for (int i = 0; i < lineArr.length; i++) {
-   					if (lineArr[i].compareTo(",") == 0) {
-   						lineArr[i] = "";
+   					if (lineArr[i].compareTo(",") == 0) { // , 가 존재하면 (.compareTo() 는 있으면 0 없으면 문자열을 서로 비교)
+   						lineArr[i] = ""; // 지워라
    					}
    				}
    				String temp_string = "";
    				for (int i = 0; i < lineArr.length; i++) {
-
-   					if (i != lineArr.length - 1) {
-   						temp_string += lineArr[i] + ";";
+   					if (i != lineArr.length - 1) { // 마지막 글자가 아니면 
+   						temp_string += lineArr[i] + ";"; // ; 를 붙여 구분표시
    					} else {
    						temp_string += lineArr[i];
    					}
    				}
-   				 //System.out.println(temp_string);
-
+   				System.out.println("temp_string = "+temp_string);
+   				// temp_string = ;KR7000640003;;000640;;동아쏘시오홀딩스보통주;;동아쏘시오홀딩스;;Dong-ASocioHoldings;;1970/02/10;;KOSPI;;주권;,,;보통주;;5000;;6348913
+   				// 데이터가 한칸씩 미뤄지는 현상이 발생
+    			//	따라서 없는데이터로 인한 문자 ;; 를 ;로 바꾸고 잘라서 다시 데이터에 넣음
    				String Second_Cut_String[] = temp_string.replace(";;", ";").split(";");
    				
    				String[] arrList = new String[13];
@@ -87,7 +88,7 @@ public class CSVReader {
         }
         //System.out.println(csvList.get(1).get(1));
         //System.out.println("리스트 = "+DTOSetList(csvList));
-        System.out.println(DTOSetList(csvList).get(0).getNameKor());
+       // System.out.println(DTOSetList(csvList).get(0).getNameKor());
         
         
         

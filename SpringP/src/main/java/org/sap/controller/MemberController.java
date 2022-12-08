@@ -203,18 +203,21 @@ public class MemberController {
 
 	// 마이페이지
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
-	public void mypage(HttpSession session, Model model) {
+	public void mypage(HttpSession session, Model model, MemberDto mdto) {
 		String id = (String) session.getAttribute("loginId");
 		if (id != null) {
-			model.addAttribute("memberInfo", memberService.findById(id));
-
-		}
-		;
+			mdto = memberService.findById(id);
+			if(mdto.getId().substring(1, 2).equals("+")) {
+				mdto.setId("소셜로그인");
+			}
+			model.addAttribute("memberInfo", mdto);
+		};
 	}
 
 	// 회원정보수정
 	@RequestMapping(value = "/member/infoModify", method = RequestMethod.POST)
 	public String memberModi(MemberDto mdto, HttpSession session) {
+		mdto.setId((String)session.getAttribute("loginId"));
 		memberService.updateInfo(mdto);
 		return "redirect:/member/mypage";
 	}

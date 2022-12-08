@@ -18,9 +18,9 @@ public interface MemberMapper {
 	public MemberDto findById(String id);
 	//회원정보수정
 	public void updateInfo(MemberDto mdto);
-	//회원탈퇴
+	//회원탈퇴로 멤버테이블에 데이터 삭제
 	public void deleteMember(MemberDto mdto);
-	//탈퇴이유쓰기
+	//탈퇴 테이블에 저장
 	public void withdrawalInsert(WithdrawalDto wdto);
 	//회원 아이디 찾기
 	public ArrayList<MemberDto> findLoginId(MemberDto mdto);
