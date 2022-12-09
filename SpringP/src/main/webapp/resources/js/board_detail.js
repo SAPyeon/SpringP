@@ -100,7 +100,7 @@ function makeChart(basDt, chartData) {
 		}
 
 	});
-};// makeBarChart끝
+};// makeChart끝
 
 // 숫자포맷
 function priceToString(price) {

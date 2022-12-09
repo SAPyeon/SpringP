@@ -69,7 +69,8 @@ public class RestControllerCom {
 		String[] arg = { numOfRows, mrktCls, codeName, basDt };
 		return stockService.getApiExplorerList(arg);
 	}
-
+	
+	
 	// 공공데이터 db저장
 	@PostMapping(value = "/DBUpdate_Stock")
 	public void StockUpdate(HttpServletRequest request, @RequestParam("numOfRows") String numOfRows)
@@ -105,6 +106,4 @@ public class RestControllerCom {
 		boardService.insertCompanyInfo(path);
 	}
 
-	
-	
 }

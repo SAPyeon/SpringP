@@ -40,9 +40,7 @@ public class BoardController {
 
 		model.addAttribute("Info", boardservice.companyInfo(codeName));
 		System.out.println("종목정보 = " + boardservice.companyInfo(codeName));
-		
-		
-		
+			
 	}
 
 	// 종목찾기 - DB에서 찾기

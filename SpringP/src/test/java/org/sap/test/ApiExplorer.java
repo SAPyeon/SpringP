@@ -20,7 +20,7 @@ import org.sap.model.StockDto;
 public class ApiExplorer {
 	@Test
 	public  void main()  throws IOException, ParseException{
-		String arg[] = {"10","KOSPI","","20221024","1"};
+		String arg[] = {"10","KOSPI","","20221208","1"};
 		getStock(arg);
 	}
 	public static List<StockDto> getStock(String ...arg) throws IOException, ParseException {

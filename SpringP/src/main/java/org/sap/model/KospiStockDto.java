@@ -25,5 +25,4 @@ public class KospiStockDto {
 	private String discussionRoomUrl; 		// 토론방 url
 	
 	
-
 }

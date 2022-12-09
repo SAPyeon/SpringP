@@ -24,8 +24,8 @@ public class CSVReader {
 	public void main() throws UnsupportedEncodingException, FileNotFoundException {
 		//CSVReader csvReader = new CSVReader();
 		String path = "D:\\01-STUDY\\csvDownload\\data_3604_20221121.csv";
-		//System.out.println(CSVReader.readCSV(path));
-		CSVReader.readCSV(path);
+		System.out.println(CSVReader.readCSV(path));
+		//CSVReader.readCSV(path);
 		//readCSV(path);
 	}
 	public static List<CompanyInfoDto> readCSV(String path) throws UnsupportedEncodingException, FileNotFoundException {
@@ -49,6 +49,7 @@ public class CSVReader {
    						lineArr[i] = ""; // 지워라
    					}
    				}
+   				
    				String temp_string = "";
    				for (int i = 0; i < lineArr.length; i++) {
    					if (i != lineArr.length - 1) { // 마지막 글자가 아니면 
@@ -57,7 +58,7 @@ public class CSVReader {
    						temp_string += lineArr[i];
    					}
    				}
-   				System.out.println("temp_string = "+temp_string);
+   				//System.out.println("temp_string = "+temp_string);
    				// temp_string = ;KR7000640003;;000640;;동아쏘시오홀딩스보통주;;동아쏘시오홀딩스;;Dong-ASocioHoldings;;1970/02/10;;KOSPI;;주권;,,;보통주;;5000;;6348913
    				// 데이터가 한칸씩 미뤄지는 현상이 발생
     			//	따라서 없는데이터로 인한 문자 ;; 를 ;로 바꾸고 잘라서 다시 데이터에 넣음
