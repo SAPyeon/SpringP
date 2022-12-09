@@ -89,21 +89,20 @@ public class RestControllerCom {
 	// csv파일 db저장
 	@PostMapping(value = "/DBUpdate_Com")
 	public void ComUpdate() {
-
 		Date now = new Date();
 		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 		String nowTime = SDF.format(now);
-
 		File dir = new File("D:\\01-STUDY\\csvDownload");
+		// 해당 경로에 파일이 많을 경우 이름으로 파일을 불러옴 
 		FilenameFilter filter = new FilenameFilter() {
 			public boolean accept(File f, String name) {
-				return name.contains(nowTime);
+				return name.contains(nowTime); // nowTime이라는 이름만 가진 파일만 가져옴
 			}
 		};
-		File files[] = dir.listFiles(filter);
-		String path = files[0].getAbsolutePath();
+		File files[] = dir.listFiles(filter); // 해당 파일을 리스트화(배열)
+		String path = files[0].getAbsolutePath(); // 첫번째 파일의 절대경로를 불러옴
 		System.out.println("경로 = " + path);
-		boardService.insertCompanyInfo(path);
+		boardService.insertCompanyInfo(path); // 서비스에 해당경로 이동
 	}
 
 }
