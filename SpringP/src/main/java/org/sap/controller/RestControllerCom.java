@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.sap.component.DateFormatCom;
 import org.sap.model.KospiStockDto;
 import org.sap.model.StockDto;
+import org.sap.service.BoardService;
 import org.sap.service.BoardServiceImpl;
 import org.sap.service.MemberService;
 import org.sap.service.StockService;
@@ -34,8 +35,8 @@ public class RestControllerCom {
 	private final DateFormatCom dateFormatCom;
 
 	private final StockService stockService;
-
-	private final BoardServiceImpl boardService;
+	
+	private final BoardService boardService;
 	
 	
 	// 주가리스트 데이터 크롤링
@@ -66,7 +67,7 @@ public class RestControllerCom {
 		System.out.println("코드네임=" + codeName);
 		System.out.println("갯수=" + numOfRows);
 		System.out.println("시장구분=" + mrktCls);
-		String[] arg = { numOfRows, mrktCls, codeName, basDt };
+		String[] arg = { numOfRows, mrktCls, codeName, basDt};
 		return stockService.getApiExplorerList(arg);
 	}
 	
@@ -83,6 +84,7 @@ public class RestControllerCom {
 		arg[2] = "";
 		arg[3] = dateFormatCom.makeDateFormate();// 날짜구하기 = api는 전날기준 업데이트
 		List<StockDto> stockUpdateList = stockService.getApiExplorerList(arg);
+		System.out.println(stockUpdateList);
 		boardService.insertStockDto(stockUpdateList);
 	}
 

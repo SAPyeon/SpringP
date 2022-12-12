@@ -7,11 +7,11 @@ import org.sap.model.CriteriaVO;
 import org.sap.model.ReplyDto;
 
 public interface CommMapper {
-	// 글쓰기
+	// 글쓰기 db저장
 	public void write(BoardDto bdto);
-	// 글목록
+	// 글목록 불러오기
 	public ArrayList<BoardDto> list(CriteriaVO cri);
-	// 글 총수
+	// 글 총수 불러오기
 	public int total();
 	// 글상세페이지
 	public BoardDto detail(BoardDto bdto);

@@ -37,8 +37,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	
-
-	//csv주식 데이터베이스에 저장
+	//주식종목 기준일자별 시세 저장(공공데이터api)
 	@Override
 	public void insertStockDto(List<StockDto> stockUpdateList) {
 		System.out.println(stockUpdateList.get(0));
@@ -50,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
 //	    }
 	}
 	
-	//주식종목 기준일자별 시세 저장(공공데이터api)
+	//csv주식 데이터베이스에 저장
 	@Override
 	public void insertCompanyInfo(String path) {
 		CSVReader csvReader = new CSVReader();

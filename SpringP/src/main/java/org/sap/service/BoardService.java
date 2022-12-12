@@ -16,7 +16,7 @@ public interface BoardService {
 	public int total(CriteriaVO cri);
 	//종목정보리스트 불러오기
 	public CompanyInfoDto companyInfo(String codeName);
-	//csv주식 데이터베이스에 저장
+	//공공데이터 데이터베이스에 저장
 	public void insertStockDto(List<StockDto> stockUpdateList);
 	//주식종목 기준일자별 시세 저장
 	public void insertCompanyInfo(String path);

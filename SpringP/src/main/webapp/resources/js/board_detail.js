@@ -225,4 +225,4 @@ function likeCRUD(data, dataInsert) {
 		})
 	}
 
-}
+}// 즐겨찾기 리스트 함수 끝

@@ -43,9 +43,10 @@
 					<tr>
 					<th>종목코드</th>
 					<th>종목명</th>
+					<th>현재가</th>
 					<th>기준일자</th>
-					<th>종가</th>
 					<th>등락률</th>
+					<th>종가</th>
 					<th>시가</th>
 					<th>거래량</th>
 					<th>시가총액</th>
@@ -55,13 +56,15 @@
 							<tr>
 								<td>${stock.srtnCd}</td>
 								<td><a href="/board/detail?itmsNm=${stock.itmsNm}&code=${stock.srtnCd}">${stock.itmsNm}</a></td>
+								<td class="priceToday"></td>
 								<td>${stock.basDt}</td>
+								<td class="dayRange">${stock.fltRt}</td>
 								<td class="numFormat">${stock.clpr}</td>
-								<td>${stock.fltRt}</td>
 								<td class="numFormat">${stock.mkp}</td>
 								<td class="numFormat">${stock.trqu}</td>
 								<td class="numFormat">${stock.mrktTotAmt}</td>
-								
+								<input type="hidden" value="${stock.itmsNm}" class="itmsNm">
+								<input type="hidden" value="${stock.srtnCd}" class="srtnCd">
 							</tr>
 						</c:forEach>
 					</table>

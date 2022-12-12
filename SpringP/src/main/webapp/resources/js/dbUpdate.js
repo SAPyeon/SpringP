@@ -1,6 +1,8 @@
 /**
  * 
  */
+
+// 기준일자 만드는 함수
 function basDt(n) {
 	const today = new Date();
 	const yesterday = new Date(today.setDate(today.getDate() - n))
@@ -28,7 +30,7 @@ dataParam = {
 callStockList(dataParam);
 
 let count = 1;
-
+// 주식 시세정보 리스트 불러오는 함수
 function callStockList(dataParam) {
 	$.getJSON("/Datadetail", dataParam, function(data) {
 		console.log(data.length)
@@ -51,6 +53,7 @@ function callStockList(dataParam) {
 	})// getJSON끝
 }// 함수끝
 
+// 불러온 주식 시세정보 db저장하는 함수
 function DBUpdate(data) {
 	const DBUpdate_Stock = document.querySelector("#DBUpdate_Stock");
 	DBUpdate_Stock.addEventListener("click", function() {
@@ -74,6 +77,7 @@ function DBUpdate(data) {
 	})
 }// 함수끝
 
+// 종목기본정보.csv 파일 db저장
 const DBUpdate_Com = document.querySelector("#DBUpdate_Com");
 DBUpdate_Com.addEventListener("click", function() {
 	$.ajax({
