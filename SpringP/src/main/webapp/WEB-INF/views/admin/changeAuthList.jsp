@@ -73,6 +73,7 @@ $(".btn_allowAdmin").on("click",function(){
 		contentType:"application/json; charset=utf-8",
 		success:function(){
 			alert("등급업")
+			location.reload();
 		}
 	})
 })

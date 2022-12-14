@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReplyController {
 
-	public final ReplyService replyservice;
+	private final ReplyService replyservice;
 
 	// 댓글쓰기
 	@RequestMapping(value = "/replies/new", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)

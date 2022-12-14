@@ -65,14 +65,14 @@ public class MemberController {
 		/* 네아로 인증 URL을 생성하기 위하여 naverLogin클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLogin.getAuthorizationUrl(session);
 		/* 인증요청문 확인 */
-		System.out.println("네이버:" + naverAuthUrl);
+		//System.out.println("네이버:" + naverAuthUrl);
 		/* 객체 바인딩 */
 		model.addAttribute("urlNaver", naverAuthUrl);
 
 		/* 카아로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String kakaoAuthUrl = kakaoLogin.getAuthorizationUrl(session);
 		/* 인증요청문 확인 */
-		System.out.println("카카오:" + kakaoAuthUrl);
+		//System.out.println("카카오:" + kakaoAuthUrl);
 		/* 객체 바인딩 */
 		model.addAttribute("urlKakao", kakaoAuthUrl);
 

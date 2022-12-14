@@ -14,15 +14,9 @@ import org.sap.component.DateFormatCom;
 import org.sap.model.KospiStockDto;
 import org.sap.model.StockDto;
 import org.sap.service.BoardService;
-import org.sap.service.BoardServiceImpl;
-import org.sap.service.MemberService;
 import org.sap.service.StockService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -94,7 +88,7 @@ public class RestControllerCom {
 		Date now = new Date();
 		SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMdd");
 		String nowTime = SDF.format(now);
-		File dir = new File("D:\\01-STUDY\\csvDownload");
+		File dir = new File("C:\\Users\\skeh0\\csvDownload");
 		// 해당 경로에 파일이 많을 경우 이름으로 파일을 불러옴 
 		FilenameFilter filter = new FilenameFilter() {
 			public boolean accept(File f, String name) {

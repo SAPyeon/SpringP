@@ -79,7 +79,7 @@ public class UploadController {
 			            
 			            byte[] bytes = file.getBytes();
 			            // 폴더 경로
-			    		String uploadPath = "D:\\01-STUDY\\upload"; // 이미지 경로
+			    		String uploadPath = "C:\\Users\\skeh0\\upload"; // 이미지 경로
 			            //String uploadPath = req.getSession().getServletContext().getRealPath("D:\\01-STUDY\\upload"); //저장경로
 			            System.out.println("uploadPath:"+uploadPath);
 			            
@@ -162,7 +162,7 @@ public class UploadController {
 	public ResponseEntity<byte[]> getFile(@RequestParam String fileName) {
 		fileName = fileName.replace("**", "\\"); // 대체문자인 ** 를 다시 경로설정하는 \\로 변경
 		System.out.println(fileName);
-		File file = new File("D:\\01-STUDY\\upload\\" +fileName);
+		File file = new File("C:\\Users\\skeh0\\upload\\" +fileName);
 		ResponseEntity<byte[]> result = null;
 		HttpHeaders headers = new HttpHeaders();
 		try {
@@ -178,7 +178,7 @@ public class UploadController {
 	// 다운로드 주소 생성
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	public ResponseEntity<Resource> downloadFile(String fileName) {
-		Resource resource = new FileSystemResource("D:\\01-STUDY\\upload\\" + fileName);
+		Resource resource = new FileSystemResource("C:\\Users\\skeh0\\upload\\" + fileName);
 		// 다운로드 시 파일의 이름을 처리
 		String resourceName = resource.getFilename();
 		HttpHeaders headers = new HttpHeaders();

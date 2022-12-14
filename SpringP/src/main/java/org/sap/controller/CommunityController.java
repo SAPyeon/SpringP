@@ -27,14 +27,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommunityController {
 
-	@Autowired
-	CommunityService cs;
+	private final CommunityService cs;
 	
-	@Autowired
-	AdminService adminservice;
-	
-
-	public final ReplyService replyservice;	
+	private final ReplyService replyservice;	
 	
 	// 커뮤니티글쓰기 - CKEDITOR4 사용
 	@RequestMapping(value = "/community/write", method = RequestMethod.GET)

@@ -30,17 +30,17 @@
 			<form action="/member/login" method="post" id="loginForm">
 				<h1>login</h1>
 				<div id="id">
-					<input type="text" placeholder="id" class="text_id" name="id">
+					<input type="text" placeholder="id" class="text_id" name="id" id="logId">
 				<div id="pw">	
 					<input type="password" placeholder="password" class="text_id"
 						name="password">
 				</div>
+				<div id="checkbox" class="text-start mx-2">
+					<input type="checkbox" id="saveId">
+					<label for="checkId">아이디 저장</label> 
 				</div>
-				<div id="checkbox">
-					<label><input type="checkbox" value="save" class="checkbox">
-						아이디 저장</label> <label><input type="checkbox" value="notsave"
-						class="checkbox">보안접속</label>
 				</div>
+				
 				<div class="loginbutton">
 					<div>
 						<input type="submit" id="button_login" value="로그인" />

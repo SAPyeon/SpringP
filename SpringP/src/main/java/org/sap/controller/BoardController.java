@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardController {
 
-	public final BoardService boardservice;
+	private final BoardService boardservice;
 
 	// 종목리스트 - 네이버증권 크롤링
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)

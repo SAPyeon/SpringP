@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AdminController {
 	
-	public final AdminService adminService;
+	private final AdminService adminService;
 
 	// 회원목록불러오기
 	@RequestMapping(value = "/admin/memberList", method = RequestMethod.GET)

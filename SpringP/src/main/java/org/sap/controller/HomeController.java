@@ -24,9 +24,8 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-	
-	@Autowired
-	CommunityService cs;
+
+	private final CommunityService cs;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
